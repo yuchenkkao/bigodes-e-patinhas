@@ -1,0 +1,133 @@
+
+.home-container {
+  font-family: sans-serif;
+  color: black; 
+}
+
+.intro-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 40px;
+  margin-left: 50px;
+  background-color: #FAF8ED; 
+  gap: 40px;
+}
+
+.intro-text {
+  flex: 1;
+  max-width: 600px;
+}
+
+.intro-text h1 {
+  font-size: 3rem;
+  color: #4068DE; 
+  margin-bottom: 20px;
+  line-height: 1.2;
+  font-weight: bolder;
+}
+
+.intro-text p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: black;
+  line-height: 1.6;
+}
+
+.bnt-intro {
+  display: inline-block;
+  background-color: #6DCBB0; 
+  color: black;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.bnt-intro:hover {
+  background-color: #4068DE; 
+  color: white;
+  transform: translateY(-3px); 
+}
+
+.intro-image-box {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.placeholder-image {
+  width: 100%;
+  max-width: 400px;
+  height: 400px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ccc;
+  font-size: 1.5rem;
+}
+
+
+.servicos-section {
+  padding: 80px 40px;
+  background-color: white;
+  text-align: center;
+}
+
+.servicos-section h2 {
+  color: #4068DE;
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap; 
+}
+
+.servico-card {
+  background-color: #4068DE; 
+  padding: 40px 30px;
+  border-radius: 15px;
+  width: 300px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.servico-card:hover {
+  transform: translateY(-10px); 
+}
+
+.bola-icone {
+  width: 90px;
+  height: 90px;
+  background-color: #FAF8ED; 
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto; 
+}
+
+.servico-icon {
+  font-size: 40px; 
+  color: #6DCBB0;  
+}
+
+.servico-card h3 {
+  color: white;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+  padding-bottom: 10px;
+  border-bottom: 3px solid rgb(245, 241, 215); 
+}
+
+.servico-card p {
+  color: white;
+  line-height: 1.5;
+}

@@ -32,7 +32,7 @@ export default function Footer() {
 
 
       <div className="footer-bottom">
-        <p>&copy; 2026 Bigodes & Patinhas. Todos os direitos reservados.</p>
+        <p>&copy; 2026 Bigodes & Patinhas.</p>
       </div>
     </footer>
   );

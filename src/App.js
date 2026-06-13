@@ -23,26 +23,26 @@ function App() {
 
       <Navbar />
       <Routes>
-        {/*Público*/}
+  
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
 
-        {/*Atendente*/}
+    
         <Route path="/tutores" element={<Tutores />} />
         <Route path="/pets" element={<Pets />} />
 
-        {/*Todos*/}
+  
         <Route path="/agenda" element={<Agenda />} />
         <Route path="/perfil" element={<Perfil />} />
 
-        {/*Veterinário*/}
+  
         <Route path="/atendimento/:petId" element={<Atendimento />} />
         
-        {/* Gestor */}
+
         <Route path="/relatorios" element={<Relatorios />} />
         <Route path="/configuracoes" element={<Configuracoes />} />
 
-        {/* Tutor */}
+
         <Route path="/meus-agendamentos" element={<MeusAgendamentos />} />
       </Routes>
       <Footer />
