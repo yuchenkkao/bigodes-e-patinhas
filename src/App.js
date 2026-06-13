@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -11,6 +12,7 @@ import Atendimento from './pages/Atendimento';
 import MeusAgendamentos from './pages/MeusAgendamentos';
 import Relatorios from './pages/Relatorios';
 import Configuracoes from './pages/Configuracoes';
+import Perfil from './pages/Perfil';
 
 
 function App() {
@@ -31,6 +33,7 @@ function App() {
 
         {/*Todos*/}
         <Route path="/agenda" element={<Agenda />} />
+        <Route path="/perfil" element={<Perfil />} />
 
         {/*Veterinário*/}
         <Route path="/atendimento/:petId" element={<Atendimento />} />
@@ -42,6 +45,7 @@ function App() {
         {/* Tutor */}
         <Route path="/meus-agendamentos" element={<MeusAgendamentos />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
 
   );

@@ -3,7 +3,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   background-color: #4068DE;
-  padding: 5px 20px;
+  padding: 5px 10px;
   color: white;
 }
 
@@ -13,12 +13,12 @@ nav {
   gap: 20px;
   margin: 0;
   padding: 0;
-  padding-right: 65px;
 }
 
 .link {
   color: white;
   text-decoration: none;
+  gap: 8px;
   font-weight: bold;
   transition: background-color 0.3s ease;
   padding: 8px 16px;
@@ -40,15 +40,40 @@ nav {
 
 .onda-container {
   width: 100%;
-  font-size: 0; 
+  height: 70px;
   line-height: 0; 
-  overflow: hidden; 
+  font-size: 0;
+  overflow: hidden;
 }
 
 .onda-container svg {
   display: block;
-  vertical-align: middle;
+  height: 100%;
   width: 100%;
   height: auto;
-  transform-origin: top; 
+  transform: scaleY(0.4); 
+  transform-origin: top;
+}
+
+.perfil-container {
+  display: flex;
+  align-items: center;
+}
+
+.link-perfil {
+  color: white; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  margin-right: 50px;
+  border-radius: 50%; 
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 35px;
+}
+
+
+.link-perfil:hover {
+  background-color: #6DCBB0;
+  color: black;
 }

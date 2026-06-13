@@ -2,6 +2,13 @@ import { Link } from 'react-router-dom';
 import './styles.css';
 import logoImg from '../../assets/NavbarLogo.png';
 
+import { MdOutlinePets } from "react-icons/md";
+import { FaClock } from "react-icons/fa6";
+import { IoStatsChart } from "react-icons/io5";
+import { FaHome } from "react-icons/fa";
+import { BsFillPeopleFill } from "react-icons/bs";
+import { FaUserCircle } from "react-icons/fa";
+
 export default function Navbar() {
   return (
     <>
@@ -11,21 +18,25 @@ export default function Navbar() {
       </div>
 
       <ul className="lista">
-        <li><Link to="/" className="link">Página Inicial</Link></li>
-        <li><Link to="/agenda" className="link">Agenda</Link></li>
-        <li><Link to="/tutores" className="link">Tutores</Link></li>
-        <li><Link to="/pets" className="link">Pets</Link></li>
-        <li><Link to="/meus-agendamentos" className="link">Agendamentos</Link></li>
+        <li><Link to="/" className="link"><FaHome /> Página Inicial </Link></li>
+        <li><Link to="/agenda" className="link"><FaClock /> Agenda</Link></li>
+        <li><Link to="/tutores" className="link"><BsFillPeopleFill /> Tutores</Link></li>
+        <li><Link to="/pets" className="link"><MdOutlinePets /> Pets </Link> </li>
+        <li><Link to="/relatorios" className="link"><IoStatsChart /> Relatórios da Clínica</Link></li>
       </ul>
+
+        <div className="perfil-container">
+          <Link to="/perfil" className="link-perfil" > <FaUserCircle /> </Link>
+        </div>
     </nav>
 
     <div className="onda-container">
         <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
-         <path 
-          fill="#4068DE" 
-          fillOpacity="1" 
-          d="M0,64L48,58.7C96,53,192,43,288,48C384,53,480,75,576,80C672,85,768,75,864,58.7C960,43,1056,21,1152,26.7C1248,32,1344,64,1392,80L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
-  ></path>
+          <path 
+            fill="#4068DE" 
+            fillOpacity="1" 
+            d="M0,128L48,138.7C96,149,192,171,288,160C384,149,480,107,576,106.7C672,107,768,149,864,165.3C960,181,1056,171,1152,149.3C1248,128,1344,96,1392,80L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+          ></path>
         </svg>
       </div>
       </>
