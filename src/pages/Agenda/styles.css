@@ -154,8 +154,11 @@
   box-shadow: 0 4px 10px rgba(109, 203, 176, 0.3);
 }
 
-.btn-confirmar {
+.btn-agenda {
   margin-top: auto; 
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
   background-color: #4068DE;
   color: white;
   border: none;
@@ -164,10 +167,12 @@
   font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
+  margin-bottom: 15px;
   transition: background-color 0.3s;
 }
 
-.btn-confirmar:hover {
+
+.btn-agenda:hover {
   background-color: #6DCBB0;
 }
 
@@ -257,4 +262,127 @@
 @keyframes scaleUp {
   from { transform: scale(0.8); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
+}
+
+
+.agenda-container-geral {
+  padding: 40px 20px;
+  max-width: 1250px; 
+  margin: 0 auto;
+  min-height: 70vh;
+  font-family: sans-serif;
+}
+
+
+.proximos-box {
+  flex: 1.2; 
+  min-width: 320px;
+  background-color: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(64, 104, 222, 0.08);
+}
+
+.proximos-box h3 {
+  color: #4068DE; 
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #FAF8ED;
+  padding-bottom: 10px;
+}
+
+.lista-atendimentos {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+
+.atendimento-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FAF8ED; 
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 5px solid #6DCBB0; 
+  transition: transform 0.2s;
+}
+
+.atendimento-card:hover {
+  transform: translateX(5px); 
+}
+
+.atend-info .atend-hora {
+  display: inline-block;
+  background-color: #4068DE;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 12px;
+  margin-bottom: 5px;
+}
+
+.atend-info h4 {
+  margin: 3px 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.atend-info .atend-tutor {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: normal;
+}
+
+.atend-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+
+.atend-acoes {
+  display: flex;
+  align-items: center;
+}
+
+
+.btn-acao-atend {
+  background-color: #6DCBB0;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s;
+}
+
+.btn-acao-atend:hover {
+  background-color: #4068DE;
+}
+
+
+.btn-acao-vet {
+  background-color: #4068DE; 
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s;
+}
+
+.btn-acao-vet:hover {
+  background-color: #6DCBB0;
 }

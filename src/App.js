@@ -9,7 +9,7 @@ import Tutores from './pages/Tutores';
 import Pets from './pages/Pets';
 import Agenda from './pages/Agenda';
 import Atendimento from './pages/Atendimento';
-import MeusAgendamentos from './pages/MeusAgendamentos';
+import HistoricoAgendamentos from './pages/HistoricoAgendamentos';
 import Relatorios from './pages/Relatorios';
 import Configuracoes from './pages/Configuracoes';
 import Perfil from './pages/Perfil';
@@ -43,7 +43,7 @@ function App() {
         <Route path="/configuracoes" element={<Configuracoes />} />
 
 
-        <Route path="/meus-agendamentos" element={<MeusAgendamentos />} />
+        <Route path="/historico-agendamentos" element={<HistoricoAgendamentos />} />
       </Routes>
       <Footer />
     </BrowserRouter>
