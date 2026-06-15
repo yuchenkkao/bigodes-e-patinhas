@@ -1,0 +1,81 @@
+.perfil-container {
+  display: flex;
+  align-items: center;
+  position: relative; 
+}
+
+button.link-perfil {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.link-perfil {
+  color: white; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  margin-right: 50px;
+  border-radius: 50%; 
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 35px;
+}
+
+
+.link-perfil:hover {
+  background-color: #6DCBB0;
+  color: black;
+}
+
+.dropdown-menu {
+  position: absolute; 
+  margin-right: 55px;
+  top: 60px; 
+  right: 0;  
+  background-color: white;
+  width: 200px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); 
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+
+.dropdown-menu a, 
+.dropdown-menu button {
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #555;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.dropdown-menu a:hover, 
+.dropdown-menu button:hover {
+  background-color: #6DCBB0; 
+  color:black; 
+}
+
+
+.dropdown-titulo {
+  font-size: 11px;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 10px 20px 5px 20px;
+}
+
+
+.divisor {
+  height: 1px;
+  background-color: #eee;
+  margin: 5px 0;
+}
