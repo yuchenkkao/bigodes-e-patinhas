@@ -1,0 +1,186 @@
+.catalog-container {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 80vh;
+  font-family: sans-serif;
+  background-color: #FAF8ED; 
+}
+
+.catalog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.catalog-header h2 {
+  color: #4068DE; 
+  font-size: 2.2rem;
+  margin: 0 0 5px 0;
+}
+
+.catalog-header p {
+  color: #666;
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.btn-cadastrar-pet {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #4068DE;
+  color: white;
+  text-decoration: none;
+  padding: 14px 24px;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background-color 0.2s, transform 0.1s;
+  box-shadow: 0 4px 12px rgba(64, 104, 222, 0.2);
+}
+
+.btn-cadastrar-pet:hover {
+  background-color: #6DCBB0;
+  transform: translateY(-2px);
+  color: black;
+}
+
+.search-container {
+  position: relative;
+  margin-bottom: 40px;
+  max-width: 500px;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 14px 14px 14px 45px; 
+  border: 2px solid #ECE8CC;
+  border-radius: 30px; 
+  font-size: 1rem;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.2s;
+}
+
+.search-container input:focus {
+  outline: none;
+  border-color: #6DCBB0;
+}
+
+.search-icon {
+  position: absolute;
+  left: 18px;
+  top: 17px;
+  color: #4068DE;
+  opacity: 0.6;
+  font-size: 1.1rem;
+}
+
+.pets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.pet-card {
+  background-color: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 8px 20px rgba(64, 104, 222, 0.04);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #FAF8ED;
+}
+
+.pet-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(64, 104, 222, 0.1);
+}
+
+.pet-avatar-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.pet-avatar-icon {
+  font-size: 2.2rem;
+  color: #6DCBB0; 
+  background-color: #FAF8ED;
+  padding: 12px;
+  border-radius: 50%;
+}
+
+.badge-especie {
+  background-color: #ECE8CC;
+  color: #555;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.pet-card-info h3 {
+  color: #4068DE;
+  font-size: 1.4rem;
+  margin: 0 0 15px 0;
+}
+
+.pet-card-info p {
+  margin: 8px 0;
+  color: #555;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pet-card-info p svg {
+  color: #4068DE;
+  opacity: 0.7;
+  width: 16px;
+}
+
+.pet-card-footer {
+  margin-top: 25px;
+  border-top: 1px solid #FAF8ED;
+  padding-top: 15px;
+}
+
+.btn-ver-perfil {
+  display: block;
+  text-align: center;
+  background-color: #FAF8ED;
+  color: #4068DE;
+  text-decoration: none;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.btn-ver-perfil:hover {
+  background-color: #4068DE;
+  color: white;
+}
+
+.nenhum-pet {
+  grid-column: 1 / -1; 
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.icon-vazio {
+  font-size: 3.5rem;
+  color: #ECE8CC;
+  margin-bottom: 15px;
+}

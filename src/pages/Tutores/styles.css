@@ -1,0 +1,202 @@
+.tutores-container {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 80vh;
+  font-family: sans-serif;
+  background-color: #FAF8ED; /* Seu Bege Pérola */
+}
+
+/* Alinhamento do Cabeçalho */
+.tutores-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.tutores-header h2 {
+  color: #4068DE; /* Seu Azul */
+  font-size: 2.2rem;
+  margin: 0 0 5px 0;
+}
+
+.tutores-header p {
+  color: #666;
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+/* Botão de cadastro de tutor */
+.btn-cadastrar-tutor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #4068DE;
+  color: white;
+  text-decoration: none;
+  padding: 14px 24px;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background-color 0.2s, transform 0.1s;
+  box-shadow: 0 4px 12px rgba(64, 104, 222, 0.2);
+}
+
+.btn-cadastrar-tutor:hover {
+  background-color: #6DCBB0; /* Vira Verde Água no hover */
+  transform: translateY(-2px);
+}
+
+/* Barra de Pesquisa */
+.search-tutor-container {
+  position: relative;
+  margin-bottom: 40px;
+  max-width: 500px;
+}
+
+.search-tutor-container input {
+  width: 100%;
+  padding: 14px 14px 14px 45px;
+  border: 2px solid #ECE8CC;
+  border-radius: 30px; /* Layout pílula moderno */
+  font-size: 1rem;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.2s;
+}
+
+.search-tutor-container input:focus {
+  outline: none;
+  border-color: #6DCBB0;
+}
+
+.search-tutor-icon {
+  position: absolute;
+  left: 18px;
+  top: 17px;
+  color: #4068DE;
+  opacity: 0.6;
+  font-size: 1.1rem;
+}
+
+/* Grid de Cards */
+.tutores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* Card do Tutor */
+.tutor-card {
+  background-color: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 8px 20px rgba(64, 104, 222, 0.04);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #FAF8ED;
+}
+
+.tutor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(64, 104, 222, 0.1);
+}
+
+/* Painel superior interno do card */
+.tutor-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.avatar-tutor-circle {
+  background-color: #FAF8ED;
+  padding: 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-tutor-icon {
+  font-size: 1.8rem;
+  color: #4068DE; /* Azul */
+}
+
+/* Badge de quantidade de animais */
+.badge-pets-qtd {
+  background-color: #6DCBB0; /* Seu Verde Água marcando sucesso */
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 5px 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Informações de texto */
+.tutor-card-body h3 {
+  color: #333;
+  font-size: 1.3rem;
+  margin: 0 0 15px 0;
+}
+
+.tutor-card-body p {
+  margin: 8px 0;
+  color: #555;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tutor-card-body p svg {
+  color: #4068DE;
+  opacity: 0.7;
+  width: 16px;
+}
+
+/* Botão inferior */
+.tutor-card-footer {
+  margin-top: 25px;
+  border-top: 1px solid #FAF8ED;
+  padding-top: 15px;
+}
+
+.btn-ver-tutor {
+  display: block;
+  text-align: center;
+  background-color: #FAF8ED;
+  color: #4068DE;
+  text-decoration: none;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.btn-ver-tutor:hover {
+  background-color: #4068DE;
+  color: white;
+}
+
+/* Estado Vazio */
+.nenhum-tutor {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.icon-tutor-vazio {
+  font-size: 3.5rem;
+  color: #ECE8CC;
+  margin-bottom: 15px;
+}

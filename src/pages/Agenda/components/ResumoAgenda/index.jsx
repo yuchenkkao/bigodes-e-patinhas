@@ -56,6 +56,7 @@ export default function ResumoAgenda({ token, dataSelecionada }) {
                 <p>Veterinário(a): {atend.veterinario}</p>
               </div>
               <div className="atend-acoes">
+                
                 {token === 'atendente' && ehHoje && (
                     <button 
                     className="btn-acao-atend" 

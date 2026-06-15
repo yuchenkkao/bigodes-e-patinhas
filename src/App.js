@@ -13,6 +13,8 @@ import HistoricoAgendamentos from './pages/HistoricoAgendamentos';
 import Relatorios from './pages/Relatorios';
 import Configuracoes from './pages/Configuracoes';
 import Perfil from './pages/Perfil';
+import CadastroPet from './pages/CadastroPet';
+import CadastroTutor from './pages/CadastroTutor';
 
 
 function App() {
@@ -30,6 +32,8 @@ function App() {
     
         <Route path="/tutores" element={<Tutores />} />
         <Route path="/pets" element={<Pets />} />
+        <Route path="/cadastrar-pet" element={<CadastroPet />} />
+        <Route path="/cadastrar-tutor" element={<CadastroTutor />} />
 
   
         <Route path="/agenda" element={<Agenda />} />
