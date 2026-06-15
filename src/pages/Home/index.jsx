@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom';
 import './styles.css';
 import ImgPaginaIncial from '../../assets/FotoPaginaInicial.png';
-
 import Servicos from '../../components/Servicos';
-
 
 
 export default function Home() {
