@@ -14,6 +14,9 @@ import { MdVaccines } from "react-icons/md";
 import { FaFileMedical } from "react-icons/fa";
 
 export default function Home() {
+
+  const token = localStorage.getItem('@BigodesToken') || 'visitante';
+
   return (
     <div className="home-container">
       
@@ -24,7 +27,27 @@ export default function Home() {
           <p>
            Desde 2005, a Clínica Veterinária Bigodes & Patinhas combina tradição, tecnologia, amor e carinho no atendimento de cães, gatos e animais silvestres.
           </p>
+
+          {(token === 'visitante') && (
           <Link to="/login" className="bnt-intro">Acessar o Sistema</Link>
+          )}
+
+          {(token === 'atendente') && (
+            <>
+          <Link to="/pets" className="bnt-intro">Cadastrar PET</Link>
+          <Link to="/tutores" className="bnt-intro">Cadastrar Tutor</Link>
+            </>
+          )}
+
+          {(token === 'veterinario') && (
+          <Link to="/agenda" className="bnt-intro">Acessar atendimentos</Link>
+          )}
+
+          {(token === 'cliente') && (
+          <Link to="/agenda" className="bnt-intro">Agendar Atendimento</Link>
+          )}
+
+
         </div>
         
         <div className="intro-image-box">
