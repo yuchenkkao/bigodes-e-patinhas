@@ -13,6 +13,8 @@ nav {
   gap: 20px;
   margin: 0;
   padding: 0;
+  margin-left: auto;     
+  margin-right: 50px;
 }
 
 .link {
