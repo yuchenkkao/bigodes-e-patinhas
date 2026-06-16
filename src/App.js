@@ -15,6 +15,8 @@ import Configuracoes from './pages/Configuracoes';
 import Perfil from './pages/Perfil';
 import CadastroPet from './pages/CadastroPet';
 import CadastroTutor from './pages/CadastroTutor';
+import PerfilTutor from './pages/PerfilTutor';
+import PerfilPet from './pages/PerfilPet';
 
 
 function App() {
@@ -38,6 +40,9 @@ function App() {
   
         <Route path="/agenda" element={<Agenda />} />
         <Route path="/perfil" element={<Perfil />} />
+        <Route path="/perfil-tutor/:id" element={<PerfilTutor />} />
+        <Route path="/perfil-pet/:id" element={<PerfilPet />} />
+
 
   
         <Route path="/atendimento/:petId" element={<Atendimento />} />

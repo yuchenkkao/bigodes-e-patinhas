@@ -1,0 +1,215 @@
+.perfil-tutor-container {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 80vh;
+  font-family: sans-serif;
+  background-color: #FAF8ED; 
+}
+
+.back-link-container {
+  margin-bottom: 20px;
+}
+
+.btn-voltar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #4068DE;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.btn-voltar-link:hover {
+  color: #6DCBB0;
+}
+
+.perfil-layout {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap; 
+}
+
+
+.tutor-info-card {
+  flex: 1;
+  min-width: 320px;
+  background-color: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 8px 24px rgba(64, 104, 222, 0.04);
+  height: fit-content;
+}
+
+.tutor-profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-bottom: 2px solid #FAF8ED;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.avatar-tutor-grande {
+  background-color: #FAF8ED;
+  color: #4068DE;
+  font-size: 3rem;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.tutor-profile-header h2 {
+  color: #333;
+  margin: 0 0 8px 0;
+  font-size: 1.6rem;
+}
+
+.badge-cliente-ativo {
+  background-color: #6DCBB0; 
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.tutor-details-body h3 {
+  color: #4068DE;
+  font-size: 1.05rem;
+  margin: 25px 0 12px 0;
+}
+
+.tutor-details-body p {
+  margin: 10px 0;
+  color: #555;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tutor-details-body p svg {
+  color: #4068DE;
+  opacity: 0.7;
+  width: 16px;
+}
+
+
+.tutor-pets-section {
+  flex: 1.8;
+  min-width: 350px;
+}
+
+.tutor-pets-section h3 {
+  color: #4068DE;
+  font-size: 1.4rem;
+  margin: 0 0 25px 0;
+}
+
+.perfil-pets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.mini-pet-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  border: 1px solid #ECE8CC;
+  display: flex;
+  flex-direction: column;
+}
+
+.mini-pet-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.mini-pet-icon {
+  color: #6DCBB0;
+  font-size: 1.3rem;
+}
+
+.mini-pet-header h4 {
+  margin: 0;
+  color: #333;
+  font-size: 1.15rem;
+}
+
+.mini-badge-especie {
+  position: absolute;
+  right: 0;
+  background-color: #FAF8ED;
+  color: #666;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+.mini-pet-body p {
+  margin: 6px 0;
+  font-size: 0.9rem;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mini-pet-body p svg {
+  color: #4068DE;
+  opacity: 0.6;
+}
+
+.mini-pet-footer {
+  margin-top: 20px;
+}
+
+.btn-mini-perfil {
+  display: block;
+  text-align: center;
+  background-color: #4068DE;
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.btn-mini-perfil:hover {
+  background-color: #6DCBB0;
+}
+
+.tutor-sem-pets {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 5px 0;
+  color: #999;
+}
+
+.icon-sem-pets {
+  font-size: 3rem;
+  color: #ECE8CC;
+  margin-bottom: 10px;
+}
+
+.perfil-erro-container {
+  text-align: center;
+  padding: 100px 20px;
+}

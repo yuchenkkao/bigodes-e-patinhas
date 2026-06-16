@@ -1,0 +1,238 @@
+.pet-prontuario-section {
+  flex: 2;
+  min-width: 350px;
+}
+
+.prontuario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.prontuario-header h3 {
+  color: #4068DE;
+  font-size: 1.4rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-nova-evolucao {
+  background-color: #4068DE;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-weight: bold;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s;
+}
+
+.btn-nova-evolucao:hover {
+  background-color: #6DCBB0;
+}
+
+.linha-do-tempo-medica {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card-evolucao {
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  border: 1px solid #ECE8CC;
+}
+
+.evolucao-top {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed #ECE8CC;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.evolucao-data {
+  font-weight: bold;
+  color: #333;
+  background-color: #FAF8ED;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.evolucao-vet {
+  color: #4068DE;
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.evolucao-content p {
+  margin: 10px 0;
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.4;
+}
+
+.card-evolucao {
+  background-color: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  border: 1px solid #ECE8CC;
+  margin-bottom: 5px;
+}
+
+.evolucao-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #FAF8ED;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.evolucao-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.badge-motivo-consulta {
+  background-color: #FAF8ED;
+  color: #4068DE;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 5px 12px;
+  border-radius: 15px;
+  border: 1px solid #ECE8CC;
+  text-transform: uppercase;
+}
+
+.evolucao-corpo-campos {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.campo-clinico-item, .campo-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.campo-label {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.campo-label svg {
+  color: #4068DE;
+  opacity: 0.6;
+}
+
+.campo-texto {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.5;
+  padding-left: 2px;
+}
+
+
+.weight-text {
+  font-weight: bold;
+  color: #4068DE !important;
+  font-size: 1.05rem !important;
+}
+
+.emfatizado-verde {
+  background-color: rgba(109, 203, 176, 0.06);
+  padding: 10px 14px;
+  border-radius: 6px;
+  border-left: 3px solid #6DCBB0;
+  color: #2b6151 !important;
+}
+
+.emfatizado-azul {
+  background-color: rgba(64, 104, 222, 0.05);
+  padding: 10px 14px;
+  border-radius: 6px;
+  border-left: 3px solid #4068DE;
+  color: #243e8c !important;
+}
+
+
+.prontuario-bloqueado {
+  background-color: white;
+  border-radius: 15px;
+  padding: 50px 30px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.02);
+  border: 2px dashed #ECE8CC;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.lock-circle {
+  background-color: #ffeaea;
+  color: #cc4c4c; /* Vermelho aviso */
+  font-size: 2.2rem;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.prontuario-bloqueado h3 {
+  color: #333;
+  font-size: 1.4rem;
+  margin: 0 0 10px 0;
+}
+
+.prontuario-bloqueado p {
+  color: #666;
+  font-size: 0.95rem;
+  max-width: 460px;
+  line-height: 1.5;
+  margin: 0 0 25px 0;
+}
+
+.badge-aviso-seguranca {
+  background-color: #f5f5f5;
+  color: #999;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 5px 14px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.perfil-erro-container {
+  text-align: center;
+  padding: 100px 20px;
+}

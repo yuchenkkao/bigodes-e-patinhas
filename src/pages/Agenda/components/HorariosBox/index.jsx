@@ -35,9 +35,6 @@ export default function HorariosBox({
           <button className="btn-agenda" onClick={confirmarAgendamento}>
             Confirmar Agendamento
           </button>
-          <Link to="/historico-agendamentos" className="btn-agenda">
-            <FaHistory/> Histórico de Agendamentos
-          </Link>
         </>
       )}
 
@@ -46,10 +43,13 @@ export default function HorariosBox({
           <button className="btn-agenda" onClick={() => setMostrarModalEditar(true)}>
             Editar Horários de Agendamento
           </button>
+        </>
+      )}
+
+            {token !== 'visitante' && (
           <Link to="/historico-agendamentos" className="btn-agenda">
             <FaHistory /> Histórico de Atendimentos
           </Link>
-        </>
       )}
     </div>
   );

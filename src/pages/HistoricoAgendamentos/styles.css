@@ -1,0 +1,294 @@
+.historico-container {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 85vh;
+  font-family: sans-serif;
+  background-color: #FAF8ED; 
+}
+
+
+.historico-header {
+  margin-bottom: 30px;
+}
+
+.historico-titulo-box {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon-agenda-titulo {
+  font-size: 2.5rem;
+  color: #4068DE; 
+}
+
+.historico-titulo-box h2 {
+  margin: 0 0 4px 0;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.historico-titulo-box p {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.historico-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.search-box-historico {
+  position: relative;
+  flex: 1;
+  min-width: 280px;
+  max-width: 450px;
+}
+
+.search-icon-inside {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}
+
+.search-box-historico input {
+  width: 100%;
+  padding: 12px 15px 12px 42px;
+  border: 1px solid #ECE8CC;
+  border-radius: 8px;
+  background-color: white;
+  font-size: 0.9rem;
+  color: #333;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-box-historico input:focus {
+  border-color: #4068DE;
+}
+
+.filter-buttons-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.label-filtros {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #777;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-filtro {
+  background-color: white;
+  border: 1px solid #ECE8CC;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #555;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-filtro:hover {
+  border-color: #4068DE;
+  color: #4068DE;
+}
+
+.btn-filtro.ativo {
+  background-color: #4068DE;
+  color: white;
+  border-color: #4068DE;
+}
+
+.historico-table-wrapper {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  border: 1px solid #ECE8CC;
+  overflow-x: auto;
+}
+
+.historico-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.historico-tabela th {
+  background-color: #FAF8ED;
+  color: #4068DE;
+  font-weight: bold;
+  padding: 16px 20px;
+  border-bottom: 2px solid #ECE8CC;
+}
+
+.historico-tabela td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #FAF8ED;
+  vertical-align: middle;
+}
+
+.historico-tabela tbody tr:hover {
+  background-color: rgba(250, 248, 237, 0.3);
+}
+
+.celula-pet {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-pet-mini {
+  background-color: rgba(109, 203, 176, 0.12);
+  color: #6DCBB0; /* Seu Verde Água */
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.celula-pet div {
+  display: flex;
+  flex-direction: column;
+}
+
+.celula-pet span {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.celula-tutor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #444;
+}
+
+.icon-sub-tutor {
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.celula-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.celula-data span {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nome-vet-tabela {
+  font-weight: bold;
+  color: #333;
+}
+
+.badge-motivo-historico {
+  background-color: #FAF8ED;
+  color: #4068DE;
+  border: 1px solid #ECE8CC;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.status-concluido {
+  background-color: rgba(109, 203, 176, 0.15);
+  color: #2b6151;
+}
+
+.status-cancelado {
+  background-color: #ffeaea;
+  color: #cc4c4c;
+}
+
+.status-faltou {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.historico-vazio {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.paw-vazia-icon {
+  font-size: 3rem;
+  color: #ECE8CC;
+  margin-bottom: 15px;
+}
+
+.historico-vazio h3 {
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.historico-vazio p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.btn-cancelar-agendamento {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #ffeaea;
+  color: #cc4c4c;
+  border: 1px solid #fcc;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-cancelar-agendamento:hover {
+  background-color: #cc4c4c;
+  color: white;
+  border-color: #cc4c4c;
+  transform: translateY(-1px);
+}
+
+.texto-acao-bloqueada {
+  font-size: 0.85rem;
+  color: #bbb;
+  padding-left: 15px;
+}

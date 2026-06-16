@@ -4,13 +4,10 @@ import { FaUser, FaIdCard, FaPhone, FaEnvelope, FaSearch, FaPlus, FaPaw } from '
 import './styles.css';
 
 export default function Tutores() {
-  // Capturando o token para aplicar o controle de acesso de cargo (RBAC)
   const token = localStorage.getItem('@BigodesToken') || 'visitante';
 
-  // Estado para controlar o input de pesquisa
   const [pesquisa, setPesquisa] = useState('');
 
-  // Simulando dados fictícios vindos de uma tabela relacional de Clientes/Tutores
   const bancoTutores = [
     { id: 1, nome: 'Maria Silva', cpf: '123.456.789-00', telefone: '(45) 99911-2233', email: 'maria.silva@email.com', qtdPets: 2 },
     { id: 2, nome: 'Carlos Souza', cpf: '987.654.321-11', telefone: '(45) 99888-7766', email: 'carlos.souza@email.com', qtdPets: 1 },
@@ -19,7 +16,6 @@ export default function Tutores() {
     { id: 5, nome: 'Beatriz Reis', cpf: '789.123.456-44', telefone: '(45) 99233-8899', email: 'biatriz.reis@email.com', qtdPets: 3 },
   ];
 
-  // Filtra os tutores pelo Nome, pelo CPF ou pelo E-mail digitado
   const tutoresFiltrados = bancoTutores.filter((tutor) =>
     tutor.nome.toLowerCase().includes(pesquisa.toLowerCase()) ||
     tutor.cpf.includes(pesquisa) ||
@@ -29,14 +25,12 @@ export default function Tutores() {
   return (
     <div className="tutores-container">
       
-      {/* Cabeçalho da Tela */}
       <div className="tutores-header">
         <div>
           <h2>Catálogo de Tutores</h2>
           <p>Gerencie o cadastro, informações de contato e vínculos dos clientes da clínica.</p>
         </div>
 
-        {/* 🌟 APENAS A ATENDENTE PODE VER O BOTÃO DE CADASTRO */}
         {token === 'atendente' && (
           <Link to="/cadastrar-tutor" className="btn-cadastrar-tutor">
             <FaPlus /> Cadastrar Novo Tutor
@@ -44,7 +38,6 @@ export default function Tutores() {
         )}
       </div>
 
-      {/* Barra de Busca Dinâmica */}
       <div className="search-tutor-container">
         <FaSearch className="search-tutor-icon" />
         <input 
@@ -55,7 +48,6 @@ export default function Tutores() {
         />
       </div>
 
-      {/* Grid de Cards dos Clientes */}
       <div className="tutores-grid">
         {tutoresFiltrados.length === 0 ? (
           <div className="nenhum-tutor">
@@ -66,7 +58,6 @@ export default function Tutores() {
           tutoresFiltrados.map((tutor) => (
             <div key={tutor.id} className="tutor-card">
               
-              {/* Topo do Card com Badge indicador de Pets vinculados */}
               <div className="tutor-card-top">
                 <div className="avatar-tutor-circle">
                   <FaUser className="avatar-tutor-icon" />
@@ -76,7 +67,6 @@ export default function Tutores() {
                 </span>
               </div>
 
-              {/* Corpo de informações cadastrais */}
               <div className="tutor-card-body">
                 <h3>{tutor.nome}</h3>
                 
@@ -85,7 +75,6 @@ export default function Tutores() {
                 <p><FaEnvelope /> <strong>E-mail:</strong> {tutor.email}</p>
               </div>
 
-              {/* Botão de Rodapé para abrir o histórico do cliente */}
               <div className="tutor-card-footer">
                 <Link to={`/perfil-tutor/${tutor.id}`} className="btn-ver-tutor">
                   Visualizar Cadastro

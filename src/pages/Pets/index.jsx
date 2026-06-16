@@ -15,7 +15,7 @@ export default function Pets() {
     { id: 1, nome: 'Rex', especie: 'Cachorro', raca: 'Vira-lata (SRD)', idade: '2 anos', tutor: 'Maria Silva' },
     { id: 2, nome: 'Mingau', especie: 'Gato', raca: 'Persa', idade: '1 ano', tutor: 'Carlos Souza' },
     { id: 3, nome: 'Luna', especie: 'Cachorro', raca: 'Poodle', idade: '3 anos', tutor: 'Ana Costa' },
-    { id: 4, nome: 'Nikolas', especie: 'Cachorro', raca: 'Pinscher', idade: '5 meses', tutor: 'Carolina' },
+    { id: 4, nome: 'Nikolas', especie: 'Cachorro', raca: 'Pinscher', idade: '5 meses', tutor: 'Victor' },
     { id: 5, nome: 'Pipoca', especie: 'Roedor', raca: 'Hamster Sírio', idade: '8 meses', tutor: 'Marcos Lima' },
     { id: 6, nome: 'Mel', especie: 'Cachorro', raca: 'Golden Retriever', idade: '4 anos', tutor: 'Beatriz Reis' },
   ];
