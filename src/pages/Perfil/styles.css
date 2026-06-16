@@ -1,0 +1,151 @@
+.perfil-page-container {
+  padding: 30px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  min-height: 85vh;
+  font-family: sans-serif;
+  background-color: #FAF8ED;
+}
+
+.perfil-header-saudacao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.perfil-header-saudacao h2 { margin: 0 0 5px 0; color: #333; font-size: 1.8rem; }
+.perfil-header-saudacao p { margin: 0; color: #666; font-size: 0.95rem; }
+
+.btn-logout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffeaea;
+  color: #cc4c4c;
+  border: 1px solid #ffcaca;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-logout:hover { background-color: #cc4c4c; color: white; }
+
+.perfil-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.8fr; 
+  gap: 25px;
+}
+
+@media (max-width: 850px) {
+  .perfil-grid-layout { grid-template-columns: 1fr; }
+}
+
+.perfil-card {
+  background-color: white;
+  border: 1px solid #ECE8CC;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.card-header-perfil {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #FAF8ED;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.card-header-perfil h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #4068DE;
+  font-size: 1.2rem;
+}
+
+.btn-editar-icon {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.btn-editar-icon:hover { color: #6DCBB0; }
+
+.info-pessoal-lista { display: flex; flex-direction: column; gap: 20px; }
+
+.info-item { display: flex; align-items: flex-start; gap: 15px; }
+.info-icon { margin-top: 3px; color: #6DCBB0; font-size: 1.1rem; }
+.info-item strong { display: block; font-size: 0.8rem; color: #999; text-transform: uppercase; margin-bottom: 4px; }
+.info-item p { margin: 0; color: #333; font-size: 0.95rem; font-weight: 500; }
+
+.perfil-coluna-pets { display: flex; flex-direction: column; gap: 25px; }
+
+.btn-add-pet-small {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #6DCBB0;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.btn-add-pet-small:hover { background-color: #2b6151; }
+
+.lista-pets-perfil { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+
+.pet-card-mini {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ECE8CC;
+  border-radius: 10px;
+  background-color: #FAF8ED;
+}
+
+.pet-card-mini-info { display: flex; align-items: center; gap: 12px; }
+.pet-avatar-mini {
+  width: 45px;
+  height: 45px;
+  background-color: white;
+  color: #4068DE;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  border: 1px solid #ECE8CC;
+}
+
+.pet-card-mini-info h4 { margin: 0 0 3px 0; color: #333; font-size: 1.05rem; }
+.pet-card-mini-info p { margin: 0; color: #666; font-size: 0.8rem; }
+
+.btn-ver-prontuario {
+  background-color: white;
+  color: #4068DE;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #4068DE;
+  transition: all 0.2s;
+}
+.btn-ver-prontuario:hover { background-color: #4068DE; color: white; }
+
+.tabela-historico-perfil { width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left; }
+.tabela-historico-perfil td { padding: 12px 10px; border-bottom: 1px solid #FAF8ED; color: #444; }
+.icone-data-tabela { color: #bbb; margin-right: 8px; }
+.badge-status-concluido { background-color: rgba(109, 203, 176, 0.15); color: #2b6151; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; }

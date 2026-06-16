@@ -1,0 +1,112 @@
+.dashboard-container {
+  padding: 30px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 85vh;
+  font-family: sans-serif;
+  background-color: #FAF8ED;
+}
+
+.dashboard-header-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.dashboard-titulo { display: flex; align-items: center; gap: 15px; }
+.icon-dashboard-principal { font-size: 2.5rem; color: #4068DE; }
+.dashboard-titulo h2 { margin: 0 0 4px 0; color: #333; }
+.dashboard-titulo p { margin: 0; color: #666; font-size: 0.9rem; }
+
+.filtro-periodo-dashboard {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #ECE8CC;
+}
+.icon-filtro-dash { color: #4068DE; }
+.filtro-periodo-dashboard select { border: none; outline: none; font-weight: bold; color: #333; background: none; cursor: pointer; }
+
+.dashboard-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 35px;
+}
+
+.kpi-card {
+  background-color: white;
+  border: 1px solid #ECE8CC;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+}
+
+.kpi-info span { font-size: 0.75rem; font-weight: bold; color: #999; text-transform: uppercase; }
+.kpi-info h3 { margin: 6px 0 0 0; font-size: 1.5rem; color: #333; }
+.kpi-icon-box { width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+
+.kpi-card.total-atendimentos .kpi-icon-box { background-color: rgba(64, 104, 222, 0.1); color: #4068DE; }
+.kpi-card.total-atendimentos h3 { color: #4068DE; }
+.kpi-card.media-diaria .kpi-icon-box { background-color: #f3f0db; color: #856404; }
+.kpi-card.total-vacinas .kpi-icon-box { background-color: rgba(138, 74, 224, 0.15); color: #8a4ae0; }
+.kpi-card.total-vacinas h3 { color: #8a4ae0; }
+.kpi-card.especie-top .kpi-icon-box { background-color: rgba(109, 203, 176, 0.15); color: #2b6151; }
+
+.dashboard-charts-layout {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 35px;
+  flex-wrap: wrap;
+}
+
+.chart-card-box {
+  flex: 1;
+  min-width: 340px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 25px;
+  border: 1px solid #ECE8CC;
+}
+
+.chart-card-box.linha-inteira {
+  flex: 100%; 
+}
+
+.chart-card-box h3 { margin: 0 0 4px 0; font-size: 1.15rem; color: #333; display: flex; align-items: center; gap: 8px; }
+.sub-legend-chart { margin: 0 0 25px 0; font-size: 0.85rem; color: #888; }
+
+.icone-azul { color: #4068DE; }
+.icone-verde { color: #6DCBB0; }
+.icone-roxo { color: #8a4ae0; }
+
+.chart-pure-css-list { display: flex; flex-direction: column; gap: 18px; }
+.chart-pure-css-list.duas-colunas { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+@media (max-width: 768px) {
+  .chart-pure-css-list.duas-colunas { grid-template-columns: 1fr; }
+}
+
+.bar-progress-group { display: flex; flex-direction: column; gap: 6px; }
+.bar-labels { display: flex; justify-content: space-between; font-size: 0.9rem; color: #444; }
+.txt-volumetria { font-weight: bold; color: #666; font-size: 0.85rem; }
+
+.bar-track-bg { width: 100%; height: 10px; background-color: #FAF8ED; border-radius: 10px; overflow: hidden; border: 1px solid #ECE8CC; }
+.bar-fill-color { height: 100%; border-radius: 10px; transition: width 0.5s ease-in-out; }
+
+.bar-fill-color.azul { background-color: #4068DE; }
+.bar-fill-color.verde { background-color: #6DCBB0; }
+.bar-fill-color.roxo { background-color: #8a4ae0; }
+
+.relatorios-bloqueados-container { text-align: center; padding: 120px 20px; min-height: 80vh; background-color: #FAF8ED; }
+.lock-circle-relatorios { background-color: #ffeaea; color: #cc4c4c; width: 85px; height: 85px; font-size: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; }
+.btn-voltar-relatorios { display: inline-flex; align-items: center; gap: 6px; color: #4068DE; font-weight: bold; text-decoration: none; margin-top: 15px; }
