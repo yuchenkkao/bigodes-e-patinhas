@@ -25,8 +25,8 @@ export default function Home() {
 
           {(token === 'atendente') && (
             <>
-          <Link to="/pets" className="bnt-intro">Cadastrar PET</Link>
-          <Link to="/tutores" className="bnt-intro">Cadastrar Tutor</Link>
+          <Link to="/cadastrar-pet" className="bnt-intro">Cadastrar PET</Link>
+          <Link to="/cadastrar-tutor" className="bnt-intro">Cadastrar Tutor</Link>
             </>
           )}
 

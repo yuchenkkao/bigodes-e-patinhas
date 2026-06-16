@@ -152,7 +152,7 @@ export default function CadastroPet() {
 
 
           <div className="form-actions">
-            <button type="submit" className="btn-salvar-pet">Salvar Registro</button>
+            <button type="submit" className="btn-salvar-pet">Salvar</button>
           </div>
 
         </form>
@@ -171,7 +171,7 @@ export default function CadastroPet() {
             </div>
 
             <button className="btn-modal-fechar" onClick={limparFormulario}>
-              Cadastrar Outro Pet
+             Fechar
             </button>
           </div>
         </div>

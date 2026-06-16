@@ -47,7 +47,6 @@ export default function CadastroTutor() {
   return (
     <div className="cadastro-tutor-container">
       
-      {/* Botão para voltar para o catálogo */}
       <div className="back-link-container">
         <Link to="/tutores" className="btn-voltar-link">
           <FaArrowLeft /> Voltar para Tutores
@@ -63,7 +62,6 @@ export default function CadastroTutor() {
 
         <form onSubmit={handleSubmit} className="cadastro-form">
           
-          {/* Seção 1: Dados Pessoais */}
           <h3 className="secao-titulo">Informações Pessoais</h3>
           
           <div className="form-group">
@@ -130,15 +128,13 @@ export default function CadastroTutor() {
             </div>
           </div>
 
-          {/* Ação de salvar */}
           <div className="form-actions">
-            <button type="submit" className="btn-salvar-tutor">Registrar Cliente</button>
+            <button type="submit" className="btn-salvar-tutor">Salvar</button>
           </div>
 
         </form>
       </div>
 
-      {/* MODAL DE CONFIRMAÇÃO */}
       {mostrarModal && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -153,7 +149,7 @@ export default function CadastroTutor() {
             </div>
 
             <button className="btn-modal-fechar" onClick={limparFormulario}>
-              Cadastrar Outro Tutor
+              Fechar
             </button>
           </div>
         </div>

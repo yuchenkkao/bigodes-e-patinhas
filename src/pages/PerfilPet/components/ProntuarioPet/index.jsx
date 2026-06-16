@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { 
   FaWeight, FaStethoscope, FaLock, FaFileMedicalAlt, FaPlus,
   FaFlask, FaNotesMedical, FaPills
@@ -5,16 +6,17 @@ import {
 import { MdVaccines } from 'react-icons/md';
 import './styles.css';
 
-export default function ProntuarioPet({ token, historico }) {
+
+export default function ProntuarioPet({ token, historico, petId }) {
   return (
     <div className="pet-prontuario-section">
       {token === 'veterinario' ? (
         <>
           <div className="prontuario-header">
             <h3><FaFileMedicalAlt /> Prontuário Clínico Digital</h3>
-            <button className="btn-nova-evolucao" onClick={() => alert('Nova evolução...')}>
-              <FaPlus /> Nova Evolução
-            </button>
+            <Link to={`/atendimento/${petId}`} className="btn-nova-evolucao">
+              <FaPlus /> Novo Atendimento
+            </Link>
           </div>
 
           <div className="linha-do-tempo-medica">

@@ -1,0 +1,167 @@
+.config-page-container {
+  display: flex;
+  min-height: 88vh;
+  font-family: sans-serif;
+  background-color: #FAF8ED; 
+}
+
+.config-sidebar {
+  width: 260px;
+  background-color: white;
+  border-right: 1px solid #ECE8CC;
+  padding: 30px 15px;
+}
+
+.sidebar-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #4068DE;
+  padding-left: 15px;
+  margin-bottom: 30px;
+}
+
+.sidebar-title h3 { margin: 0; font-size: 1.2rem; }
+
+.icon-cog-spin { font-size: 1.4rem; }
+
+.config-menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  padding: 12px 15px;
+  font-size: 0.92rem;
+  font-weight: bold;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.nav-tab-btn:hover {
+  background-color: #FAF8ED;
+  color: #4068DE;
+}
+
+.nav-tab-btn.ativa {
+  background-color: #FAF8ED; 
+  color: #4068DE;
+}
+
+.config-content-panel {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.sub-config-box {
+  background-color: white;
+  border-radius: 12px;
+  padding: 30px;
+  border: 1px solid #ECE8CC;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+}
+
+.sub-config-header h2 { margin: 0 0 6px 0; color: #333; font-size: 1.5rem; }
+.sub-config-header p { margin: 0 0 25px 0; color: #666; font-size: 0.88rem; }
+
+.form-add-config {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.form-add-config.row-form input { flex: 1; }
+
+.form-add-config input {
+  padding: 10px 15px;
+  border: 1px solid #ECE8CC;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  outline: none;
+}
+.form-add-config input:focus { border-color: #6DCBB0; }
+
+.btn-add-config {
+  background-color: #6DCBB0; 
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 0.88rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-add-config:hover { background-color: #4068DE; }
+
+/* LISTAGEM SIMPLES (ESPÉCIES) */
+.config-list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 400px;
+}
+
+.item-config-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #FAF8ED;
+  border: 1px solid #ECE8CC;
+  border-radius: 6px;
+}
+
+.item-config-info { display: flex; align-items: center; gap: 10px; font-weight: bold; color: #444; }
+.icon-decor-list { color: #6DCBB0; }
+
+.btn-delete-config {
+  background: none;
+  border: none;
+  color: #cc4c4c;
+  cursor: pointer;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.btn-delete-config:hover { color: #900; }
+.btn-delete-config.text-mode { font-size: 0.8rem; font-weight: bold; }
+
+
+.table-config-dados {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+  margin-top: 15px;
+}
+
+.table-config-dados th { background-color: #FAF8ED; color: #4068DE; padding: 12px; border-bottom: 2px solid #ECE8CC; }
+.table-config-dados td { padding: 12px; border-bottom: 1px solid #FAF8ED; vertical-align: middle; }
+
+.table-cell-profile { display: flex; align-items: center; gap: 10px; }
+.icon-table-avatar { background-color: rgba(64, 104, 222, 0.1); color: #4068DE; width: 30px; height: 30px; padding: 6px; border-radius: 50%; box-sizing: border-box; }
+.icon-table-avatar.alternative { background-color: rgba(109, 203, 176, 0.15); color: #2b6151; }
+
+.crmv-tag, .price-tag, .time-tag { display: inline-flex; align-items: center; gap: 4px; font-weight: bold; font-size: 0.8rem; }
+.crmv-tag { color: #666; }
+.price-tag { color: #2b6151; }
+.time-tag { color: #4068DE; }
+
+
+.config-bloqueada-container { text-align: center; padding: 120px 20px; min-height: 80vh; background-color: #FAF8ED; }
+.lock-circle-config { background-color: #ffeaea; color: #cc4c4c; width: 80px; height: 80px; font-size: 2.3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; }
+.btn-voltar-config { display: inline-flex; align-items: center; gap: 6px; color: #4068DE; font-weight: bold; text-decoration: none; margin-top: 15px; }

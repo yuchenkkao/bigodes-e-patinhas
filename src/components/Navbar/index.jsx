@@ -11,6 +11,8 @@ import { IoStatsChart } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { LuLogIn } from "react-icons/lu";
+import { FaBriefcaseMedical } from "react-icons/fa6";
+import { IoSettingsSharp } from "react-icons/io5";
 
 
 export default function Navbar() {
@@ -26,6 +28,8 @@ export default function Navbar() {
 
       <ul className="lista">
         <li><Link to="/" className="link"><FaHome /> Página Inicial </Link></li>
+        <li><Link to="/equipe-vet" className="link"><FaBriefcaseMedical/> Equipe Veterinária </Link></li>
+
         {token !== 'visitante' && (
         <li><Link to="/agenda" className="link"><FaClock /> Agenda</Link></li>
         )}
@@ -41,7 +45,10 @@ export default function Navbar() {
           </>)}
 
         {(token === 'gestor') && (
+          <>
         <li><Link to="/relatorios" className="link"><IoStatsChart /> Relatórios da Clínica</Link></li>
+        <li><Link to="/configuracoes" className="link"><IoSettingsSharp /> Configurações</Link></li>
+          </>
         )}
       </ul>
 

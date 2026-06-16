@@ -43,7 +43,6 @@ export default function ModalCarteirinha({ isOpen, onClose, nome, especie, vacin
       status: 'Aplicada'
     };
 
-    // 🌟 BLINDAGEM CONTRA ERROS: Executa apenas se a prop for recebida corretamente
     if (typeof onAdicionarVacina === 'function') {
       onAdicionarVacina(nova);
     } else {
@@ -75,13 +74,13 @@ export default function ModalCarteirinha({ isOpen, onClose, nome, especie, vacin
           </button>
         </div>
 
-        {(token === 'atendente' || token === 'veterinario') && !mostrarForm && (
+        {(token === 'veterinario') && !mostrarForm && (
           <button type="button" className="btn-registrar-dose" onClick={() => setMostrarForm(true)}>
             <FaPlus /> Registrar Aplicação de Vacina
           </button>
         )}
 
-        {(token === 'atendente' || token === 'veterinario') && mostrarForm && (
+        {(token === 'veterinario') && mostrarForm && (
           <form onSubmit={salvarNovaVacina} className="form-aplicar-vacina">
             <h4>Registrar Nova Dose</h4>
             <div className="vacina-inputs-row">
@@ -136,7 +135,7 @@ export default function ModalCarteirinha({ isOpen, onClose, nome, especie, vacin
             </tbody>
           </table>
         </div>
-        
+
       </div>
     </div>
   );

@@ -26,6 +26,7 @@ export default function MenuPerfil() {
         <div className="dropdown-menu">
           <Link to="/perfil" onClick={() => setMenuAberto(false)}>Meu Perfil</Link>
           <Link to="/login" onClick={() => setMenuAberto(false)}>Login</Link>
+
           <button onClick={() => simularLogin('visitante')}>Sair</button>
 
           <div className="divisor"></div>

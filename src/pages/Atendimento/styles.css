@@ -1,0 +1,292 @@
+.atendimento-page-container {
+  padding: 30px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 85vh;
+  font-family: sans-serif;
+  background-color: #FAF8ED; /* Seu Bege Pérola */
+}
+
+.atendimento-back-nav {
+  margin-bottom: 20px;
+}
+
+.btn-flat-voltar {
+  background: none;
+  border: none;
+  color: #777;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+
+.btn-flat-voltar:hover {
+  color: #cc4c4c;
+}
+
+/* Grid Layout */
+.atendimento-layout-grid {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* CARD DA ESQUERDA: PACIENTE MINI SUMMARY */
+.mini-card-paciente {
+  flex: 1;
+  min-width: 280px;
+  max-width: 320px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 25px;
+  border: 1px solid #ECE8CC;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+  height: fit-content;
+  text-align: center;
+}
+
+.badge-status-atendendo {
+  background-color: #ffeaea;
+  color: #cc4c4c;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.avatar-paciente-atend {
+  background-color: #FAF8ED;
+  color: #6DCBB0;
+  width: 70px;
+  height: 70px;
+  font-size: 2.2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px auto;
+}
+
+.mini-card-paciente h2 {
+  margin: 0 0 6px 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.especie-tag-atend {
+  background-color: #4068DE;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 3px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.metadados-paciente-atend {
+  text-align: left;
+  border-top: 1px solid #FAF8ED;
+  margin-top: 20px;
+  padding-top: 15px;
+}
+
+.metadados-paciente-atend p {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 8px 0;
+}
+
+.motivo-destacado {
+  background-color: #FAF8ED;
+  padding: 10px;
+  border-radius: 6px;
+  border-left: 3px solid #4068DE;
+}
+
+.tutor-box-atend {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  border-top: 1px solid #FAF8ED;
+  margin-top: 20px;
+  padding-top: 15px;
+}
+
+.tutor-box-atend svg {
+  color: #999;
+  font-size: 1.2rem;
+}
+
+.tutor-box-atend span {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.tutor-box-atend h4 {
+  margin: 2px 0 0 0;
+  color: #333;
+}
+
+/* CARD DA DIREITA: FORMULÁRIO */
+.formulario-prontuario-card {
+  flex: 3;
+  min-width: 350px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 30px;
+  border: 1px solid #ECE8CC;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+}
+
+.form-prontuario-header {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  border-bottom: 2px solid #FAF8ED;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+
+.icon-titulo-pront {
+  font-size: 2.2rem;
+  color: #4068DE;
+}
+
+.form-prontuario-header h3 {
+  margin: 0 0 4px 0;
+  color: #333;
+}
+
+.form-prontuario-header p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #666;
+}
+
+.form-clinico-corpo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-group-clinico {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group-clinico label {
+  font-size: 0.88rem;
+  font-weight: bold;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input-group-clinico label svg {
+  color: #4068DE;
+}
+
+.input-group-clinico input,
+.input-group-clinico textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ECE8CC;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  color: #333;
+  box-sizing: border-box;
+  outline: none;
+  font-family: sans-serif;
+}
+
+.input-group-clinico input:focus,
+.input-group-clinico textarea:focus {
+  border-color: #6DCBB0; /* Destaca em Verde Água no foco */
+  box-shadow: 0 0 0 3px rgba(109, 203, 176, 0.1);
+}
+
+.input-group-clinico input {
+  max-width: 200px;
+}
+
+/* Botões finais */
+.form-atendimento-botoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  border-top: 1px solid #FAF8ED;
+  padding-top: 20px;
+  margin-top: 10px;
+}
+
+.btn-cancelar-atend {
+  background: none;
+  border: none;
+  color: #777;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.btn-cancelar-atend:hover {
+  color: #cc4c4c;
+}
+
+.btn-salvar-atend {
+  background-color: #6DCBB0; /* Seu Verde Água de Sucesso */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s;
+}
+
+.btn-salvar-atend:hover {
+  background-color: #4068DE; /* Muda para Azul no Hover */
+}
+
+/* CONTAINER DE ACESSO NEGADO */
+.atendimento-bloqueado-container {
+  text-align: center;
+  padding: 100px 20px;
+  background-color: #FAF8ED;
+  min-height: 80vh;
+}
+
+.lock-box {
+  background-color: #ffeaea;
+  color: #cc4c4c;
+  width: 80px;
+  height: 80px;
+  font-size: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+}
+
+.btn-voltar-trava {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  color: #4068DE;
+  text-decoration: none;
+  font-weight: bold;
+}

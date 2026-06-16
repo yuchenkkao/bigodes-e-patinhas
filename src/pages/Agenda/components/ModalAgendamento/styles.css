@@ -1,0 +1,135 @@
+.modal-agendamento {
+  max-width: 500px !important;
+}
+
+.agendamento-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 2px solid #FAF8ED;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.agendamento-titulo {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.calendar-badge-icon {
+  background-color: rgba(64, 104, 222, 0.1);
+  color: #4068DE;
+  width: 45px;
+  height: 45px;
+  font-size: 1.4rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.agendamento-titulo h2 { margin: 0 0 2px 0; font-size: 1.35rem; color: #333; }
+.agendamento-titulo p { margin: 0; font-size: 0.85rem; color: #666; }
+.txt-azul { color: #4068DE; }
+
+.form-agendamento-corpo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-group-agendar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-group-agendar label {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input-group-agendar label svg {
+  color: #4068DE;
+}
+
+.input-group-agendar select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ECE8CC;
+  border-radius: 6px;
+  background-color: white;
+  font-size: 0.9rem;
+  color: #333;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.input-group-agendar select:focus {
+  border-color: #6DCBB0;
+}
+
+.input-group-agendar select:disabled {
+  background-color: #FAF8ED;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.info-tutor-estatico {
+  background-color: #FAF8ED;
+  padding: 10px 15px;
+  border-radius: 6px;
+  border-left: 3px solid #6DCBB0;
+  margin-bottom: 4px;
+}
+
+.info-tutor-estatico p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* Botões do Rodapé */
+.form-agendar-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid #FAF8ED;
+  padding-top: 15px;
+  margin-top: 10px;
+}
+
+.btn-cancelar-agendar {
+  background: none;
+  border: none;
+  color: #777;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px 16px;
+}
+
+.btn-cancelar-agendar:hover { color: #cc4c4c; }
+
+.btn-confirmar-agendar {
+  background-color: #6DCBB0; 
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 0.88rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-confirmar-agendar:hover {
+  background-color: #4068DE;
+}

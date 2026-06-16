@@ -17,6 +17,7 @@ import CadastroPet from './pages/CadastroPet';
 import CadastroTutor from './pages/CadastroTutor';
 import PerfilTutor from './pages/PerfilTutor';
 import PerfilPet from './pages/PerfilPet';
+import EquipeVeterinaria from './pages/EquipeVeterinaria';
 
 
 function App() {
@@ -30,6 +31,8 @@ function App() {
   
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
+        <Route path="/equipe-vet" element={<EquipeVeterinaria />} />
+        
 
     
         <Route path="/tutores" element={<Tutores />} />
@@ -42,7 +45,6 @@ function App() {
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/perfil-tutor/:id" element={<PerfilTutor />} />
         <Route path="/perfil-pet/:id" element={<PerfilPet />} />
-
 
   
         <Route path="/atendimento/:petId" element={<Atendimento />} />
