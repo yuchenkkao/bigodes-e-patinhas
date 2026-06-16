@@ -3,8 +3,8 @@ import { FaPlus, FaTrashAlt, FaUserMd, FaIdCard, FaStethoscope } from 'react-ico
 
 export default function ConfigVeterinarios() {
   const [vets, setVets] = useState([
-    { id: 1, nome: 'Dra. Mariana', crmv: 'CRMV-PR 1234', especialidade: 'Vacinação & Pediatria' },
-    { id: 2, nome: 'Dr. Eduardo', crmv: 'CRMV-PR 5678', especialidade: 'Clínica Geral & Cirurgia' },
+    { id: 1, nome: 'Dra. Mariana', crmv: 'CRMV-PR 1234', especialidade: 'Especialista em Vacinação e Pediatria Veterinária. No dia a dia da clínica, ela também fica responsável por consultas de retorno, check-ups de filhotes e procedimentos de saúde bucal.' },
+    { id: 2, nome: 'Dr. Eduardo', crmv: 'CRMV-PR 5678', especialidade: 'Especialista em Clínica Geral e Cirurgia. O foco dele são as avaliações clínicas gerais, solicitação de exames complementares complexos e procedimentos cirúrgicos (como as castrações).' },
   ]);
 
   const [nome, setNome] = useState('');

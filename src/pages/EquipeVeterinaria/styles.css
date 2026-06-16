@@ -1,0 +1,170 @@
+.equipe-page-container {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 85vh;
+  font-family: sans-serif;
+  color: black;
+  background-color: #FAF8ED; 
+}
+
+.equipe-header {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.equipe-icon-principal {
+  font-size: 3rem;
+  color: #4068DE; 
+  margin-bottom: 10px;
+}
+
+.equipe-header h2 {
+  margin: 0 0 8px 0;
+  color: black;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.equipe-header p {
+  margin: 0 auto;
+  color: black;
+  font-size: 1.05rem;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+.equipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 30px;
+  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.vet-card-corporativo {
+  background-color: white;
+  border: 1px solid #ECE8CC;
+  border-radius: 14px;
+  padding: 30px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.vet-card-corporativo:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(64, 104, 222, 0.06);
+}
+
+.vet-card-header {
+  text-align: center;
+  border-bottom: 2px solid #FAF8ED;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.vet-avatar-circulo {
+  width: 80px;
+  height: 80px;
+  background-color: #FAF8ED;
+  color: #6DCBB0; 
+  font-size: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px auto;
+  border: 1px solid #ECE8CC;
+}
+
+.vet-card-header h3 {
+  margin: 0 0 6px 0;
+  color: black;
+  font-size: 1.4rem;
+}
+
+.vet-crmv-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background-color: #FAF8ED;
+  color: #777;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid #ECE8CC;
+}
+
+.vet-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex-grow: 1;
+  margin-bottom: 25px;
+}
+
+.vet-info-linha-destaque, .vet-info-linha, .vet-info-linha-horario {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.vet-info-linha-destaque div strong, 
+.vet-info-linha div strong, 
+.vet-info-linha-horario div strong {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: black;
+  letter-spacing: 0.5px;
+}
+
+.vet-info-linha-destaque div p {
+  margin: 2px 0 0 0;
+  color: #4068DE; 
+  font-weight: bold;
+  font-size: 1.05rem;
+}
+
+.vet-texto-descricao {
+  margin: 2px 0 0 0;
+  color: black;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-align: justify;
+}
+
+.vet-info-linha-horario div p {
+  margin: 2px 0 0 0;
+  color: #2b6151; 
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.icon-sub-vet { color: #4068DE; font-size: 1.2rem; margin-top: 2px; }
+.icon-sub-vet-suave { color: #bbb; font-size: 1.1rem; margin-top: 2px; }
+
+.btn-equipe-agendar {
+  width: 100%;
+  background-color: #6DCBB0; 
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.92rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s;
+}
+
+.btn-equipe-agendar:hover {
+  background-color: #4068DE; 
+}

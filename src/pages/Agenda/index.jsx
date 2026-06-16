@@ -3,8 +3,8 @@ import { useState } from 'react';
 import ResumoAgenda from './components/ResumoAgenda';
 import CalendarioBox from './components/CalendarioBox';
 import HorariosBox from './components/HorariosBox';
-import ModalConfirmacao from './components/ModalConfirmacao';
 import ModalEditarHorarios from './components/ModalEditarHorarios';
+import ModalAgendamento from './components/ModalAgendamento';
 
 import './styles.css';
 
@@ -78,11 +78,15 @@ export default function Agenda() {
         />
       </div>
 
-      <ModalConfirmacao 
-        mostrarModal={mostrarModal}
-        fecharModal={() => { setMostrarModal(false); setHorarioSelecionado(''); }}
-        dataFormatada={dataFormatada}
+      <ModalAgendamento 
+        mostrarModal={mostrarModal} 
+        fecharModal={() => { setMostrarModal(false); setHorarioSelecionado(''); }} 
+        dataSelecionada={dataSelecionada}
         horarioSelecionado={horarioSelecionado}
+        onSalvarAgendamento={(novoAgendamento) => {
+          console.log('Dados salvos do agendamento:', novoAgendamento);
+          alert(`Agendamento concluído para às ${novoAgendamento.hora}h!`);
+        }}
       />
 
       <ModalEditarHorarios 

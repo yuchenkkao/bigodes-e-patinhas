@@ -1,145 +1,126 @@
-import { useState, useEffect } from 'react';
-import { FaCalendarDay, FaUser, FaPaw, FaStethoscope, FaNotesMedical, FaTimes, FaCheck } from 'react-icons/fa';
+import { useState } from 'react';
 import './styles.css';
 
 export default function ModalAgendamento({ mostrarModal, fecharModal, dataSelecionada, horarioSelecionado, onSalvarAgendamento }) {
   const token = localStorage.getItem('@BigodesToken') || 'visitante';
-  const tutorLogadoPadrao = 'Maria Silva';
 
-  // Coleções de dados simulados (Futuramente virão das suas telas de Configuração)
-  const listaTutores = ['Maria Silva', 'Carlos Souza', 'Ana Costa', 'Marcos Lima'];
-  const listaVets = ['Dra. Mariana', 'Dr. Eduardo'];
-  const listaMotivos = ['Vacinação', 'Clínico Geral', 'Saúde Bucal', 'Castração'];
-
-  const mapaPetsPorTutor = {
-    'Maria Silva': ['Rex', 'Thor'],
-    'Carlos Souza': ['Mingau'],
-    'Ana Costa': ['Luna'],
-    'Marcos Lima': ['Pipoca']
-  };
-
+  // Estados simples para controlar os campos do formulário
   const [tutor, setTutor] = useState('');
   const [pet, setPet] = useState('');
   const [veterinario, setVeterinario] = useState('');
   const [motivo, setMotivo] = useState('');
-  const [petsDisponiveis, setPetsDisponiveis] = useState([]);
 
-  useEffect(() => {
-    if (mostrarModal) {
-      if (token === 'cliente') {
-        setTutor(tutorLogadoPadrao);
-        setPetsDisponiveis(mapaPetsPorTutor[tutorLogadoPadrao] || []);
-      } else {
-        setTutor('');
-        setPet('');
-        setPetsDisponiveis([]);
-      }
-      setVeterinario('');
-      setMotivo('');
-    }
-  }, [mostrarModal, token]);
+  if (!mostrarModal) return null;
 
-  const handleMudarTutor = (novoTutor) => {
-    setTutor(novoTutor);
-    setPet('');
-    if (novoTutor) {
-      setPetsDisponiveis(mapaPetsPorTutor[novoTutor] || []);
-    } else {
-      setPetsDisponiveis([]);
-    }
-  };
+  // Converte a data selecionada para o formato de texto padrão do seu sistema (Ex: "17/06/2026")
+  const dataString = dataSelecionada ? dataSelecionada.toLocaleDateString('pt-BR') : '';
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!tutor || !pet || !veterinario || !motivo) {
-      alert('Por favor, selecione todas as informações obrigatórias!');
+    // Se for cliente logado, define um tutor padrão automático. Se for atendente, usa o do select.
+    const tutorFinal = token === 'cliente' ? 'Maria' : tutor;
+
+    if (!pet || !veterinario || !motivo || (token !== 'cliente' && !tutorFinal)) {
+      alert('Por favor, preencha todos os campos obrigatórios!');
       return;
     }
 
-    // Monta o agendamento idêntico às chaves lidas pelo seu ResumoAgenda
-    const novoAgendamento = {
+    // Envia o objeto EXATAMENTE com as chaves que o seu ResumoAgenda utiliza
+    onSalvarAgendamento({
       id: Date.now(),
-      data: dataSelecionada.toLocaleDateString('pt-BR'),
+      data: dataString,
       hora: horarioSelecionado,
-      tutor: tutor,
+      tutor: tutorFinal,
       pet: pet,
-      veterinario: veterinario,
       motivo: motivo,
+      veterinario: veterinario,
       status: 'Agendado'
-    };
+    });
 
-    onSalvarAgendamento(novoAgendamento);
+    // Limpa o formulário e fecha
+    setTutor('');
+    setPet('');
+    setVeterinario('');
+    setMotivo('');
     fecharModal();
   };
 
-  if (!mostrarModal) return null;
-
   return (
     <div className="modal-overlay">
-      <div className="modal-content modal-agendamento">
-        <div className="agendamento-header">
-          <div className="agendamento-titulo">
-            <div className="calendar-badge-icon"><FaCalendarDay /></div>
-            <div>
-              <h2>Preencher Agendamento</h2>
-              <p>Horário reservado: <strong>{horarioSelecionado}</strong> do dia {dataSelecionada.toLocaleDateString('pt-BR')}</p>
-            </div>
-          </div>
-          <button type="button" className="btn-fechar-x" onClick={fecharModal}><FaTimes /></button>
-        </div>
+      <div className="modal-content" style={{ textAlign: 'left' }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '10px' }}>Preencher Agendamento</h2>
+        <p style={{ textAlign: 'center', color: '#666', fontSize: '0.9rem' }}>Informe os dados para concluir a reserva.</p>
 
-        <form onSubmit={handleSubmit} className="form-agendamento-corpo">
-          {token !== 'cliente' ? (
-            <div className="input-group-agendar">
-              <label><FaUser /> Cliente / Tutor Responsável *</label>
-              <select value={tutor} onChange={(e) => handleMudarTutor(e.target.value)}>
-                <option value="">-- Selecione o Dono do Pet --</option>
-                {listaTutores.map((tut, idx) => (
-                  <option key={idx} value={tut}>{tut}</option>
-                ))}
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '20px' }}>
+          
+          {/* Campo do CLIENTE (TUTOR): Só aparece se NÃO for cliente logado */}
+          {token !== 'cliente' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+              <label><strong>Cliente / Tutor *</strong></label>
+              <select value={tutor} onChange={(e) => setTutor(e.target.value)} style={{ padding: '10px', borderRadius: '6px', border: '1px solid #ECE8CC' }}>
+                <option value="">-- Selecione o Tutor --</option>
+                <option value="Maria">Maria</option>
+                <option value="Carlos">Carlos</option>
+                <option value="Ana">Ana</option>
+                <option value="Carolina">Carolina</option>
+                <option value="Marcos">Marcos</option>
               </select>
-            </div>
-          ) : (
-            <div className="info-tutor-estatico">
-              <p>Agendamento direto para o seu perfil: <strong>{tutorLogadoPadrao}</strong></p>
             </div>
           )}
 
-          <div className="input-group-agendar">
-            <label><FaPaw /> Nome do Paciente (Pet) *</label>
-            <select value={pet} onChange={(e) => setPet(e.target.value)} disabled={token !== 'cliente' && !tutor}>
-              <option value="">{token !== 'cliente' && !tutor ? "Escolha o tutor primeiro..." : "-- Selecione o Pet --"}</option>
-              {petsDisponiveis.map((pNome, idx) => (
-                <option key={idx} value={pNome}>{pNome}</option>
-              ))}
+          {/* Campo do ANIMAL (PET) */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+            <label><strong>Animal / Pet *</strong></label>
+            <select value={pet} onChange={(e) => setPet(e.target.value)} style={{ padding: '10px', borderRadius: '6px', border: '1px solid #ECE8CC' }}>
+              <option value="">-- Selecione o Paciente --</option>
+              <option value="Rex">Rex</option>
+              <option value="Mingau">Mingau</option>
+              <option value="Luna">Luna</option>
+              <option value="Nikolas">Nikolas</option>
+              <option value="Pipoca">Pipoca</option>
             </select>
           </div>
 
-          <div className="input-group-agendar">
-            <label><FaStethoscope /> Médico Veterinário *</label>
-            <select value={veterinario} onChange={(e) => setVeterinario(e.target.value)}>
+          {/* Campo do VETERINÁRIO */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+            <label><strong>Médico Veterinário *</strong></label>
+            <select value={veterinario} onChange={(e) => setVeterinario(e.target.value)} style={{ padding: '10px', borderRadius: '6px', border: '1px solid #ECE8CC' }}>
               <option value="">-- Selecione o Profissional --</option>
-              {listaVets.map((vet, idx) => (
-                <option key={idx} value={vet}>{vet}</option>
-              ))}
+              <option value="Mariana">Mariana</option>
+              <option value="Eduardo">Eduardo</option>
             </select>
           </div>
 
-          <div className="input-group-agendar">
-            <label><FaNotesMedical /> Motivo / Procedimento *</label>
-            <select value={motivo} onChange={(e) => setMotivo(e.target.value)}>
-              <option value="">-- Escolha o Motivo --</option>
-              {listaMotivos.map((mot, idx) => (
-                <option key={idx} value={mot}>{mot}</option>
-              ))}
+          {/* Campo do MOTIVO */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+            <label><strong>Motivo da Consulta *</strong></label>
+            <select value={motivo} onChange={(e) => setMotivo(e.target.value)} style={{ padding: '10px', borderRadius: '6px', border: '1px solid #ECE8CC' }}>
+              <option value="">-- Selecione o Procedimento --</option>
+              <option value="Vacinação">Vacinação</option>
+              <option value="Clínico Geral">Clínico Geral</option>
+              <option value="Saúde Bucal">Saúde Bucal</option>
+              <option value="Castração">Castração</option>
+              <option value="Retorno">Retorno</option>
             </select>
           </div>
 
-          <div className="form-agendar-acoes">
-            <button type="button" className="btn-cancelar-agendar" onClick={fecharModal}>Voltar</button>
-            <button type="submit" className="btn-confirmar-agendar"><FaCheck /> Confirmar Vaga</button>
+          {/* Caixa de detalhes igualzinha à do seu modal antigo */}
+          <div className="modal-detalhes" style={{ marginTop: '10px', padding: '12px', backgroundColor: '#FAF8ED', borderRadius: '6px' }}>
+            <p style={{ margin: '4px 0' }}>📅 <strong>Data:</strong> {dataString}</p>
+            <p style={{ margin: '4px 0' }}>⏰ <strong>Horário:</strong> {horarioSelecionado}h</p>
           </div>
+
+          {/* Botões de Ação usando as suas classes nativas */}
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '10px' }}>
+            <button type="button" className="btn-modal-fechar" style={{ backgroundColor: '#bbb', color: '#333', margin: 0 }} onClick={fecharModal}>
+              Cancelar
+            </button>
+            <button type="submit" className="btn-modal-fechar" style={{ margin: 0 }}>
+              Confirmar
+            </button>
+          </div>
+
         </form>
       </div>
     </div>
