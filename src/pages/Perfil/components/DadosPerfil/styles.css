@@ -1,0 +1,15 @@
+.btn-editar-icon {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.btn-editar-icon:hover { color: #6DCBB0; }
+
+.info-pessoal-lista { display: flex; flex-direction: column; gap: 20px; }
+
+.info-item { display: flex; align-items: flex-start; gap: 15px; }
+.info-icon { margin-top: 3px; color: #6DCBB0; font-size: 1.1rem; }
+.info-item strong { display: block; font-size: 0.8rem; color: #999; text-transform: uppercase; margin-bottom: 4px; }
+.info-item p { margin: 0; color: #333; font-size: 0.95rem; font-weight: 500; }

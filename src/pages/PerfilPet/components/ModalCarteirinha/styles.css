@@ -281,3 +281,54 @@
 .input-data-hoje svg {
   color: #4068DE; 
 }
+
+.botoes-acao-veterinario {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.btn-agendar-dose {
+  background-color: white;
+  color: #4068DE;
+  border: 1px solid #4068DE;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-agendar-dose:hover { background-color: #4068DE; color: white; }
+
+.form-vacina-box {
+  background-color: #FAF8ED;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+}
+
+.form-vacina-box h4 { margin: 0 0 15px 0; color: #333; }
+
+.vacina-inputs-row { display: flex; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; }
+.vacina-inputs-row input { flex: 1; padding: 10px 12px; border: 1px solid #ECE8CC; border-radius: 6px; }
+
+.input-data-fixa {
+  background-color: white;
+  border: 1px solid #ECE8CC;
+  padding: 10px 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+}
+
+.form-vacina-acoes { display: flex; justify-content: flex-end; gap: 10px; }
+.btn-cancelar-vacina { background: none; border: none; color: #777; font-weight: bold; cursor: pointer; }
+
+.badge-status-vacina { padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; }
+.status-ok { background-color: rgba(109, 203, 176, 0.15); color: #2b6151; }
+.status-alerta { background-color: #ffeaea; color: #cc4c4c; }
+.status-pendente { background-color: rgba(64, 104, 222, 0.1); color: #4068DE; }

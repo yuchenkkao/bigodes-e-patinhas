@@ -1,0 +1,57 @@
+.btn-add-pet-small {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #6DCBB0;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.btn-add-pet-small:hover { background-color: #2b6151; }
+
+.lista-pets-perfil { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+
+.pet-card-mini {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ECE8CC;
+  border-radius: 10px;
+  background-color: #FAF8ED;
+}
+
+.pet-card-mini-info { display: flex; align-items: center; gap: 12px; }
+
+.pet-avatar-mini {
+  width: 45px;
+  height: 45px;
+  background-color: white;
+  color: #4068DE;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  border: 1px solid #ECE8CC;
+}
+
+.pet-card-mini-info h4 { margin: 0 0 3px 0; color: #333; font-size: 1.05rem; }
+.pet-card-mini-info p { margin: 0; color: #666; font-size: 0.8rem; }
+
+.btn-ver-prontuario {
+  background-color: white;
+  color: #4068DE;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #4068DE;
+  transition: all 0.2s;
+}
+.btn-ver-prontuario:hover { background-color: #4068DE; color: white; }

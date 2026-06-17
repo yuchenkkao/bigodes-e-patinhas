@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { 
-  FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, 
-  FaPaw, FaHistory, FaSignOutAlt, FaEdit, FaPlus, FaCalendarCheck 
-} from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { FaSignOutAlt } from 'react-icons/fa';
+
+import DadosPerfil from './components/DadosPerfil';
+import DadosPet from './components/DadosPet';
+import DadosConsulta from './components/DadosConsultas';
+import ModalEditarPerfil from './components/ModalEditarPerfil';
+
 import './styles.css';
 
 export default function Perfil() {
-  const navigate = useNavigate();
+const navigate = useNavigate();
   const token = localStorage.getItem('@BigodesToken') || 'visitante';
 
   const [usuario, setUsuario] = useState({
@@ -18,6 +21,7 @@ export default function Perfil() {
     membroDesde: 'Janeiro / 2024'
   });
 
+  const [modalEditarAberto, setModalEditarAberto] = useState(false);
   useEffect(() => {
     if (token === 'visitante') {
       navigate('/');
@@ -27,6 +31,15 @@ export default function Perfil() {
   if (token === 'visitante') {
     return null;
   }
+  
+  const handleEditarPerfil = () => {
+    setModalEditarAberto(true);
+  };
+
+  const handleSalvarPerfil = (dadosAtualizados) => {
+    setUsuario(dadosAtualizados); 
+    alert('Perfil atualizado com sucesso!');
+  };
 
   const meusPets = [
     { id: 1, nome: 'Rex', especie: 'Cachorro', raca: 'Vira-lata (SRD)', idade: '2 anos' },
@@ -40,11 +53,8 @@ export default function Perfil() {
 
   const handleLogout = () => {
     localStorage.removeItem('@BigodesToken');
+    alert('Sessão encerrada com sucesso!');
     navigate('/');
-  };
-
-  const handleEditarPerfil = () => {
-    alert('Abertura do modal de edição de perfil (em breve)!');
   };
 
   return (
@@ -63,94 +73,22 @@ export default function Perfil() {
       <div className="perfil-grid-layout">
         
         <div className="perfil-coluna-dados">
-          <div className="perfil-card info-pessoal">
-            <div className="card-header-perfil">
-              <h3><FaUser /> Meus Dados</h3>
-              <button className="btn-editar-icon" onClick={handleEditarPerfil} title="Editar Dados">
-                <FaEdit />
-              </button>
-            </div>
-            
-            <div className="info-pessoal-lista">
-              <div className="info-item">
-                <FaUser className="info-icon" />
-                <div>
-                  <strong>Nome Completo</strong>
-                  <p>{usuario.nome}</p>
-                </div>
-              </div>
-              <div className="info-item">
-                <FaEnvelope className="info-icon" />
-                <div>
-                  <strong>E-mail</strong>
-                  <p>{usuario.email}</p>
-                </div>
-              </div>
-              <div className="info-item">
-                <FaPhone className="info-icon" />
-                <div>
-                  <strong>Telefone / WhatsApp</strong>
-                  <p>{usuario.telefone}</p>
-                </div>
-              </div>
-              <div className="info-item">
-                <FaMapMarkerAlt className="info-icon" />
-                <div>
-                  <strong>Endereço</strong>
-                  <p>{usuario.endereco}</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <DadosPerfil usuario={usuario} onEditar={handleEditarPerfil} />
         </div>
 
         <div className="perfil-coluna-pets">
-          
-          <div className="perfil-card meus-pets-box">
-            <div className="card-header-perfil">
-              <h3><FaPaw /> Meus Pets</h3>
-            </div>
-
-            <div className="lista-pets-perfil">
-              {meusPets.map(pet => (
-                <div key={pet.id} className="pet-card-mini">
-                  <div className="pet-card-mini-info">
-                    <div className="pet-avatar-mini"><FaPaw /></div>
-                    <div>
-                      <h4>{pet.nome}</h4>
-                      <p>{pet.especie} • {pet.raca}</p>
-                    </div>
-                  </div>
-    
-                  <Link to={`/perfil-pet/${pet.id}`} className="btn-ver-prontuario">
-                    Ver Ficha
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="perfil-card historico-box">
-            <div className="card-header-perfil">
-              <h3><FaHistory /> Últimas Consultas</h3>
-            </div>
-            
-            <table className="tabela-historico-perfil">
-              <tbody>
-                {historicoConsultas.map(consulta => (
-                  <tr key={consulta.id}>
-                    <td><FaCalendarCheck className="icone-data-tabela" /> <strong>{consulta.data}</strong></td>
-                    <td>{consulta.pet}</td>
-                    <td>{consulta.motivo}</td>
-                    <td><span className="badge-status-concluido">{consulta.status}</span></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
+          <DadosPet pets={meusPets} />
+          <DadosConsulta historico={historicoConsultas} />
         </div>
+
       </div>
+
+      <ModalEditarPerfil 
+        isOpen={modalEditarAberto}
+        onClose={() => setModalEditarAberto(false)}
+        usuarioAtual={usuario}
+        onSalvar={handleSalvarPerfil}
+      />
 
     </div>
   );

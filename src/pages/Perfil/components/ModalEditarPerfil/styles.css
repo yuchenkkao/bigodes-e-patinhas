@@ -1,0 +1,116 @@
+.modal-editar-perfil {
+  max-width: 500px !important;
+  text-align: left;
+}
+
+.modal-header-perfil {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 2px solid #FAF8ED;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.modal-titulo-perfil {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icone-destaque-modal {
+  background-color: rgba(64, 104, 222, 0.1);
+  color: #4068DE;
+  width: 45px;
+  height: 45px;
+  font-size: 1.4rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-titulo-perfil h2 { margin: 0 0 2px 0; font-size: 1.35rem; color: #333; }
+.modal-titulo-perfil p { margin: 0; font-size: 0.85rem; color: #666; }
+
+.btn-fechar-modal {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.btn-fechar-modal:hover { color: #cc4c4c; }
+
+/* ESTILOS DO FORMULÁRIO */
+.form-editar-perfil {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-group-perfil {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.input-group-perfil label {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input-group-perfil label svg { color: #6DCBB0; }
+
+.input-group-perfil input {
+  padding: 10px 12px;
+  border: 1px solid #ECE8CC;
+  border-radius: 6px;
+  background-color: white;
+  font-size: 0.95rem;
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-group-perfil input:focus { border-color: #4068DE; }
+
+/* BOTÕES DE AÇÃO */
+.modal-acoes-perfil {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid #FAF8ED;
+  padding-top: 20px;
+  margin-top: 10px;
+}
+
+.btn-cancelar-perfil {
+  background: none;
+  border: none;
+  color: #777;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px 16px;
+}
+.btn-cancelar-perfil:hover { color: #333; }
+
+.btn-salvar-perfil {
+  background-color: #6DCBB0;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s;
+}
+.btn-salvar-perfil:hover { background-color: #4068DE; }

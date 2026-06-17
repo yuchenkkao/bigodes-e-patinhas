@@ -1,0 +1,11 @@
+.tabela-historico-perfil { width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left; }
+.tabela-historico-perfil td { padding: 12px 10px; border-bottom: 1px solid #FAF8ED; color: #444; }
+.icone-data-tabela { color: #bbb; margin-right: 8px; }
+.badge-status-concluido { 
+  background-color: rgba(109, 203, 176, 0.15); 
+  color: #2b6151; 
+  padding: 4px 10px; 
+  border-radius: 12px; 
+  font-size: 0.75rem; 
+  font-weight: bold; 
+}

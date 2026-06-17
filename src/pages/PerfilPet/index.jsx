@@ -18,7 +18,7 @@ export default function PerfilPet() {
       { nome: 'Múltipla V10 (Dose 1)', data: '12/01/2025', lote: 'V10-984X', status: 'Aplicada' },
       { nome: 'Múltipla V10 (Dose 2)', data: '02/02/2025', lote: 'V10-112Y', status: 'Aplicada' },
       { nome: 'Antirrábica Anual', data: '12/01/2026', lote: 'ANT-0052', status: 'Aplicada' },
-      { nome: 'Gripe Canina (Reforço)', data: 'Agendado', lote: '---', status: 'Pendente' },
+      { nome: 'Gripe Canina (Reforço)', data: '15/05/2026', lote: '---', status: 'Pendente' },
     ],
     Gato: [
       { nome: 'Quádrupla Felina V4 (Dose 1)', data: '10/05/2025', lote: 'V4-441A', status: 'Aplicada' },
