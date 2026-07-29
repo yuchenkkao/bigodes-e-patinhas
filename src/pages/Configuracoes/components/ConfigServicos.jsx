@@ -84,7 +84,6 @@ export default function ConfigServicos() {
               <td>
                 <span className="time-tag"><FaClock /> {serv.tempo}</span>
               </td>
-              {/* 🌟 NOVA CÉLULA: Renderiza o texto cadastrado com estilo mais suave */}
               <td style={{ color: '#666', fontSize: '0.88rem', maxWidth: '350px', lineHeight: '1.4' }}>
                 <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
                   {serv.descricao}

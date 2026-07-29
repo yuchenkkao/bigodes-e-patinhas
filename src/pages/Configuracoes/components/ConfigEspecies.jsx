@@ -23,7 +23,7 @@ export default function ConfigEspecies() {
   return (
     <div className="sub-config-box">
       <div className="sub-config-header">
-        <h2><FaPaw/> Diretório de Espécies Atendidas</h2>
+        <h2><FaPaw/> Espécies Atendidas na Clínica</h2>
         <p>Gerencie quais classes de animais a clínica está apta a receber no formulário de agendamento.</p>
       </div>
 

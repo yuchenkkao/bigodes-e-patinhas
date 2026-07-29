@@ -38,7 +38,7 @@ export default function ConfigVeterinarios() {
         <input type="text" placeholder="Nome Completo" value={nome} onChange={(e) => setNome(e.target.value)} />
         <input type="text" placeholder="CRMV (Ex: CRMV-PR 0000)" value={crmv} onChange={(e) => setCrmv(e.target.value)} />
         <input type="text" placeholder="Especialidade" value={especialidade} onChange={(e) => setEspecialidade(e.target.value)} />
-        <button type="submit" className="btn-add-config"><FaPlus /> Contratar</button>
+        <button type="submit" className="btn-add-config"><FaPlus /> Adicionar</button>
       </form>
 
       <table className="table-config-dados">
