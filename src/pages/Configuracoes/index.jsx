@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaCog, FaPaw, FaStethoscope, FaConciergeBell, FaLock, FaArrowLeft, FaSyringe } from 'react-icons/fa';
+import { FaCog, FaPaw, FaStethoscope, FaConciergeBell, FaLock, FaArrowLeft, FaSyringe, FaNotesMedical, FaFlask, FaPills } from 'react-icons/fa';
 
 import ConfigEspecies from '../../ui/partials/Configuracoes/ConfigEspecies';
 import ConfigVeterinarios from '../../ui/partials/Configuracoes/ConfigVeterinarios';
 import ConfigServicos from '../../ui/partials/Configuracoes/ConfigServicos';
 import ConfigVacinas from '../../ui/partials/Configuracoes/ConfigVacinas';
+import ConfigCids from '../../ui/partials/Configuracoes/ConfigCids';
+import ConfigTiposExame from '../../ui/partials/Configuracoes/ConfigTiposExame';
+import ConfigMedicamentos from '../../ui/partials/Configuracoes/ConfigMedicamentos';
 
 import './styles.css';
 import { useAuth } from '../../data/hooks/useAuth';
@@ -62,6 +65,27 @@ export default function Configuracao() {
           >
             <FaSyringe /> Vacinas e Lotes
           </button>
+
+          <button
+            className={`nav-tab-btn ${abaAtiva === 'cids' ? 'ativa' : ''}`}
+            onClick={() => setAbaAtiva('cids')}
+          >
+            <FaNotesMedical /> Diagnósticos (CID)
+          </button>
+
+          <button
+            className={`nav-tab-btn ${abaAtiva === 'tiposExame' ? 'ativa' : ''}`}
+            onClick={() => setAbaAtiva('tiposExame')}
+          >
+            <FaFlask /> Tipos de Exame
+          </button>
+
+          <button
+            className={`nav-tab-btn ${abaAtiva === 'medicamentos' ? 'ativa' : ''}`}
+            onClick={() => setAbaAtiva('medicamentos')}
+          >
+            <FaPills /> Medicamentos
+          </button>
         </nav>
       </aside>
 
@@ -70,6 +94,9 @@ export default function Configuracao() {
         {abaAtiva === 'veterinarios' && <ConfigVeterinarios />}
         {abaAtiva === 'servicos' && <ConfigServicos />}
         {abaAtiva === 'vacinas' && <ConfigVacinas />}
+        {abaAtiva === 'cids' && <ConfigCids />}
+        {abaAtiva === 'tiposExame' && <ConfigTiposExame />}
+        {abaAtiva === 'medicamentos' && <ConfigMedicamentos />}
       </main>
 
     </div>

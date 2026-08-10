@@ -21,6 +21,35 @@
  */
 
 /**
+ * Um CID escolhido via autocomplete e adicionado à lista de diagnósticos do atendimento.
+ * @typedef {Object} CidSelecionado
+ * @property {string} cidId
+ * @property {string} codigo
+ * @property {string} descricao
+ */
+
+/**
+ * Um exame solicitado via autocomplete — "resultado" começa vazio e é preenchido depois,
+ * item a item, no ExamResultCard correspondente.
+ * @typedef {Object} ExameSolicitado
+ * @property {string} exameId
+ * @property {string} nome
+ * @property {string} resultado
+ */
+
+/**
+ * Um medicamento escolhido via autocomplete — dosagem/frequência/duração/observação começam
+ * vazias e são preenchidas depois, item a item, no MedicationPrescriptionForm correspondente.
+ * @typedef {Object} MedicamentoPrescrito
+ * @property {string} medicamentoId
+ * @property {string} nome
+ * @property {string} dosagem
+ * @property {string} frequencia
+ * @property {string} duracao
+ * @property {string} observacao
+ */
+
+/**
  * @typedef {Object} EvolucaoProntuario
  * @property {string} id
  * @property {string} [agendamentoId]
@@ -31,9 +60,10 @@
  * @property {string} pesoConsulta
  * @property {string[]} sinaisClinicos - tags digitadas no atendimento (sintomas/sinais clínicos)
  * @property {string[]} [vacinaVermifugo] - tags livres de vermífugos/observações de imunização
- * @property {string[]} [exames] - tags de exames solicitados
- * @property {string[]} prescricoes - tags de prescrições/condutas
  * @property {VacinaAtendimentoItem[]} [vacinas] - vacinas do catálogo aplicadas/agendadas neste atendimento
+ * @property {CidSelecionado[]} [cids] - diagnósticos (CID) selecionados neste atendimento
+ * @property {ExameSolicitado[]} [exames] - exames solicitados, cada um com seu resultado
+ * @property {MedicamentoPrescrito[]} [medicamentos] - medicamentos prescritos, cada um com dosagem/frequência/duração/observação
  * @property {string} [observacoes] - texto livre, sem estrutura de tags
  */
 

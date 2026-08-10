@@ -1,0 +1,58 @@
+.exam-result-card {
+  background-color: white;
+  border: 1px solid #ECE8CC;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exam-result-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.exam-result-card-nome {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.exam-result-card-nome svg {
+  color: #4068DE;
+}
+
+.exam-result-card-header button {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.exam-result-card-header button:hover {
+  color: #cc4c4c;
+}
+
+.exam-result-card textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ECE8CC;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  color: #333;
+  box-sizing: border-box;
+  outline: none;
+  font-family: sans-serif;
+  resize: vertical;
+}
+
+.exam-result-card textarea:focus {
+  border-color: #6DCBB0;
+}

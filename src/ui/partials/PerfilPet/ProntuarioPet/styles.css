@@ -188,6 +188,68 @@
   font-style: italic;
 }
 
+.lista-exames-prontuario,
+.lista-medicamentos-prontuario {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.linha-exame-prontuario {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  background-color: #FAF8ED;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.linha-exame-prontuario strong {
+  color: #333;
+  white-space: nowrap;
+}
+
+.linha-exame-prontuario span {
+  color: #555;
+  text-align: right;
+}
+
+.linha-medicamento-prontuario {
+  background-color: #FAF8ED;
+  padding: 10px 12px;
+  border-radius: 6px;
+}
+
+.linha-medicamento-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.linha-medicamento-topo strong {
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.badge-dosagem-prontuario {
+  background-color: rgba(109, 203, 176, 0.15);
+  color: #2b6151;
+  font-weight: bold;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.linha-medicamento-detalhe {
+  margin: 6px 0 0 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
 .tag-chip-vacina-prontuario {
   background-color: rgba(109, 203, 176, 0.12);
   color: #2b6151;

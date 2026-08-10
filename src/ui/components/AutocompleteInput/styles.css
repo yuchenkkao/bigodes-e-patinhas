@@ -1,0 +1,76 @@
+.autocomplete-input {
+  width: 100%;
+}
+
+.autocomplete-input-linha {
+  display: flex;
+  gap: 10px;
+}
+
+.autocomplete-campo-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.autocomplete-campo-wrapper input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ECE8CC;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  color: #333;
+  box-sizing: border-box;
+  outline: none;
+  font-family: sans-serif;
+}
+
+.autocomplete-campo-wrapper input:focus {
+  border-color: #6DCBB0;
+  box-shadow: 0 0 0 3px rgba(109, 203, 176, 0.1);
+}
+
+.autocomplete-sugestoes {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ECE8CC;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.autocomplete-sugestoes li {
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  color: #333;
+  cursor: pointer;
+}
+
+.autocomplete-sugestoes li:hover {
+  background-color: #FAF8ED;
+  color: #4068DE;
+}
+
+.autocomplete-sugestoes li.autocomplete-vazio {
+  color: #999;
+  font-style: italic;
+  cursor: default;
+}
+
+.autocomplete-sugestoes li.autocomplete-vazio:hover {
+  background-color: transparent;
+  color: #999;
+}
+
+.autocomplete-input-linha .btn-adicionar-tag:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

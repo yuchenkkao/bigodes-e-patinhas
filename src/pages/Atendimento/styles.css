@@ -218,6 +218,49 @@
   max-width: 200px;
 }
 
+/* Chips de itens simples adicionados via autocomplete (ex: CIDs selecionados) */
+.lista-tags-selecionadas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-chip-cid {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(64, 104, 222, 0.08);
+  color: #243e8c;
+  border: 1px solid #ECE8CC;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+.tag-chip-cid button {
+  background: none;
+  border: none;
+  color: #4068DE;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  opacity: 0.7;
+}
+
+.tag-chip-cid button:hover {
+  opacity: 1;
+  color: #cc4c4c;
+}
+
+/* Lista de cards/sub-formulários adicionados via autocomplete (exames, medicamentos) */
+.lista-cards-clinicos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
 /* Seção de vacinação em cascata */
 .secao-vacinacao {
   background-color: #FAF8ED;

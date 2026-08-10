@@ -1,0 +1,90 @@
+.medication-prescription-form {
+  background-color: white;
+  border: 1px solid #ECE8CC;
+  border-radius: 8px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.medication-prescription-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.medication-prescription-nome {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.medication-prescription-nome svg {
+  color: #4068DE;
+}
+
+.medication-prescription-header button {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.medication-prescription-header button:hover {
+  color: #cc4c4c;
+}
+
+.medication-prescription-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.medication-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.medication-field-full {
+  grid-column: 1 / -1;
+}
+
+.medication-field label {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.medication-field input,
+.medication-field textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ECE8CC;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #333;
+  box-sizing: border-box;
+  outline: none;
+  font-family: sans-serif;
+  resize: vertical;
+}
+
+.medication-field input:focus,
+.medication-field textarea:focus {
+  border-color: #6DCBB0;
+}
+
+@media (max-width: 600px) {
+  .medication-prescription-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -6,7 +6,7 @@ import {
 import { MdVaccines } from 'react-icons/md';
 import './styles.css';
 
-// Renderiza um array de tags simples (sinais clínicos, vermífugos, exames, prescrições) como chips somente leitura
+// Renderiza um array de tags simples (sinais clínicos, vermífugos) como chips somente leitura
 function ListaTags({ itens }) {
   if (!itens || itens.length === 0) {
     return <p className="campo-texto campo-vazio">Nenhum registro.</p>;
@@ -31,6 +31,62 @@ function ListaVacinas({ itens }) {
         <span key={`${item.nome}-${item.lote}-${indice}`} className="tag-chip-prontuario tag-chip-vacina-prontuario">
           {item.nome} · Lote {item.lote} · {item.status === 'Agendado' ? `Agendada ${item.data}` : `Aplicada ${item.data}`}
         </span>
+      ))}
+    </div>
+  );
+}
+
+// Renderiza os CIDs (diagnósticos) selecionados neste atendimento
+function ListaCids({ itens }) {
+  if (!itens || itens.length === 0) {
+    return <p className="campo-texto campo-vazio">Nenhum diagnóstico registrado.</p>;
+  }
+  return (
+    <div className="lista-tags-prontuario">
+      {itens.map((cid) => (
+        <span key={cid.cidId} className="tag-chip-prontuario">{cid.codigo} — {cid.descricao}</span>
+      ))}
+    </div>
+  );
+}
+
+// Exames: nome lado a lado com o resultado, um por linha
+function ListaExames({ itens }) {
+  if (!itens || itens.length === 0) {
+    return <p className="campo-texto campo-vazio">Nenhum exame solicitado.</p>;
+  }
+  return (
+    <div className="lista-exames-prontuario">
+      {itens.map((exame, indice) => (
+        <div key={`${exame.exameId}-${indice}`} className="linha-exame-prontuario">
+          <strong>{exame.nome}</strong>
+          <span>{exame.resultado || 'Resultado pendente'}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Medicamentos: lista com dosagem e frequência em destaque, duração/observação como detalhe
+function ListaMedicamentos({ itens }) {
+  if (!itens || itens.length === 0) {
+    return <p className="campo-texto campo-vazio">Nenhum medicamento prescrito.</p>;
+  }
+  return (
+    <div className="lista-medicamentos-prontuario">
+      {itens.map((medicamento, indice) => (
+        <div key={`${medicamento.medicamentoId}-${indice}`} className="linha-medicamento-prontuario">
+          <div className="linha-medicamento-topo">
+            <strong>{medicamento.nome}</strong>
+            <span className="badge-dosagem-prontuario">{medicamento.dosagem} · {medicamento.frequencia}</span>
+          </div>
+          {(medicamento.duracao || medicamento.observacao) && (
+            <p className="linha-medicamento-detalhe">
+              {medicamento.duracao && <>Duração: {medicamento.duracao}. </>}
+              {medicamento.observacao}
+            </p>
+          )}
+        </div>
       ))}
     </div>
   );
@@ -71,6 +127,10 @@ export default function ProntuarioPet({ token, historico, petId }) {
                     <ListaTags itens={consulta.sinaisClinicos} />
                   </div>
                   <div className="campo-clinico-item">
+                    <span className="campo-label"><FaNotesMedical /> Diagnósticos (CID):</span>
+                    <ListaCids itens={consulta.cids} />
+                  </div>
+                  <div className="campo-clinico-item">
                     <span className="campo-label"><MdVaccines /> Vermífugos e Observações de Imunização:</span>
                     <ListaTags itens={consulta.vacinaVermifugo} />
                   </div>
@@ -79,12 +139,12 @@ export default function ProntuarioPet({ token, historico, petId }) {
                     <ListaVacinas itens={consulta.vacinas} />
                   </div>
                   <div className="campo-clinico-item">
-                    <span className="campo-label"><FaFlask /> Exames Solicitados:</span>
-                    <ListaTags itens={consulta.exames} />
+                    <span className="campo-label"><FaFlask /> Exames Solicitados / Resultado:</span>
+                    <ListaExames itens={consulta.exames} />
                   </div>
                   <div className="campo-clinico-item">
-                    <span className="campo-label"><FaPills /> Prescrições & Conduta Médica:</span>
-                    <ListaTags itens={consulta.prescricoes} />
+                    <span className="campo-label"><FaPills /> Medicamentos Prescritos:</span>
+                    <ListaMedicamentos itens={consulta.medicamentos} />
                   </div>
                   {consulta.observacoes && (
                     <div className="campo-clinico-item">

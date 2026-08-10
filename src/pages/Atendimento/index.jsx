@@ -9,9 +9,13 @@ import './styles.css';
 import { useAuth } from '../../data/hooks/useAuth';
 import { useAtendimento } from '../../data/hooks/useAtendimento';
 import { useAtendimentoVacinacao } from '../../data/hooks/useAtendimentoVacinacao';
+import { useAtendimentoClinico } from '../../data/hooks/useAtendimentoClinico';
 import { useVacinas } from '../../data/hooks/useVacinas';
 import MultiTagInput from '../../ui/components/MultiTagInput';
 import CascadingSelect from '../../ui/components/CascadingSelect';
+import AutocompleteInput from '../../ui/components/AutocompleteInput';
+import ExamResultCard from '../../ui/components/ExamResultCard';
+import MedicationPrescriptionForm from '../../ui/components/MedicationPrescriptionForm';
 
 export default function Atendimento() {
   const { id } = useParams();
@@ -26,10 +30,28 @@ export default function Atendimento() {
   // Campos dinâmicos: cada um é um array de strings alimentado pelo MultiTagInput (tag a tag)
   const [sinaisClinicos, setSinaisClinicos] = useState([]);
   const [vacinaVermifugo, setVacinaVermifugo] = useState([]);
-  const [exames, setExames] = useState([]);
-  const [prescricoes, setPrescricoes] = useState([]);
   // Campo novo: texto livre de múltiplas linhas, sem estrutura de tags
   const [observacoes, setObservacoes] = useState('');
+
+  // CIDs, Exames (com resultado) e Medicamentos (com dosagem/frequência/duração/observação):
+  // arrays de objetos, cada um alimentado por um AutocompleteInput + "+"; toda a lógica de
+  // adicionar/remover/atualizar sub-campo vive no hook, este componente só consome
+  const {
+    cidsDisponiveis,
+    cidsSelecionados,
+    adicionarCid,
+    removerCid,
+    tiposExameDisponiveis,
+    exames,
+    adicionarExame,
+    atualizarResultadoExame,
+    removerExame,
+    medicamentosDisponiveis,
+    medicamentos,
+    adicionarMedicamento,
+    atualizarCampoMedicamento,
+    removerMedicamento
+  } = useAtendimentoClinico();
 
   // Seção de vacinação em cascata (vacina do catálogo -> lote dependente) — toda a lógica
   // de filtragem/limpeza e o array de itens vive no hook, este componente só consome
@@ -65,8 +87,8 @@ export default function Atendimento() {
   const handleSalvarProntuario = async (e) => {
     e.preventDefault();
 
-    if (!pesoConsulta || sinaisClinicos.length === 0 || prescricoes.length === 0) {
-      alert('Por favor, preencha pelo menos o Peso, os Sinais Clínicos e as Prescrições/Condutas!');
+    if (!pesoConsulta || sinaisClinicos.length === 0) {
+      alert('Por favor, preencha pelo menos o Peso e os Sinais Clínicos!');
       return;
     }
 
@@ -77,9 +99,10 @@ export default function Atendimento() {
       pesoConsulta,
       sinaisClinicos,
       vacinaVermifugo,
-      exames,
-      prescricoes,
       vacinas: itensVacinacao,
+      cids: cidsSelecionados,
+      exames,
+      medicamentos,
       observacoes
     });
 
@@ -168,6 +191,30 @@ export default function Atendimento() {
               />
             </div>
 
+            {/* Diagnósticos (CID) — autocomplete busca por código ou descrição no catálogo do
+                Gestor; escolher + clicar "+" adiciona o objeto {cidId, codigo, descricao} ao array */}
+            <div className="input-group-clinico">
+              <label><FaNotesMedical /> Diagnósticos (CID)</label>
+              <AutocompleteInput
+                placeholder="Busque por código ou descrição do CID..."
+                options={cidsDisponiveis}
+                getLabel={(cid) => `${cid.codigo} — ${cid.descricao}`}
+                onAdicionar={adicionarCid}
+              />
+              {cidsSelecionados.length > 0 && (
+                <div className="lista-tags-selecionadas">
+                  {cidsSelecionados.map((cid) => (
+                    <span key={cid.cidId} className="tag-chip-cid">
+                      {cid.codigo} — {cid.descricao}
+                      <button type="button" onClick={() => removerCid(cid.cidId)} aria-label={`Remover ${cid.codigo}`}>
+                        <FaTimes />
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <div className="input-group-clinico">
               <label><MdVaccines /> Vermífugos e outras observações de imunização</label>
               <MultiTagInput
@@ -244,22 +291,52 @@ export default function Atendimento() {
               )}
             </div>
 
+            {/* Exames: escolher no autocomplete + "+" cria o item {exameId, nome, resultado: ''};
+                cada ExamResultCard edita só o "resultado" do seu próprio índice no array */}
             <div className="input-group-clinico">
               <label><FaFlask /> Exames complementares solicitados</label>
-              <MultiTagInput
-                placeholder="Ex: Hemograma completo, Raio-X coxofemoral..."
-                tags={exames}
-                onChange={setExames}
+              <AutocompleteInput
+                placeholder="Busque o tipo de exame..."
+                options={tiposExameDisponiveis}
+                getLabel={(exame) => exame.nome}
+                onAdicionar={adicionarExame}
               />
+              {exames.length > 0 && (
+                <div className="lista-cards-clinicos">
+                  {exames.map((item, indice) => (
+                    <ExamResultCard
+                      key={`${item.exameId}-${indice}`}
+                      item={item}
+                      onChangeResultado={(resultado) => atualizarResultadoExame(indice, resultado)}
+                      onRemover={() => removerExame(indice)}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
 
+            {/* Medicamentos: escolher no autocomplete + "+" cria o item com os 4 sub-campos
+                vazios; cada MedicationPrescriptionForm edita só o campo daquele índice */}
             <div className="input-group-clinico">
-              <label><FaPills /> Prescrições Medicamentosas & Conduta Médica *</label>
-              <MultiTagInput
-                placeholder="Ex: Posatex Gotas 1x ao dia por 10 dias..."
-                tags={prescricoes}
-                onChange={setPrescricoes}
+              <label><FaPills /> Prescrição de Medicamentos</label>
+              <AutocompleteInput
+                placeholder="Busque o medicamento..."
+                options={medicamentosDisponiveis}
+                getLabel={(medicamento) => `${medicamento.nome} (${medicamento.principioAtivo})`}
+                onAdicionar={adicionarMedicamento}
               />
+              {medicamentos.length > 0 && (
+                <div className="lista-cards-clinicos">
+                  {medicamentos.map((item, indice) => (
+                    <MedicationPrescriptionForm
+                      key={`${item.medicamentoId}-${indice}`}
+                      item={item}
+                      onChangeCampo={(campo, valor) => atualizarCampoMedicamento(indice, campo, valor)}
+                      onRemover={() => removerMedicamento(indice)}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Novo campo: texto livre de múltiplas linhas, sem tags */}
