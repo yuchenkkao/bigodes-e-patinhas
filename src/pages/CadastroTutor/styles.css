@@ -89,7 +89,8 @@
 
 
 .form-group input[type="text"],
-.form-group input[type="email"] {
+.form-group input[type="email"],
+.form-group select {
   width: 100%;
   padding: 12px 14px;
   border: 2px solid #ECE8CC;
@@ -100,9 +101,22 @@
   transition: border-color 0.2s;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group select:focus {
   outline: none;
   border-color: #6DCBB0;
+}
+
+.form-group select:disabled {
+  background-color: #FAF8ED;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.cep-buscando {
+  color: #6DCBB0;
+  font-weight: normal;
+  font-size: 0.8rem;
 }
 
 

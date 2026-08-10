@@ -1,55 +1,34 @@
-import { useState } from 'react';
-import { 
-  FaCalendarAlt, FaSearch, FaPaw, FaUser, FaClock, 
-  FaCheckCircle, FaTimesCircle, FaExclamationCircle, FaFilter, FaHourglassHalf, FaBan 
+import { useReducer } from 'react';
+import {
+  FaCalendarAlt, FaSearch, FaPaw, FaUser, FaClock,
+  FaCheckCircle, FaTimesCircle, FaExclamationCircle, FaFilter, FaHourglassHalf, FaBan
 } from 'react-icons/fa';
 import './styles.css';
+import { useAuth } from '../../data/hooks/useAuth';
+import { useMeusAgendamentos } from '../../data/hooks/useAgendamentos';
+import { filtrosAgendamentosReducer, estadoInicialFiltrosAgendamentos } from '../../data/reduces/agendamentosReducer';
 
 export default function HistoricoAgendamentos() {
-  const token = localStorage.getItem('@BigodesToken') || 'visitante';
-  
-  const tutorLogadoNome = 'Maria Silva';
+  const { papel: token } = useAuth();
   const veterinarioLogadoNome = 'Dra. Mariana';
 
-  const [pesquisa, setPesquisa] = useState('');
-  const [filtroStatus, setFiltroStatus] = useState('todos');
+  const { agendamentos: agendamentosPorCargo, cancelar } = useMeusAgendamentos();
 
-  const [bancoAgendamentos, setBancoAgendamentos] = useState([
-    { id: 1, petNome: 'Rex', especie: 'Cachorro', tutorNome: 'Maria Silva', data: '17/06/2026', horario: '14:00', veterinario: 'Dra. Mariana', motivo: 'Vacinação', status: 'Agendado' },
-    { id: 2, petNome: 'Mingau', especie: 'Gato', tutorNome: 'Carlos Souza', data: '19/06/2026', horario: '10:30', veterinario: 'Dr. Eduardo', motivo: 'Clínico Geral', status: 'Agendado' },
-    { id: 3, petNome: 'Rex', especie: 'Cachorro', tutorNome: 'Maria Silva', data: '15/06/2026', horario: '14:00', veterinario: 'Dra. Mariana', motivo: 'Vacinação', status: 'Concluído' },
-    { id: 4, petNome: 'Mingau', especie: 'Gato', tutorNome: 'Carlos Souza', data: '14/06/2026', horario: '10:30', veterinario: 'Dr. Eduardo', motivo: 'Clínico Geral', status: 'Concluído' },
-    { id: 5, petNome: 'Thor', especie: 'Gato', tutorNome: 'Maria Silva', data: '10/06/2026', horario: '16:15', veterinario: 'Dra. Mariana', motivo: 'Saúde Bucal', status: 'Cancelado' },
-    { id: 6, petNome: 'Luna', especie: 'Cachorro', tutorNome: 'Ana Costa', data: '05/06/2026', horario: '09:00', veterinario: 'Dr. Eduardo', motivo: 'Cirurgia', status: 'Concluído' },
-    { id: 7, petNome: 'Pipoca', especie: 'Roedor', tutorNome: 'Marcos Lima', data: '28/05/2026', horario: '11:00', veterinario: 'Dra. Mariana', motivo: 'Clínico Geral', status: 'Faltou' },
-  ]);
+  const [filtros, dispatch] = useReducer(filtrosAgendamentosReducer, estadoInicialFiltrosAgendamentos);
+  const { pesquisa, status: filtroStatus } = filtros;
 
   const handleCancelarAgendamento = (id, pet) => {
     const confirmar = window.confirm(`Tem certeza que deseja cancelar o agendamento do(a) ${pet}?`);
     if (confirmar) {
-      setBancoAgendamentos(prev =>
-        prev.map(item => item.id === id ? { ...item, status: 'Cancelado' } : item)
-      );
+      cancelar(id);
     }
   };
-
-  const obterAgendamentosPorCargo = () => {
-    if (token === 'cliente') {
-      return bancoAgendamentos.filter(item => item.tutorNome === tutorLogadoNome);
-    }
-    if (token === 'veterinario') {
-      return bancoAgendamentos.filter(item => item.veterinario === veterinarioLogadoNome);
-    }
-    return bancoAgendamentos;
-  };
-
-  const agendamentosPorCargo = obterAgendamentosPorCargo();
 
   const agendamentosFiltrados = agendamentosPorCargo.filter(item => {
-    const correspondePesquisa = 
+    const correspondePesquisa =
       item.petNome.toLowerCase().includes(pesquisa.toLowerCase()) ||
       item.tutorNome.toLowerCase().includes(pesquisa.toLowerCase()) ||
-      item.veterinario.toLowerCase().includes(pesquisa.toLowerCase());
+      item.veterinarioNome.toLowerCase().includes(pesquisa.toLowerCase());
 
     const correspondeStatus = filtroStatus === 'todos' || item.status.toLowerCase() === filtroStatus.toLowerCase();
 
@@ -88,19 +67,19 @@ export default function HistoricoAgendamentos() {
           <FaSearch className="search-icon-inside" />
           <input 
             type="text" 
-            placeholder={token === 'cliente' ? "Buscar por pet ou motivo..." : "Buscar por pet, tutor ou motivo..."} 
+            placeholder={token === 'cliente' ? "Buscar por pet ou motivo..." : "Buscar por pet, tutor ou motivo..."}
             value={pesquisa}
-            onChange={(e) => setPesquisa(e.target.value)}
+            onChange={(e) => dispatch({ type: 'DEFINIR_PESQUISA', payload: e.target.value })}
           />
         </div>
 
         <div className="filter-buttons-group">
           <span className="label-filtros"><FaFilter /> Filtrar:</span>
-          <button className={`btn-filtro ${filtroStatus === 'todos' ? 'ativo' : ''}`} onClick={() => setFiltroStatus('todos')}>Todos</button>
-          <button className={`btn-filtro ${filtroStatus === 'agendado' ? 'ativo' : ''}`} onClick={() => setFiltroStatus('agendado')}>Agendados</button>
-          <button className={`btn-filtro ${filtroStatus === 'concluido' ? 'ativo' : ''}`} onClick={() => setFiltroStatus('concluido')}>Concluídos</button>
-          <button className={`btn-filtro ${filtroStatus === 'cancelado' ? 'ativo' : ''}`} onClick={() => setFiltroStatus('cancelado')}>Cancelados</button>
-          <button className={`btn-filtro ${filtroStatus === 'faltou' ? 'ativo' : ''}`} onClick={() => setFiltroStatus('faltou')}>Faltas</button>
+          <button className={`btn-filtro ${filtroStatus === 'todos' ? 'ativo' : ''}`} onClick={() => dispatch({ type: 'DEFINIR_STATUS', payload: 'todos' })}>Todos</button>
+          <button className={`btn-filtro ${filtroStatus === 'agendado' ? 'ativo' : ''}`} onClick={() => dispatch({ type: 'DEFINIR_STATUS', payload: 'agendado' })}>Agendados</button>
+          <button className={`btn-filtro ${filtroStatus === 'concluido' ? 'ativo' : ''}`} onClick={() => dispatch({ type: 'DEFINIR_STATUS', payload: 'concluido' })}>Concluídos</button>
+          <button className={`btn-filtro ${filtroStatus === 'cancelado' ? 'ativo' : ''}`} onClick={() => dispatch({ type: 'DEFINIR_STATUS', payload: 'cancelado' })}>Cancelados</button>
+          <button className={`btn-filtro ${filtroStatus === 'faltou' ? 'ativo' : ''}`} onClick={() => dispatch({ type: 'DEFINIR_STATUS', payload: 'faltou' })}>Faltas</button>
         </div>
       </div>
 
@@ -149,7 +128,7 @@ export default function HistoricoAgendamentos() {
                   </td>
 
                   <td>
-                    <span className="nome-vet-tabela">{item.veterinario}</span>
+                    <span className="nome-vet-tabela">{item.veterinarioNome}</span>
                   </td>
 
                   <td>

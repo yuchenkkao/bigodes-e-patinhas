@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaCog, FaPaw, FaStethoscope, FaConciergeBell, FaLock, FaArrowLeft } from 'react-icons/fa';
+import { FaCog, FaPaw, FaStethoscope, FaConciergeBell, FaLock, FaArrowLeft, FaSyringe } from 'react-icons/fa';
 
-import ConfigEspecies from './components/ConfigEspecies';
-import ConfigVeterinarios from './components/ConfigVeterinarios';
-import ConfigServicos from './components/ConfigServicos';
+import ConfigEspecies from '../../ui/partials/Configuracoes/ConfigEspecies';
+import ConfigVeterinarios from '../../ui/partials/Configuracoes/ConfigVeterinarios';
+import ConfigServicos from '../../ui/partials/Configuracoes/ConfigServicos';
+import ConfigVacinas from '../../ui/partials/Configuracoes/ConfigVacinas';
 
 import './styles.css';
+import { useAuth } from '../../data/hooks/useAuth';
 
 export default function Configuracao() {
-  const token = localStorage.getItem('@BigodesToken') || 'visitante';
+  const { papel: token } = useAuth();
   const [abaAtiva, setAbaAtiva] = useState('especies');
 
   if (token !== 'gestor' && token !== 'atendente') {
@@ -47,11 +49,18 @@ export default function Configuracao() {
             <FaStethoscope /> Corpo Veterinário
           </button>
           
-          <button 
+          <button
             className={`nav-tab-btn ${abaAtiva === 'servicos' ? 'ativa' : ''}`}
             onClick={() => setAbaAtiva('servicos')}
           >
             <FaConciergeBell /> Serviços Oferecidos
+          </button>
+
+          <button
+            className={`nav-tab-btn ${abaAtiva === 'vacinas' ? 'ativa' : ''}`}
+            onClick={() => setAbaAtiva('vacinas')}
+          >
+            <FaSyringe /> Vacinas e Lotes
           </button>
         </nav>
       </aside>
@@ -60,6 +69,7 @@ export default function Configuracao() {
         {abaAtiva === 'especies' && <ConfigEspecies />}
         {abaAtiva === 'veterinarios' && <ConfigVeterinarios />}
         {abaAtiva === 'servicos' && <ConfigServicos />}
+        {abaAtiva === 'vacinas' && <ConfigVacinas />}
       </main>
 
     </div>

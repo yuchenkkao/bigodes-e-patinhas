@@ -2,24 +2,22 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaSignOutAlt } from 'react-icons/fa';
 
-import DadosPerfil from './components/DadosPerfil';
-import DadosPet from './components/DadosPet';
-import DadosConsulta from './components/DadosConsultas';
-import ModalEditarPerfil from './components/ModalEditarPerfil';
+import DadosPerfil from '../../ui/partials/Perfil/DadosPerfil';
+import DadosPet from '../../ui/partials/Perfil/DadosPet';
+import DadosConsulta from '../../ui/partials/Perfil/DadosConsultas';
+import ModalEditarPerfil from '../../ui/partials/Perfil/ModalEditarPerfil';
 
 import './styles.css';
+import { useAuth } from '../../data/hooks/useAuth';
+import { usePerfil, useMeusPets, useHistoricoConsultas } from '../../data/hooks/usePerfil';
 
 export default function Perfil() {
-const navigate = useNavigate();
-  const token = localStorage.getItem('@BigodesToken') || 'visitante';
+  const navigate = useNavigate();
+  const { papel: token, sair } = useAuth();
 
-  const [usuario, setUsuario] = useState({
-    nome: 'Maria Silva',
-    email: 'maria.silva@email.com',
-    telefone: '(45) 99999-8888',
-    endereco: 'Rua das Araucárias, 123 - Centro, Foz do Iguaçu - PR',
-    membroDesde: 'Janeiro / 2024'
-  });
+  const { usuario, atualizar } = usePerfil();
+  const { pets: meusPets } = useMeusPets();
+  const { historico: historicoConsultas } = useHistoricoConsultas();
 
   const [modalEditarAberto, setModalEditarAberto] = useState(false);
   useEffect(() => {
@@ -28,31 +26,21 @@ const navigate = useNavigate();
     }
   }, [token, navigate]);
 
-  if (token === 'visitante') {
+  if (token === 'visitante' || !usuario) {
     return null;
   }
-  
+
   const handleEditarPerfil = () => {
     setModalEditarAberto(true);
   };
 
-  const handleSalvarPerfil = (dadosAtualizados) => {
-    setUsuario(dadosAtualizados); 
+  const handleSalvarPerfil = async (dadosAtualizados) => {
+    await atualizar(dadosAtualizados);
     alert('Perfil atualizado com sucesso!');
   };
 
-  const meusPets = [
-    { id: 1, nome: 'Rex', especie: 'Cachorro', raca: 'Vira-lata (SRD)', idade: '2 anos' },
-    { id: 3, nome: 'Thor', especie: 'Gato', raca: 'Siamês', idade: '4 anos' }
-  ];
-
-  const historicoConsultas = [
-    { id: 101, data: '15/05/2026', pet: 'Rex', motivo: 'Vacinação (V10)', status: 'Concluído' },
-    { id: 102, data: '10/04/2026', pet: 'Thor', motivo: 'Clínico Geral', status: 'Concluído' }
-  ];
-
   const handleLogout = () => {
-    localStorage.removeItem('@BigodesToken');
+    sair();
     alert('Sessão encerrada com sucesso!');
     navigate('/');
   };

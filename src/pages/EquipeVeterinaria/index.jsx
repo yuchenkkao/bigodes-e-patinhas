@@ -1,24 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import { FaUserMd, FaIdCard, FaStethoscope, FaClock, FaCalendarAlt, FaGraduationCap } from 'react-icons/fa';
+import { FaUserMd, FaIdCard, FaStethoscope } from 'react-icons/fa';
 import './styles.css';
+import { useVeterinarios } from '../../data/hooks/useVeterinarios';
 
 export default function EquipeVeterinaria() {
-  const navigate = useNavigate();
-
-  const equipeVets = [
-    {
-      id: 1,
-      nome: 'Dra. Mariana Silva',
-      crmv: 'CRMV-PR 1234',
-      especialidade:'Especialista no cuidado de filhotes, acompanhamento de desenvolvimento preventivo, imunização e tratamentos de odontologia preventiva (saúde bucal).',
-    },
-    {
-      id: 2,
-      nome: 'Dr. Eduardo Souza',
-      crmv: 'CRMV-PR 5678',
-      especialidade: 'Responsável pelo atendimento clínico geral complexo, diagnóstico por imagem laboratoriais e comando de procedimentos cirúrgicos de tecidos moles e castrações.',
-    }
-  ];
+  const { veterinarios: equipeVets } = useVeterinarios();
 
   return (
     <div className="equipe-page-container">

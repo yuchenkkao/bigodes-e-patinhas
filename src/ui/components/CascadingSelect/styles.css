@@ -1,0 +1,45 @@
+.cascading-select {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.cascading-select-etapa {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cascading-select-etapa label {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #444;
+}
+
+.cascading-select-etapa select,
+.cascading-select-etapa input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ECE8CC;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  color: #333;
+  box-sizing: border-box;
+  outline: none;
+  font-family: sans-serif;
+  background-color: #fff;
+}
+
+.cascading-select-etapa select:focus,
+.cascading-select-etapa input:focus {
+  border-color: #6DCBB0;
+  box-shadow: 0 0 0 3px rgba(109, 203, 176, 0.1);
+}
+
+.cascading-select-etapa input:disabled {
+  background-color: #FAF8ED;
+  color: #999;
+  cursor: not-allowed;
+}

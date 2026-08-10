@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { FaPaw, FaWeight, FaCalendarAlt, FaUser, FaCheckCircle, FaArrowLeft } from 'react-icons/fa';
 import { MdNotes } from 'react-icons/md';
 import './styles.css';
+import { usePets } from '../../data/hooks/usePets';
 
 export default function CadastroPet() {
 
+  const { criar } = usePets();
   const [nome, setNome] = useState('');
   const [especie, setEspecie] = useState('');
   const [raca, setRaca] = useState('');
@@ -18,7 +20,7 @@ export default function CadastroPet() {
 
   const [mostrarModal, setMostrarModal] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
 
@@ -28,8 +30,7 @@ export default function CadastroPet() {
     }
 
 
-    const novoPet = { nome, especie, raca, idade, peso, genero, tutor, observacoes };
-    console.log('Salvando novo pet:', novoPet);
+    await criar({ nome, especie, raca, idade, peso, genero, tutorNome: tutor, observacoes });
 
 
     setMostrarModal(true);

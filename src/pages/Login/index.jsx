@@ -1,10 +1,14 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles.css';
-import logoImg from '../../assets/NavbarLogo.png'; 
+import logoImg from '../../assets/NavbarLogo.png';
+import { useAuth } from '../../data/hooks/useAuth';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const { logar } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -14,7 +18,8 @@ export default function Login() {
       return;
     }
 
-    window.location.href = '/';
+    logar('cliente');
+    navigate('/');
   };
 
   return (

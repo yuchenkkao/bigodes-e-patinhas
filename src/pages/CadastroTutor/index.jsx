@@ -1,23 +1,61 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaUser, FaIdCard, FaPhone, FaEnvelope, FaHome, FaCheckCircle, FaArrowLeft } from 'react-icons/fa';
+import { FaUser, FaIdCard, FaPhone, FaEnvelope, FaHome, FaCheckCircle, FaArrowLeft, FaMapMarkerAlt } from 'react-icons/fa';
 import './styles.css';
+import { useTutores } from '../../data/hooks/useTutores';
+import { useEstados, useCidadesPorEstado, useBairrosPorCidade, useBuscaCep } from '../../data/hooks/useEndereco';
 
 export default function CadastroTutor() {
 
+  const { criar } = useTutores();
   const [nome, setNome] = useState('');
   const [cpf, setCpf] = useState('');
   const [telefone, setTelefone] = useState('');
   const [email, setEmail] = useState('');
+
+  // Endereço: CEP e Número continuam texto livre; Estado, Cidade e Bairro viram seleção,
+  // com Cidade/Bairro filtrados em cascata pelo Estado/Cidade escolhidos.
+  const [cep, setCep] = useState('');
   const [rua, setRua] = useState('');
   const [numero, setNumero] = useState('');
-  const [bairro, setBairro] = useState('');
-  const [cidade, setCidade] = useState('Foz do Iguaçu');
+  const [estadoId, setEstadoId] = useState('');
+  const [cidadeId, setCidadeId] = useState('');
+  const [bairroId, setBairroId] = useState('');
 
+  const { estados } = useEstados();
+  const { cidades } = useCidadesPorEstado(estadoId);
+  const { bairros } = useBairrosPorCidade(cidadeId);
+  const { buscarPorCep, buscando: buscandoCep } = useBuscaCep();
 
   const [mostrarModal, setMostrarModal] = useState(false);
 
-  const handleSubmit = (e) => {
+  const cidadeSelecionada = cidades.find((c) => c.id === cidadeId);
+  const bairroSelecionado = bairros.find((b) => b.id === bairroId);
+
+  // Ao sair do campo CEP, tenta resolver o endereço automaticamente (stub hoje;
+  // no futuro plugaria em um serviço real, ex: ViaCEP) e pré-preenche os selects.
+  const handleCepBlur = async () => {
+    if (!cep) return;
+    const enderecoEncontrado = await buscarPorCep(cep);
+    if (!enderecoEncontrado) return;
+    setRua(enderecoEncontrado.rua || '');
+    setEstadoId(enderecoEncontrado.estadoId || '');
+    setCidadeId(enderecoEncontrado.cidadeId || '');
+    setBairroId(enderecoEncontrado.bairroId || '');
+  };
+
+  // Ao trocar o estado manualmente, limpa cidade/bairro (que dependiam do estado anterior)
+  useEffect(() => {
+    setCidadeId('');
+    setBairroId('');
+  }, [estadoId]);
+
+  // Ao trocar a cidade manualmente, limpa o bairro (que dependia da cidade anterior)
+  useEffect(() => {
+    setBairroId('');
+  }, [cidadeId]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!nome || !cpf || !telefone || !email) {
@@ -25,11 +63,26 @@ export default function CadastroTutor() {
       return;
     }
 
-    // Estruturando o objeto simulado para envio posterior
-    const novoTutor = { nome, cpf, telefone, email, endereco: { rua, numero, bairro, cidade } };
-    console.log('Salvando novo tutor:', novoTutor);
+    const estadoSelecionado = estados.find((uf) => uf.id === estadoId);
 
-    // Abre o modal de sucesso
+    await criar({
+      nome,
+      cpf,
+      telefone,
+      email,
+      endereco: {
+        cep,
+        rua,
+        numero,
+        estadoId,
+        estadoNome: estadoSelecionado?.nome,
+        cidadeId,
+        cidadeNome: cidadeSelecionada?.nome,
+        bairroId,
+        bairroNome: bairroSelecionado?.nome
+      }
+    });
+
     setMostrarModal(true);
   };
 
@@ -38,9 +91,12 @@ export default function CadastroTutor() {
     setCpf('');
     setTelefone('');
     setEmail('');
+    setCep('');
     setRua('');
     setNumero('');
-    setBairro('');
+    setEstadoId('');
+    setCidadeId('');
+    setBairroId('');
     setMostrarModal(false);
   };
 
@@ -100,12 +156,28 @@ export default function CadastroTutor() {
 
           {/* Seção 2: Endereço Residencial */}
           <h3 className="secao-titulo">Endereço Residencial</h3>
-          
+
           <div className="form-row">
+            <div className="form-group flex-1">
+              <label htmlFor="cep">CEP {buscandoCep && <span className="cep-buscando">(buscando...)</span>}</label>
+              <div className="input-with-icon">
+                <FaMapMarkerAlt className="input-icon" />
+                <input
+                  type="text"
+                  id="cep"
+                  placeholder="Ex: 85850-000"
+                  value={cep}
+                  onChange={(e) => setCep(e.target.value)}
+                  onBlur={handleCepBlur}
+                />
+              </div>
+            </div>
+
             <div className="form-group flex-3">
               <label htmlFor="rua">Rua / Logradouro</label>
               <div className="input-with-icon">
                 <FaHome className="input-icon" />
+                {/* Pré-preenchido pela busca de CEP quando disponível; segue editável manualmente */}
                 <input type="text" id="rua" placeholder="Ex: Av. Brasil" value={rua} onChange={(e) => setRua(e.target.value)} />
               </div>
             </div>
@@ -116,15 +188,37 @@ export default function CadastroTutor() {
             </div>
           </div>
 
+          {/* Estado, Cidade e Bairro agora são seleções — Cidade e Bairro em cascata,
+              e todos prontos para serem filtrados/pré-selecionados a partir do CEP no futuro */}
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="bairro">Bairro</label>
-              <input type="text" id="bairro" placeholder="Ex: Centro" value={bairro} onChange={(e) => setBairro(e.target.value)} />
+              <label htmlFor="estado">Estado</label>
+              <select id="estado" value={estadoId} onChange={(e) => setEstadoId(e.target.value)}>
+                <option value="">-- Selecione o Estado --</option>
+                {estados.map((uf) => (
+                  <option key={uf.id} value={uf.id}>{uf.nome}</option>
+                ))}
+              </select>
             </div>
 
             <div className="form-group">
               <label htmlFor="cidade">Cidade</label>
-              <input type="text" id="cidade" placeholder="Ex: Foz do Iguaçu" value={cidade} onChange={(e) => setCidade(e.target.value)} />
+              <select id="cidade" value={cidadeId} onChange={(e) => setCidadeId(e.target.value)} disabled={!estadoId}>
+                <option value="">-- Selecione a Cidade --</option>
+                {cidades.map((c) => (
+                  <option key={c.id} value={c.id}>{c.nome}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="bairro">Bairro</label>
+              <select id="bairro" value={bairroId} onChange={(e) => setBairroId(e.target.value)} disabled={!cidadeId}>
+                <option value="">-- Selecione o Bairro --</option>
+                {bairros.map((b) => (
+                  <option key={b.id} value={b.id}>{b.nome}</option>
+                ))}
+              </select>
             </div>
           </div>
 
@@ -145,7 +239,7 @@ export default function CadastroTutor() {
             <div className="modal-detalhes">
               <p>👤 <strong>Cliente:</strong> {nome}</p>
               <p>📞 <strong>Contato:</strong> {telefone}</p>
-              <p>📍 <strong>Localidade:</strong> {bairro ? `${bairro}, ` : ''}{cidade}</p>
+              <p>📍 <strong>Localidade:</strong> {bairroSelecionado ? `${bairroSelecionado.nome}, ` : ''}{cidadeSelecionada?.nome}</p>
             </div>
 
             <button className="btn-modal-fechar" onClick={limparFormulario}>

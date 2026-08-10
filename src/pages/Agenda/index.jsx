@@ -1,12 +1,15 @@
 import { useState } from 'react';
 
-import ResumoAgenda from './components/ResumoAgenda';
-import CalendarioBox from './components/CalendarioBox';
-import HorariosBox from './components/HorariosBox';
-import ModalEditarHorarios from './components/ModalEditarHorarios';
-import ModalAgendamento from './components/ModalAgendamento';
+import ResumoAgenda from '../../ui/partials/Agenda/ResumoAgenda';
+import CalendarioBox from '../../ui/partials/Agenda/CalendarioBox';
+import HorariosBox from '../../ui/partials/Agenda/HorariosBox';
+import ModalEditarHorarios from '../../ui/partials/Agenda/ModalEditarHorarios';
+import ModalAgendamento from '../../ui/partials/Agenda/ModalAgendamento';
 
 import './styles.css';
+import { useAuth } from '../../data/hooks/useAuth';
+import { useHorarios } from '../../data/hooks/useHorarios';
+import { useAgendamentos } from '../../data/hooks/useAgendamentos';
 
 export default function Agenda() {
   const [dataSelecionada, setDataSelecionada] = useState(new Date());
@@ -14,24 +17,9 @@ export default function Agenda() {
   const [mostrarModal, setMostrarModal] = useState(false);
   const [mostrarModalEditar, setMostrarModalEditar] = useState(false);
 
-  const token = localStorage.getItem('@BigodesToken') || 'visitante';
-
-  const [horarios, setHorarios] = useState([
-    { hora: '08:00', ativo: true },
-    { hora: '09:00', ativo: true },
-    { hora: '10:30', ativo: true },
-    { hora: '11:00', ativo: true },
-    { hora: '14:00', ativo: true },
-    { hora: '15:30', ativo: true },
-    { hora: '16:00', ativo: true },
-    { hora: '17:30', ativo: true }
-  ]);
-
-  const toggleHorario = (horaParaMudar) => {
-    setHorarios(horarios.map(h => 
-      h.hora === horaParaMudar ? { ...h, ativo: !h.ativo } : h
-    ));
-  };
+  const { papel: token } = useAuth();
+  const { horarios, toggleHorario } = useHorarios();
+  const { agendamentos, criar: criarAgendamento, atualizarStatus } = useAgendamentos();
 
   const aoMudarData = (novaData) => {
     setDataSelecionada(novaData);
@@ -60,8 +48,8 @@ export default function Agenda() {
       </div>
 
       <div className="agenda-content">
-        <ResumoAgenda token={token} dataSelecionada={dataSelecionada}/>
-        
+        <ResumoAgenda token={token} dataSelecionada={dataSelecionada} agendamentos={agendamentos} atualizarStatus={atualizarStatus}/>
+
         <CalendarioBox 
           dataSelecionada={dataSelecionada} 
           aoMudarData={aoMudarData} 
@@ -83,9 +71,9 @@ export default function Agenda() {
         fecharModal={() => { setMostrarModal(false); setHorarioSelecionado(''); }} 
         dataSelecionada={dataSelecionada}
         horarioSelecionado={horarioSelecionado}
-        onSalvarAgendamento={(novoAgendamento) => {
-          console.log('Dados salvos do agendamento:', novoAgendamento);
-          alert(`Agendamento concluído para às ${novoAgendamento.hora}h!`);
+        onSalvarAgendamento={async (novoAgendamento) => {
+          await criarAgendamento(novoAgendamento);
+          alert(`Agendamento concluído para às ${novoAgendamento.horario}h!`);
         }}
       />
 

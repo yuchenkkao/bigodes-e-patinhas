@@ -2,27 +2,19 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaPaw, FaUser, FaCalendarAlt, FaSearch, FaPlus, FaDna } from 'react-icons/fa';
 import './styles.css';
+import { useAuth } from '../../data/hooks/useAuth';
+import { usePets } from '../../data/hooks/usePets';
 
 export default function Pets() {
 
-  const token = localStorage.getItem('@BigodesToken') || 'visitante';
-
+  const { papel: token } = useAuth();
+  const { pets } = usePets();
 
   const [pesquisa, setPesquisa] = useState('');
 
-
-  const bancoPets = [
-    { id: 1, nome: 'Rex', especie: 'Cachorro', raca: 'Vira-lata (SRD)', idade: '2 anos', tutor: 'Maria Silva' },
-    { id: 2, nome: 'Mingau', especie: 'Gato', raca: 'Persa', idade: '1 ano', tutor: 'Carlos Souza' },
-    { id: 3, nome: 'Luna', especie: 'Cachorro', raca: 'Poodle', idade: '3 anos', tutor: 'Ana Costa' },
-    { id: 4, nome: 'Nikolas', especie: 'Cachorro', raca: 'Pinscher', idade: '5 meses', tutor: 'Victor' },
-    { id: 5, nome: 'Pipoca', especie: 'Roedor', raca: 'Hamster Sírio', idade: '8 meses', tutor: 'Marcos Lima' },
-    { id: 6, nome: 'Mel', especie: 'Cachorro', raca: 'Golden Retriever', idade: '4 anos', tutor: 'Beatriz Reis' },
-  ];
-
-  const petsFiltrados = bancoPets.filter((pet) =>
+  const petsFiltrados = pets.filter((pet) =>
     pet.nome.toLowerCase().includes(pesquisa.toLowerCase()) ||
-    pet.tutor.toLowerCase().includes(pesquisa.toLowerCase())
+    (pet.tutorNome || '').toLowerCase().includes(pesquisa.toLowerCase())
   );
 
   return (
@@ -74,7 +66,7 @@ export default function Pets() {
                 
                 <p><FaDna /> <strong>Raça:</strong> {pet.raca}</p>
                 <p><FaCalendarAlt /> <strong>Idade:</strong> {pet.idade}</p>
-                <p><FaUser /> <strong>Tutor:</strong> {pet.tutor}</p>
+                <p><FaUser /> <strong>Tutor:</strong> {pet.tutorNome}</p>
               </div>
 
               <div className="pet-card-footer">

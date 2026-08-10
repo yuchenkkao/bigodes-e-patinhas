@@ -2,21 +2,16 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaUser, FaIdCard, FaPhone, FaEnvelope, FaSearch, FaPlus, FaPaw } from 'react-icons/fa';
 import './styles.css';
+import { useAuth } from '../../data/hooks/useAuth';
+import { useTutores } from '../../data/hooks/useTutores';
 
 export default function Tutores() {
-  const token = localStorage.getItem('@BigodesToken') || 'visitante';
+  const { papel: token } = useAuth();
+  const { tutores } = useTutores();
 
   const [pesquisa, setPesquisa] = useState('');
 
-  const bancoTutores = [
-    { id: 1, nome: 'Maria Silva', cpf: '123.456.789-00', telefone: '(45) 99911-2233', email: 'maria.silva@email.com', qtdPets: 2 },
-    { id: 2, nome: 'Carlos Souza', cpf: '987.654.321-11', telefone: '(45) 99888-7766', email: 'carlos.souza@email.com', qtdPets: 1 },
-    { id: 3, nome: 'Ana Costa', cpf: '456.789.123-22', telefone: '(45) 99122-3344', email: 'ana.costa@email.com', qtdPets: 1 },
-    { id: 4, nome: 'Marcos Lima', cpf: '321.654.987-33', telefone: '(45) 98455-6677', email: 'marcos.lima@email.com', qtdPets: 1 },
-    { id: 5, nome: 'Beatriz Reis', cpf: '789.123.456-44', telefone: '(45) 99233-8899', email: 'biatriz.reis@email.com', qtdPets: 3 },
-  ];
-
-  const tutoresFiltrados = bancoTutores.filter((tutor) =>
+  const tutoresFiltrados = tutores.filter((tutor) =>
     tutor.nome.toLowerCase().includes(pesquisa.toLowerCase()) ||
     tutor.cpf.includes(pesquisa) ||
     tutor.email.toLowerCase().includes(pesquisa.toLowerCase())

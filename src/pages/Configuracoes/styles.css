@@ -162,6 +162,63 @@
 .time-tag { color: #4068DE; }
 
 
+/* CADASTRO DE VACINAS + LOTES */
+.form-config-vacina {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 480px;
+  margin-bottom: 30px;
+}
+
+.form-group-vacina {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group-vacina label {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #444;
+}
+
+.form-group-vacina input[type="text"] {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #ECE8CC;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  outline: none;
+  font-family: sans-serif;
+}
+
+.form-group-vacina input[type="text"]:focus {
+  border-color: #6DCBB0;
+}
+
+.form-config-vacina .btn-add-config {
+  align-self: flex-start;
+}
+
+.lista-lotes-config {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag-chip-lote {
+  display: inline-block;
+  background-color: rgba(109, 203, 176, 0.12);
+  color: #2b6151;
+  border: 1px solid #ECE8CC;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
 .config-bloqueada-container { text-align: center; padding: 120px 20px; min-height: 80vh; background-color: #FAF8ED; }
 .lock-circle-config { background-color: #ffeaea; color: #cc4c4c; width: 80px; height: 80px; font-size: 2.3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; }
 .btn-voltar-config { display: inline-flex; align-items: center; gap: 6px; color: #4068DE; font-weight: bold; text-decoration: none; margin-top: 15px; }

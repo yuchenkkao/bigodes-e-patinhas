@@ -218,6 +218,91 @@
   max-width: 200px;
 }
 
+/* Seção de vacinação em cascata */
+.secao-vacinacao {
+  background-color: #FAF8ED;
+  border-radius: 10px;
+  padding: 18px;
+  border: 1px solid #ECE8CC;
+  gap: 14px;
+}
+
+.vacinacao-status-linha {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.radio-label-vacinacao {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  font-weight: normal;
+  color: #444;
+}
+
+.input-data-agendada {
+  max-width: 160px !important;
+  padding: 8px !important;
+}
+
+.btn-adicionar-vacinacao {
+  background-color: #4068DE;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  transition: background-color 0.2s;
+}
+
+.btn-adicionar-vacinacao:hover {
+  background-color: #6DCBB0;
+}
+
+.lista-itens-vacinacao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-chip-vacinacao {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(109, 203, 176, 0.12);
+  color: #2b6151;
+  border: 1px solid #ECE8CC;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: bold;
+}
+
+.tag-chip-vacinacao button {
+  background: none;
+  border: none;
+  color: #2b6151;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  opacity: 0.7;
+}
+
+.tag-chip-vacinacao button:hover {
+  opacity: 1;
+  color: #cc4c4c;
+}
+
 /* Botões finais */
 .form-atendimento-botoes {
   display: flex;

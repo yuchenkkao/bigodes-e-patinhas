@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import './styles.css';
 import ImgPaginaIncial from '../../assets/FotoPaginaInicial.png';
-import Servicos from '../../components/Servicos';
+import Servicos from '../../ui/components/Servicos';
+import { useAuth } from '../../data/hooks/useAuth';
 
 
 export default function Home() {
 
-  const token = localStorage.getItem('@BigodesToken') || 'visitante';
+  const { papel: token } = useAuth();
 
   return (
     <div className="home-container">

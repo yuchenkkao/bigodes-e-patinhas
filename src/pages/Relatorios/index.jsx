@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { 
+import {
   FaChartBar, FaCalendarCheck, FaPaw, FaNotesMedical, FaSyringe,
   FaLock, FaArrowLeft, FaFilter, FaChartPie
 } from 'react-icons/fa';
 import './styles.css';
+import { useAuth } from '../../data/hooks/useAuth';
+import { useRelatorios } from '../../data/hooks/useRelatorios';
 
 export default function Relatorios() {
-  const token = localStorage.getItem('@BigodesToken') || 'visitante';
+  const { papel: token } = useAuth();
   const [mesFiltro, setMesFiltro] = useState('Junho / 2026');
+
+  const { relatorio } = useRelatorios(mesFiltro);
 
   if (token !== 'gestor') {
     return (
@@ -21,34 +25,10 @@ export default function Relatorios() {
     );
   }
 
-  const metricasGerais = {
-    totalAtendimentos: 120,
-    mediaDiaria: 5,
-    totalVacinas: 45,
-    especiePrincipal: 'Cachorros (54%)'
-  };
-
-  const tiposPets = [
-    { nome: 'Cachorros', quantidade: 65, porcentagem: 54 },
-    { nome: 'Gatos', quantidade: 40, porcentagem: 33 },
-    { nome: 'Roedores', quantidade: 10, porcentagem: 8 },
-    { nome: 'Aves', quantidade: 5, porcentagem: 5 },
-  ];
-
-  const motivosConsulta = [
-    { nome: 'Vacinação', quantidade: 45, porcentagem: 37 },
-    { nome: 'Clínico Geral', quantidade: 35, porcentagem: 29 },
-    { nome: 'Retorno', quantidade: 20, porcentagem: 17 },
-    { nome: 'Castração', quantidade: 10, porcentagem: 8 },
-    { nome: 'Saúde Bucal', quantidade: 10, porcentagem: 8 },
-  ];
-
-  const vacinasAplicadas = [
-    { nome: 'Múltipla Canina (V10 / V8)', quantidade: 20, porcentagem: 44 },
-    { nome: 'Antirrábica', quantidade: 15, porcentagem: 33 },
-    { nome: 'Múltipla Felina (V5 / V4)', quantidade: 7, porcentagem: 15 },
-    { nome: 'Gripe Canina / Tosse', quantidade: 3, porcentagem: 8 },
-  ];
+  const metricasGerais = relatorio?.metricasGerais || { totalAtendimentos: 0, mediaDiaria: 0, totalVacinas: 0, especiePrincipal: '---' };
+  const tiposPets = relatorio?.tiposPets || [];
+  const motivosConsulta = relatorio?.motivosConsulta || [];
+  const vacinasAplicadas = relatorio?.vacinasAplicadas || [];
 
   return (
     <div className="dashboard-container">

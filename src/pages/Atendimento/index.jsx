@@ -1,30 +1,53 @@
 import { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { 
-  FaArrowLeft, FaSave, FaPaw, FaUser, FaFileMedicalAlt, 
-  FaWeight, FaNotesMedical, FaFlask, FaPills, FaLock 
+import {
+  FaArrowLeft, FaSave, FaPaw, FaUser, FaFileMedicalAlt,
+  FaWeight, FaNotesMedical, FaFlask, FaPills, FaLock, FaPlus, FaTimes
 } from 'react-icons/fa';
 import { MdVaccines } from 'react-icons/md';
 import './styles.css';
+import { useAuth } from '../../data/hooks/useAuth';
+import { useAtendimento } from '../../data/hooks/useAtendimento';
+import { useAtendimentoVacinacao } from '../../data/hooks/useAtendimentoVacinacao';
+import { useVacinas } from '../../data/hooks/useVacinas';
+import MultiTagInput from '../../ui/components/MultiTagInput';
+import CascadingSelect from '../../ui/components/CascadingSelect';
 
 export default function Atendimento() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const token = localStorage.getItem('@BigodesToken') || 'visitante';
+  const { papel: token } = useAuth();
 
-  const bancoAtendimentos = [
-    { id: 1, petNome: 'Rex', especie: 'Cachorro', raca: 'Vira-lata (SRD)', idade: '2 anos', tutorNome: 'Maria Silva', motivo: 'Vacinação' },
-    { id: 2, petNome: 'Mingau', especie: 'Gato', raca: 'Persa', idade: '1 ano', tutorNome: 'Carlos Souza', motivo: 'Saúde Bucal' },
-    { id: 3, petNome: 'Luna', especie: 'Cachorro', raca: 'Poodle', idade: '3 anos', tutorNome: 'Ana Costa', motivo: 'Clínico Geral' },
-  ];
-
-  const pacienteAtual = bancoAtendimentos.find(atend => atend.id === Number(id)) || bancoAtendimentos[0];
+  const { ficha: pacienteAtual, salvarEvolucao } = useAtendimento(id);
+  // Sincroniza as vacinas registradas neste atendimento com a carteirinha do pet (usada em PerfilPet)
+  const { adicionarVacina } = useVacinas(pacienteAtual?.petId);
 
   const [pesoConsulta, setPesoConsulta] = useState('');
-  const [sinaisClinicos, setSinaisClinicos] = useState('');
-  const [vacinaVermifugo, setVacinaVermifugo] = useState('');
-  const [exames, setExames] = useState('');
-  const [prescricoes, setPrescricoes] = useState('');
+  // Campos dinâmicos: cada um é um array de strings alimentado pelo MultiTagInput (tag a tag)
+  const [sinaisClinicos, setSinaisClinicos] = useState([]);
+  const [vacinaVermifugo, setVacinaVermifugo] = useState([]);
+  const [exames, setExames] = useState([]);
+  const [prescricoes, setPrescricoes] = useState([]);
+  // Campo novo: texto livre de múltiplas linhas, sem estrutura de tags
+  const [observacoes, setObservacoes] = useState('');
+
+  // Seção de vacinação em cascata (vacina do catálogo -> lote dependente) — toda a lógica
+  // de filtragem/limpeza e o array de itens vive no hook, este componente só consome
+  const {
+    vacinasCatalogo,
+    vacinaCatalogoId,
+    selecionarVacina,
+    lote,
+    setLote,
+    lotesDisponiveis,
+    statusDose,
+    setStatusDose,
+    dataAgendada,
+    setDataAgendada,
+    itensVacinacao,
+    adicionarItem: adicionarItemVacinacao,
+    removerItem: removerItemVacinacao
+  } = useAtendimentoVacinacao();
 
   if (token !== 'veterinario') {
     return (
@@ -39,30 +62,47 @@ export default function Atendimento() {
     );
   }
 
-  const handleSalvarProntuario = (e) => {
+  const handleSalvarProntuario = async (e) => {
     e.preventDefault();
 
-    if (!pesoConsulta || !sinaisClinicos || !prescricoes) {
+    if (!pesoConsulta || sinaisClinicos.length === 0 || prescricoes.length === 0) {
       alert('Por favor, preencha pelo menos o Peso, os Sinais Clínicos e as Prescrições/Condutas!');
       return;
     }
 
-    const novaEvolucaoProntuario = {
-      atendimentoId: id,
-      petNome: pacienteAtual.petNome,
+    await salvarEvolucao({
+      agendamentoId: id,
+      petId: pacienteAtual.petId,
       data: new Date().toLocaleDateString('pt-BR'),
       pesoConsulta,
       sinaisClinicos,
-      vacinaVermifugo: vacinaVermifugo || 'Nenhuma vacina aplicada nesta consulta.',
-      exames: exames || 'Nenhum exame solicitado.',
-      prescricoes
-    };
+      vacinaVermifugo,
+      exames,
+      prescricoes,
+      vacinas: itensVacinacao,
+      observacoes
+    });
 
-    console.log('Salvando Prontuário Médico:', novaEvolucaoProntuario);
+    // Cada vacina registrada/agendada neste atendimento também vira um registro na carteirinha do pet
+    await Promise.all(itensVacinacao.map((item) => adicionarVacina(item)));
+
     alert(`Prontuário de ${pacienteAtual.petNome} salvo.`);
-    
+
     navigate('/agenda');
   };
+
+  if (token === 'veterinario' && !pacienteAtual) {
+    return (
+      <div className="atendimento-bloqueado-container">
+        <div className="lock-box">
+          <FaPaw />
+        </div>
+        <h2>Paciente não localizado</h2>
+        <p>Não foi possível carregar os dados deste atendimento.</p>
+        <Link to="/agenda" className="btn-voltar-trava"><FaArrowLeft /> Voltar para a Agenda</Link>
+      </div>
+    );
+  }
 
   return (
     <div className="atendimento-page-container">
@@ -118,44 +158,118 @@ export default function Atendimento() {
               />
             </div>
 
-            {/* Campo 2: Anamnese e Sinais Clínicos */}
+            {/* Campo 2: Anamnese e Sinais Clínicos — tag a tag via MultiTagInput (botão "+" ou Enter) */}
             <div className="input-group-clinico">
-              <label><FaNotesMedical />Sinais clínicos e exame físico *</label>
-              <textarea 
-                rows="4"
-                placeholder="Descreva o estado geral do animal, mucosas, frequência cardíaca, temperatura e observações clínicas relevantes..."
-                value={sinaisClinicos}
-                onChange={(e) => setSinaisClinicos(e.target.value)}
+              <label><FaNotesMedical /> Sinais clínicos e exame físico *</label>
+              <MultiTagInput
+                placeholder="Digite um sinal/sintoma e pressione Enter ou +"
+                tags={sinaisClinicos}
+                onChange={setSinaisClinicos}
               />
             </div>
 
             <div className="input-group-clinico">
-              <label><MdVaccines /> Vacinas, imunizantes ou vermífugos aplicados na sessão</label>
-              <textarea 
-                rows="2"
-                placeholder="Se houver, especifique o nome da vacina, marca e número do lote..."
-                value={vacinaVermifugo}
-                onChange={(e) => setVacinaVermifugo(e.target.value)}
+              <label><MdVaccines /> Vermífugos e outras observações de imunização</label>
+              <MultiTagInput
+                placeholder="Ex: Vermífugo Drontal Plus..."
+                tags={vacinaVermifugo}
+                onChange={setVacinaVermifugo}
               />
+            </div>
+
+            {/* Registro/Agendamento de vacina do catálogo — fluxo em cascata: Passo 1 escolhe a
+                vacina, Passo 2 (lote) só habilita depois e mostra só os lotes daquela vacina;
+                trocar a vacina limpa o lote automaticamente (regra aplicada dentro do hook) */}
+            <div className="input-group-clinico secao-vacinacao">
+              <label><MdVaccines /> Registrar Vacina do Catálogo (Aplicada ou Agendada)</label>
+
+              <CascadingSelect
+                parentLabel="Passo 1 — Vacina"
+                parentPlaceholder="-- Selecione a vacina --"
+                parentOptions={vacinasCatalogo.map((v) => ({ value: v.id, label: v.nome }))}
+                parentValue={vacinaCatalogoId}
+                onParentChange={selecionarVacina}
+                childLabel="Passo 2 — Lote"
+                childPlaceholder="Selecione ou digite o lote"
+                childOptions={lotesDisponiveis}
+                childValue={lote}
+                onChildChange={setLote}
+              />
+
+              <div className="vacinacao-status-linha">
+                <label className="radio-label-vacinacao">
+                  <input
+                    type="radio"
+                    name="statusDose"
+                    checked={statusDose === 'Aplicada'}
+                    onChange={() => setStatusDose('Aplicada')}
+                  />
+                  Aplicada agora
+                </label>
+                <label className="radio-label-vacinacao">
+                  <input
+                    type="radio"
+                    name="statusDose"
+                    checked={statusDose === 'Agendado'}
+                    onChange={() => setStatusDose('Agendado')}
+                  />
+                  Agendar para depois
+                </label>
+
+                {statusDose === 'Agendado' && (
+                  <input
+                    type="date"
+                    className="input-data-agendada"
+                    value={dataAgendada}
+                    onChange={(e) => setDataAgendada(e.target.value)}
+                  />
+                )}
+
+                <button type="button" className="btn-adicionar-vacinacao" onClick={adicionarItemVacinacao}>
+                  <FaPlus /> Adicionar
+                </button>
+              </div>
+
+              {itensVacinacao.length > 0 && (
+                <div className="lista-itens-vacinacao">
+                  {itensVacinacao.map((item, indice) => (
+                    <span key={`${item.nome}-${item.lote}-${indice}`} className="tag-chip-vacinacao">
+                      {item.nome} · Lote {item.lote} · {item.status === 'Agendado' ? `Agendada ${item.data}` : 'Aplicada'}
+                      <button type="button" onClick={() => removerItemVacinacao(indice)} aria-label={`Remover ${item.nome}`}>
+                        <FaTimes />
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="input-group-clinico">
               <label><FaFlask /> Exames complementares solicitados</label>
-              <textarea 
-                rows="2"
-                placeholder="Ex: Hemograma completo, Ultrassonografia abdominal, Raio-X coxofemoral..."
-                value={exames}
-                onChange={(e) => setExames(e.target.value)}
+              <MultiTagInput
+                placeholder="Ex: Hemograma completo, Raio-X coxofemoral..."
+                tags={exames}
+                onChange={setExames}
               />
             </div>
 
             <div className="input-group-clinico">
               <label><FaPills /> Prescrições Medicamentosas & Conduta Médica *</label>
-              <textarea 
+              <MultiTagInput
+                placeholder="Ex: Posatex Gotas 1x ao dia por 10 dias..."
+                tags={prescricoes}
+                onChange={setPrescricoes}
+              />
+            </div>
+
+            {/* Novo campo: texto livre de múltiplas linhas, sem tags */}
+            <div className="input-group-clinico">
+              <label><FaNotesMedical /> Observações do Atendimento</label>
+              <textarea
                 rows="4"
-                placeholder="Receituário detalhado, dosagens, horários de administração, recomendações de repouso ou retorno clínico..."
-                value={prescricoes}
-                onChange={(e) => setPrescricoes(e.target.value)}
+                placeholder="Observações gerais sobre o atendimento, comportamento do animal, orientações ao tutor..."
+                value={observacoes}
+                onChange={(e) => setObservacoes(e.target.value)}
               />
             </div>
 

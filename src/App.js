@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import { AuthProvider } from './data/contexts/AuthContext';
+
+import Navbar from './ui/components/Navbar';
+import Footer from './ui/components/Footer';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -23,7 +25,8 @@ import EquipeVeterinaria from './pages/EquipeVeterinaria';
 function App() {
   return (
 
-    
+
+    <AuthProvider>
     <BrowserRouter>
 
       <Navbar />
@@ -58,6 +61,7 @@ function App() {
       </Routes>
       <Footer />
     </BrowserRouter>
+    </AuthProvider>
 
   );
 }
