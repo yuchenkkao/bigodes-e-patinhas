@@ -1,0 +1,204 @@
+.sr-bigode-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  font-family: sans-serif;
+}
+
+.sr-bigode-bolinha {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #4068DE;
+  color: white;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(64, 104, 222, 0.35);
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.sr-bigode-bolinha:hover {
+  background-color: #6DCBB0;
+  transform: scale(1.05);
+}
+
+.sr-bigode-janela {
+  width: 320px;
+  max-width: calc(100vw - 48px);
+  height: 420px;
+  max-height: calc(100vh - 140px);
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #ECE8CC;
+  animation: sr-bigode-abrir 0.2s ease-out;
+}
+
+@keyframes sr-bigode-abrir {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.sr-bigode-cabecalho {
+  background-color: #4068DE;
+  color: white;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sr-bigode-cabecalho-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sr-bigode-avatar-mini {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.sr-bigode-cabecalho-info strong {
+  display: block;
+  font-size: 0.92rem;
+}
+
+.sr-bigode-status {
+  font-size: 0.72rem;
+  opacity: 0.85;
+}
+
+.sr-bigode-fechar {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  opacity: 0.85;
+}
+
+.sr-bigode-fechar:hover {
+  opacity: 1;
+}
+
+.sr-bigode-mensagens {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #FAF8ED;
+}
+
+.sr-bigode-boas-vindas {
+  color: #666;
+  font-size: 0.85rem;
+  text-align: center;
+  margin: auto 0;
+}
+
+.sr-bigode-mensagem {
+  max-width: 80%;
+  padding: 9px 13px;
+  border-radius: 14px;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.sr-bigode-mensagem-usuario {
+  align-self: flex-end;
+  background-color: #4068DE;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.sr-bigode-mensagem-bigode {
+  align-self: flex-start;
+  background-color: white;
+  color: #333;
+  border: 1px solid #ECE8CC;
+  border-bottom-left-radius: 4px;
+}
+
+.sr-bigode-digitando {
+  color: #999;
+  font-style: italic;
+}
+
+.sr-bigode-erro {
+  align-self: center;
+  color: #cc4c4c;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.sr-bigode-form {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid #ECE8CC;
+  background-color: white;
+  flex-shrink: 0;
+}
+
+.sr-bigode-form input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #ECE8CC;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.sr-bigode-form input:focus {
+  border-color: #6DCBB0;
+}
+
+.sr-bigode-form button {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: #4068DE;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.2s;
+}
+
+.sr-bigode-form button:hover:not(:disabled) {
+  background-color: #6DCBB0;
+}
+
+.sr-bigode-form button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

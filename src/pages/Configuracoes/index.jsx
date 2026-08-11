@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaCog, FaPaw, FaStethoscope, FaConciergeBell, FaLock, FaArrowLeft, FaSyringe, FaNotesMedical, FaFlask, FaPills } from 'react-icons/fa';
 
-import ConfigEspecies from '../../ui/partials/Configuracoes/ConfigEspecies';
+import SpeciesBreedConfig from '../../ui/components/SpeciesBreedConfig';
 import ConfigVeterinarios from '../../ui/partials/Configuracoes/ConfigVeterinarios';
 import ConfigServicos from '../../ui/partials/Configuracoes/ConfigServicos';
 import ConfigVacinas from '../../ui/partials/Configuracoes/ConfigVacinas';
@@ -42,7 +42,7 @@ export default function Configuracao() {
             className={`nav-tab-btn ${abaAtiva === 'especies' ? 'ativa' : ''}`}
             onClick={() => setAbaAtiva('especies')}
           >
-            <FaPaw /> Espécies Atendidas
+            <FaPaw /> Espécies e Raças
           </button>
           
           <button 
@@ -90,7 +90,7 @@ export default function Configuracao() {
       </aside>
 
       <main className="config-content-panel">
-        {abaAtiva === 'especies' && <ConfigEspecies />}
+        {abaAtiva === 'especies' && <SpeciesBreedConfig />}
         {abaAtiva === 'veterinarios' && <ConfigVeterinarios />}
         {abaAtiva === 'servicos' && <ConfigServicos />}
         {abaAtiva === 'vacinas' && <ConfigVacinas />}

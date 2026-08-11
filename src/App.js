@@ -4,6 +4,7 @@ import { AuthProvider } from './data/contexts/AuthContext';
 
 import Navbar from './ui/components/Navbar';
 import Footer from './ui/components/Footer';
+import SrBigodeChatWidget from './ui/components/SrBigodeChatWidget';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -60,6 +61,7 @@ function App() {
         <Route path="/historico-agendamentos" element={<HistoricoAgendamentos />} />
       </Routes>
       <Footer />
+      <SrBigodeChatWidget />
     </BrowserRouter>
     </AuthProvider>
 
