@@ -9,7 +9,7 @@ import './styles.css';
  * (especies -> especie.racas) mora em useEspecies (adicionarRaca/removerRaca),
  * mantendo a imutabilidade fora da camada de apresentação.
  */
-export default function SpeciesBreedConfig() {
+export default function ConfiguracaoEspecieRaca() {
   const { especies, criar, remover, adicionarRaca, removerRaca } = useEspecies();
 
   const [novaEspecie, setNovaEspecie] = useState('');

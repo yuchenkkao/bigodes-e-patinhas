@@ -30,7 +30,7 @@
 
 /**
  * Um exame solicitado via autocomplete — "resultado" começa vazio e é preenchido depois,
- * item a item, no ExamResultCard correspondente.
+ * item a item, no CartaoResultadoExame correspondente.
  * @typedef {Object} ExameSolicitado
  * @property {string} exameId
  * @property {string} nome
@@ -39,7 +39,7 @@
 
 /**
  * Um medicamento escolhido via autocomplete — dosagem/frequência/duração/observação começam
- * vazias e são preenchidas depois, item a item, no MedicationPrescriptionForm correspondente.
+ * vazias e são preenchidas depois, item a item, no FormularioPrescricaoMedicamento correspondente.
  * @typedef {Object} MedicamentoPrescrito
  * @property {string} medicamentoId
  * @property {string} nome

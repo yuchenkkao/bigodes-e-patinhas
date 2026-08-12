@@ -3,9 +3,9 @@ import { createContext, useCallback, useState } from 'react';
 const CHAVE_TOKEN = '@BigodesToken';
 
 /** @type {import('react').Context<{papel: import('../@types/Usuario').Papel, logar: (papel: import('../@types/Usuario').Papel) => void, sair: () => void}>} */
-export const AuthContext = createContext(null);
+export const AutenticacaoContext = createContext(null);
 
-export function AuthProvider({ children }) {
+export function AutenticacaoProvider({ children }) {
   const [papel, setPapel] = useState(localStorage.getItem(CHAVE_TOKEN) || 'visitante');
 
   const logar = useCallback((novoPapel) => {
@@ -19,8 +19,8 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ papel, logar, sair }}>
+    <AutenticacaoContext.Provider value={{ papel, logar, sair }}>
       {children}
-    </AuthContext.Provider>
+    </AutenticacaoContext.Provider>
   );
 }

@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { AuthProvider } from './data/contexts/AuthContext';
+import { AutenticacaoProvider } from './data/contexts/AutenticacaoContext';
 
-import Navbar from './ui/components/Navbar';
-import Footer from './ui/components/Footer';
-import SrBigodeChatWidget from './ui/components/SrBigodeChatWidget';
+import BarraNavegacao from './ui/components/BarraNavegacao';
+import Rodape from './ui/components/Rodape';
+import PainelConversaSrBigode from './ui/components/PainelConversaSrBigode';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -27,10 +27,10 @@ function App() {
   return (
 
 
-    <AuthProvider>
+    <AutenticacaoProvider>
     <BrowserRouter>
 
-      <Navbar />
+      <BarraNavegacao />
       <Routes>
   
         <Route path="/login" element={<Login />} />
@@ -60,10 +60,10 @@ function App() {
 
         <Route path="/historico-agendamentos" element={<HistoricoAgendamentos />} />
       </Routes>
-      <Footer />
-      <SrBigodeChatWidget />
+      <Rodape />
+      <PainelConversaSrBigode />
     </BrowserRouter>
-    </AuthProvider>
+    </AutenticacaoProvider>
 
   );
 }

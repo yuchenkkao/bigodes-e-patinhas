@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaCog, FaPaw, FaStethoscope, FaConciergeBell, FaLock, FaArrowLeft, FaSyringe, FaNotesMedical, FaFlask, FaPills } from 'react-icons/fa';
 
-import SpeciesBreedConfig from '../../ui/components/SpeciesBreedConfig';
+import ConfiguracaoEspecieRaca from '../../ui/components/ConfiguracaoEspecieRaca';
 import ConfigVeterinarios from '../../ui/partials/Configuracoes/ConfigVeterinarios';
 import ConfigServicos from '../../ui/partials/Configuracoes/ConfigServicos';
 import ConfigVacinas from '../../ui/partials/Configuracoes/ConfigVacinas';
@@ -90,7 +90,7 @@ export default function Configuracao() {
       </aside>
 
       <main className="config-content-panel">
-        {abaAtiva === 'especies' && <SpeciesBreedConfig />}
+        {abaAtiva === 'especies' && <ConfiguracaoEspecieRaca />}
         {abaAtiva === 'veterinarios' && <ConfigVeterinarios />}
         {abaAtiva === 'servicos' && <ConfigServicos />}
         {abaAtiva === 'vacinas' && <ConfigVacinas />}

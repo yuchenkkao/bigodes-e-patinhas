@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles.css';
-import logoImg from '../../assets/NavbarLogo.png';
+import logoImg from '../../assets/LogoBarraNavegacao.png';
 import { useAuth } from '../../data/hooks/useAuth';
 
 export default function Login() {

@@ -5,7 +5,7 @@ import './styles.css';
 
 // Ícone de mascote como placeholder (react-icons) — sem inventar um arquivo de imagem que
 // não existe no projeto; troque por <img src={fotoDoSrBigode} /> se/quando houver a arte.
-export default function SrBigodeChatWidget() {
+export default function PainelConversaSrBigode() {
   const [aberto, setAberto] = useState(false);
   const [textoAtual, setTextoAtual] = useState('');
   const { mensagens, enviando, erro, enviar } = useChat();

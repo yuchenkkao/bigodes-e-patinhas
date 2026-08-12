@@ -9,7 +9,7 @@ import './styles.css';
  * Este componente é só apresentação: quem decide o que acontece quando o Passo 1 muda
  * (ex: limpar o Passo 2) é o hook que gerencia o estado, não este componente.
  */
-export default function CascadingSelect({
+export default function SelecaoEmCascata({
   parentLabel,
   parentPlaceholder = '-- Selecione --',
   parentOptions = [],

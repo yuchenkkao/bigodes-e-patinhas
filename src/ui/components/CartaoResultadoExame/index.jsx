@@ -6,7 +6,7 @@ import './styles.css';
  * resultado. onChangeResultado repassa o texto puro — quem sabe em qual índice do array
  * esse exame está é o hook que gerencia a lista (useAtendimentoClinico), não este card.
  */
-export default function ExamResultCard({ item, onChangeResultado, onRemover }) {
+export default function CartaoResultadoExame({ item, onChangeResultado, onRemover }) {
   return (
     <div className="exam-result-card">
       <div className="exam-result-card-header">

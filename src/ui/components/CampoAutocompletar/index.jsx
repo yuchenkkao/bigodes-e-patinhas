@@ -7,7 +7,7 @@ import './styles.css';
  * "selecionado" internamente) e só então o "+"/Enter dispara onAdicionar com o objeto
  * inteiro escolhido — o array em si é responsabilidade de quem usa este componente.
  */
-export default function AutocompleteInput({
+export default function CampoAutocompletar({
   options = [],
   getLabel = (opcao) => opcao.label,
   onAdicionar,

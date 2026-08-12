@@ -11,11 +11,11 @@ import { useAtendimento } from '../../data/hooks/useAtendimento';
 import { useAtendimentoVacinacao } from '../../data/hooks/useAtendimentoVacinacao';
 import { useAtendimentoClinico } from '../../data/hooks/useAtendimentoClinico';
 import { useVacinas } from '../../data/hooks/useVacinas';
-import MultiTagInput from '../../ui/components/MultiTagInput';
-import CascadingSelect from '../../ui/components/CascadingSelect';
-import AutocompleteInput from '../../ui/components/AutocompleteInput';
-import ExamResultCard from '../../ui/components/ExamResultCard';
-import MedicationPrescriptionForm from '../../ui/components/MedicationPrescriptionForm';
+import CampoMultiEtiqueta from '../../ui/components/CampoMultiEtiqueta';
+import SelecaoEmCascata from '../../ui/components/SelecaoEmCascata';
+import CampoAutocompletar from '../../ui/components/CampoAutocompletar';
+import CartaoResultadoExame from '../../ui/components/CartaoResultadoExame';
+import FormularioPrescricaoMedicamento from '../../ui/components/FormularioPrescricaoMedicamento';
 
 export default function Atendimento() {
   const { id } = useParams();
@@ -27,14 +27,14 @@ export default function Atendimento() {
   const { adicionarVacina } = useVacinas(pacienteAtual?.petId);
 
   const [pesoConsulta, setPesoConsulta] = useState('');
-  // Campos dinâmicos: cada um é um array de strings alimentado pelo MultiTagInput (tag a tag)
+  // Campos dinâmicos: cada um é um array de strings alimentado pelo CampoMultiEtiqueta (tag a tag)
   const [sinaisClinicos, setSinaisClinicos] = useState([]);
   const [vacinaVermifugo, setVacinaVermifugo] = useState([]);
   // Campo novo: texto livre de múltiplas linhas, sem estrutura de tags
   const [observacoes, setObservacoes] = useState('');
 
   // CIDs, Exames (com resultado) e Medicamentos (com dosagem/frequência/duração/observação):
-  // arrays de objetos, cada um alimentado por um AutocompleteInput + "+"; toda a lógica de
+  // arrays de objetos, cada um alimentado por um CampoAutocompletar + "+"; toda a lógica de
   // adicionar/remover/atualizar sub-campo vive no hook, este componente só consome
   const {
     cidsDisponiveis,
@@ -181,10 +181,10 @@ export default function Atendimento() {
               />
             </div>
 
-            {/* Campo 2: Anamnese e Sinais Clínicos — tag a tag via MultiTagInput (botão "+" ou Enter) */}
+            {/* Campo 2: Anamnese e Sinais Clínicos — tag a tag via CampoMultiEtiqueta (botão "+" ou Enter) */}
             <div className="input-group-clinico">
               <label><FaNotesMedical /> Sinais clínicos e exame físico *</label>
-              <MultiTagInput
+              <CampoMultiEtiqueta
                 placeholder="Digite um sinal/sintoma e pressione Enter ou +"
                 tags={sinaisClinicos}
                 onChange={setSinaisClinicos}
@@ -195,7 +195,7 @@ export default function Atendimento() {
                 Gestor; escolher + clicar "+" adiciona o objeto {cidId, codigo, descricao} ao array */}
             <div className="input-group-clinico">
               <label><FaNotesMedical /> Diagnósticos (CID)</label>
-              <AutocompleteInput
+              <CampoAutocompletar
                 placeholder="Busque por código ou descrição do CID..."
                 options={cidsDisponiveis}
                 getLabel={(cid) => `${cid.codigo} — ${cid.descricao}`}
@@ -217,7 +217,7 @@ export default function Atendimento() {
 
             <div className="input-group-clinico">
               <label><MdVaccines /> Vermífugos e outras observações de imunização</label>
-              <MultiTagInput
+              <CampoMultiEtiqueta
                 placeholder="Ex: Vermífugo Drontal Plus..."
                 tags={vacinaVermifugo}
                 onChange={setVacinaVermifugo}
@@ -230,7 +230,7 @@ export default function Atendimento() {
             <div className="input-group-clinico secao-vacinacao">
               <label><MdVaccines /> Registrar Vacina do Catálogo (Aplicada ou Agendada)</label>
 
-              <CascadingSelect
+              <SelecaoEmCascata
                 parentLabel="Passo 1 — Vacina"
                 parentPlaceholder="-- Selecione a vacina --"
                 parentOptions={vacinasCatalogo.map((v) => ({ value: v.id, label: v.nome }))}
@@ -292,10 +292,10 @@ export default function Atendimento() {
             </div>
 
             {/* Exames: escolher no autocomplete + "+" cria o item {exameId, nome, resultado: ''};
-                cada ExamResultCard edita só o "resultado" do seu próprio índice no array */}
+                cada CartaoResultadoExame edita só o "resultado" do seu próprio índice no array */}
             <div className="input-group-clinico">
               <label><FaFlask /> Exames complementares solicitados</label>
-              <AutocompleteInput
+              <CampoAutocompletar
                 placeholder="Busque o tipo de exame..."
                 options={tiposExameDisponiveis}
                 getLabel={(exame) => exame.nome}
@@ -304,7 +304,7 @@ export default function Atendimento() {
               {exames.length > 0 && (
                 <div className="lista-cards-clinicos">
                   {exames.map((item, indice) => (
-                    <ExamResultCard
+                    <CartaoResultadoExame
                       key={`${item.exameId}-${indice}`}
                       item={item}
                       onChangeResultado={(resultado) => atualizarResultadoExame(indice, resultado)}
@@ -316,10 +316,10 @@ export default function Atendimento() {
             </div>
 
             {/* Medicamentos: escolher no autocomplete + "+" cria o item com os 4 sub-campos
-                vazios; cada MedicationPrescriptionForm edita só o campo daquele índice */}
+                vazios; cada FormularioPrescricaoMedicamento edita só o campo daquele índice */}
             <div className="input-group-clinico">
               <label><FaPills /> Prescrição de Medicamentos</label>
-              <AutocompleteInput
+              <CampoAutocompletar
                 placeholder="Busque o medicamento..."
                 options={medicamentosDisponiveis}
                 getLabel={(medicamento) => `${medicamento.nome} (${medicamento.principioAtivo})`}
@@ -328,7 +328,7 @@ export default function Atendimento() {
               {medicamentos.length > 0 && (
                 <div className="lista-cards-clinicos">
                   {medicamentos.map((item, indice) => (
-                    <MedicationPrescriptionForm
+                    <FormularioPrescricaoMedicamento
                       key={`${item.medicamentoId}-${indice}`}
                       item={item}
                       onChangeCampo={(campo, valor) => atualizarCampoMedicamento(indice, campo, valor)}

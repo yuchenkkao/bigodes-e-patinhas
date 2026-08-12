@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { FaPlus, FaTrashAlt, FaSyringe } from 'react-icons/fa';
 import { useVacinasCatalogo } from '../../../data/hooks/useVacinasCatalogo';
-import MultiTagInput from '../../components/MultiTagInput';
+import CampoMultiEtiqueta from '../../components/CampoMultiEtiqueta';
 
 export default function ConfigVacinas() {
   const { vacinasCatalogo, criar, remover } = useVacinasCatalogo();
 
   const [nome, setNome] = useState('');
-  // Lotes digitados para a vacina em cadastro (tag a tag, via botão "+" ou Enter no MultiTagInput)
+  // Lotes digitados para a vacina em cadastro (tag a tag, via botão "+" ou Enter no CampoMultiEtiqueta)
   const [lotes, setLotes] = useState([]);
 
   const handleAdd = async (e) => {
@@ -47,7 +47,7 @@ export default function ConfigVacinas() {
 
         <div className="form-group-vacina">
           <label>Lotes em Estoque</label>
-          <MultiTagInput
+          <CampoMultiEtiqueta
             placeholder="Digite o número do lote e pressione Enter ou +"
             tags={lotes}
             onChange={setLotes}

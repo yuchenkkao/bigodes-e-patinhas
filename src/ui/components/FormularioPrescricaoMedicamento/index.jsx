@@ -6,7 +6,7 @@ import './styles.css';
  * Duração e Observação. onChangeCampo(nomeDoCampo, valor) deixa o hook decidir em qual
  * índice do array de medicamentos aplicar a mudança — este componente não sabe sua posição.
  */
-export default function MedicationPrescriptionForm({ item, onChangeCampo, onRemover }) {
+export default function FormularioPrescricaoMedicamento({ item, onChangeCampo, onRemover }) {
   return (
     <div className="medication-prescription-form">
       <div className="medication-prescription-header">

@@ -4,7 +4,7 @@ import './styles.css';
 
 // Componente de apresentação puro: recebe a lista atual (tags) e devolve a lista nova via onChange.
 // Quem guarda o array no estado é sempre o formulário que o utiliza.
-export default function MultiTagInput({ label, tags = [], onChange, placeholder }) {
+export default function CampoMultiEtiqueta({ label, tags = [], onChange, placeholder }) {
   const [valorAtual, setValorAtual] = useState('');
 
   // Lógica do botão "+": adiciona o valor digitado ao array de tags e limpa o campo

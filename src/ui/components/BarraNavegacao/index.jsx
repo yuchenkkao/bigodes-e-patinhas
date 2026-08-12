@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import './styles.css';
-import logoImg from '../../../assets/NavbarLogo.png';
+import logoImg from '../../../assets/LogoBarraNavegacao.png';
 
 import MenuPerfil from '../MenuPerfil';
 import { useAuth } from '../../../data/hooks/useAuth';
@@ -15,7 +15,7 @@ import { FaBriefcaseMedical } from "react-icons/fa6";
 import { IoSettingsSharp } from "react-icons/io5";
 
 
-export default function Navbar() {
+export default function BarraNavegacao() {
 
   const { papel: token } = useAuth();
 

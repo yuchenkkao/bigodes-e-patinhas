@@ -1,8 +1,8 @@
 import './styles.css';
-import logoImg from '../../../assets/NavbarLogo.png';
+import logoImg from '../../../assets/LogoBarraNavegacao.png';
 import { FaWhatsapp, FaInstagram, FaFacebook, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
 
-export default function Footer() {
+export default function Rodape() {
   return (
     <footer className="footer-container">
       <div className="footer-content">
