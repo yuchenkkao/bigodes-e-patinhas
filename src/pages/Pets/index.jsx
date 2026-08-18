@@ -1,85 +1,94 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaPaw, FaUser, FaCalendarAlt, FaSearch, FaPlus, FaDna } from 'react-icons/fa';
+import { FaPaw, FaSearch, FaPlus, FaUser, FaDna, FaWeight, FaCalendarAlt } from 'react-icons/fa';
 import './styles.css';
+import { listarPets } from '../../data/services/petsService';
 import { useAuth } from '../../data/hooks/useAuth';
-import { usePets } from '../../data/hooks/usePets';
 
 export default function Pets() {
-
   const { papel: token } = useAuth();
-  const { pets } = usePets();
-
+  const [pets, setPets] = useState([]);
   const [pesquisa, setPesquisa] = useState('');
 
-  const petsFiltrados = pets.filter((pet) =>
-    pet.nome.toLowerCase().includes(pesquisa.toLowerCase()) ||
-    (pet.tutorNome || '').toLowerCase().includes(pesquisa.toLowerCase())
-  );
+  useEffect(() => {
+    listarPets()
+      .then((data) => setPets(data || []))
+      .catch((err) => console.error('Erro ao buscar pets:', err));
+  }, []);
+
+  const petsFiltrados = pets.filter((pet) => {
+    const nome = pet.nome || '';
+    const raca = pet.raca || '';
+    const especie = pet.especie || '';
+    const nomeTutor = pet.nomeTutor || '';
+    const termo = pesquisa.toLowerCase();
+
+    return (
+      nome.toLowerCase().includes(termo) ||
+      raca.toLowerCase().includes(termo) ||
+      especie.toLowerCase().includes(termo) ||
+      nomeTutor.toLowerCase().includes(termo)
+    );
+  });
 
   return (
-    <div className="catalog-container">
-      
-      <div className="catalog-header">
+    <div className="tutores-container">
+      <div className="tutores-header">
         <div>
-          <h2>Catálogo de Pets</h2>
-          <p>Consulte e gerencie as fichas cadastrais dos pacientes da clínica.</p>
+          <h2>Catálogo de Pacientes (Pets)</h2>
+          <p>Consulte todos os pets cadastrados na clínica e seus respectivos tutores.</p>
         </div>
 
-
         {token === 'atendente' && (
-          <Link to="/cadastrar-pet" className="btn-cadastrar-pet">
+          <Link to="/cadastrar-pet" className="btn-cadastrar-tutor">
             <FaPlus /> Cadastrar Novo Pet
           </Link>
         )}
       </div>
 
-      <div className="search-container">
-        <FaSearch className="search-icon" />
-        <input 
-          type="text" 
-          placeholder="Pesquisar por nome do pet ou do tutor..." 
+      <div className="search-tutor-container">
+        <FaSearch className="search-tutor-icon" />
+        <input
+          type="text"
+          placeholder="Pesquisar por nome do pet, espécie, raça ou tutor..."
           value={pesquisa}
           onChange={(e) => setPesquisa(e.target.value)}
         />
       </div>
 
-
-      <div className="pets-grid">
+      <div className="tutores-grid">
         {petsFiltrados.length === 0 ? (
-          <div className="nenhum-pet">
-            <FaPaw className="icon-vazio" />
-            <p>Nenhum pet encontrado com esse nome ou tutor.</p>
+          <div className="nenhum-tutor">
+            <FaPaw className="icon-tutor-vazio" />
+            <p>Nenhum paciente localizado com os termos informados.</p>
           </div>
         ) : (
           petsFiltrados.map((pet) => (
-            <div key={pet.id} className="pet-card">
-              
-  
-              <div className="pet-avatar-box">
-                <FaPaw className="pet-avatar-icon" />
-                <span className="badge-especie">{pet.especie}</span>
+            <div key={pet.id} className="tutor-card">
+              <div className="tutor-card-top">
+                <div className="avatar-tutor-circle">
+                  <FaPaw className="avatar-tutor-icon" />
+                </div>
+                <span className="badge-pets-qtd">{pet.especie || 'Pet'}</span>
               </div>
 
-              <div className="pet-card-info">
+              <div className="tutor-card-body">
                 <h3>{pet.nome}</h3>
-                
-                <p><FaDna /> <strong>Raça:</strong> {pet.raca}</p>
-                <p><FaCalendarAlt /> <strong>Idade:</strong> {pet.idade}</p>
-                <p><FaUser /> <strong>Tutor:</strong> {pet.tutorNome}</p>
+                <p><FaDna /> <strong>Raça:</strong> {pet.raca || 'SRD'}</p>
+                <p><FaUser /> <strong>Tutor:</strong> {pet.nomeTutor || 'Não vinculado'}</p>
+                <p><FaCalendarAlt /> <strong>Idade:</strong> {pet.idade || 'Não informada'}</p>
+                <p><FaWeight /> <strong>Peso:</strong> {pet.peso ? `${pet.peso} kg` : 'Não informado'}</p>
               </div>
 
-              <div className="pet-card-footer">
-                <Link to={`/perfil-pet/${pet.id}`} className="btn-ver-perfil">
-                  Ver Ficha Clínica
+              <div className="tutor-card-footer">
+                <Link to={`/perfil-pet/${pet.id}`} className="btn-ver-tutor">
+                  Visualizar Ficha
                 </Link>
               </div>
-
             </div>
           ))
         )}
       </div>
-
     </div>
   );
 }
