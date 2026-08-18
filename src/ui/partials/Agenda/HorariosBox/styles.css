@@ -1,83 +1,98 @@
-.horarios-box {
-  flex: 1;
-  min-width: 300px;
-  background-color: #FAF8ED; 
-  padding: 30px;
-  border-radius: 15px;
+.horarios-secao-bottom {
   display: flex;
   flex-direction: column;
-}
-
-.horarios-box h3 {
-  color: #555;
-  margin-bottom: 25px;
-  font-size: 1.2rem;
+  align-items: center;
   text-align: center;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
 }
 
-.horarios-box h3 span {
-  color: #4068DE;
-  display: block;
-  font-size: 1.4rem;
-  margin-top: 5px;
+.horarios-label-sub {
+  font-size: 1.1rem;
+  color: #64748b;
+  margin: 0 0 4px 0;
+  font-weight: 500;
 }
 
-.grid-horarios {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 15px;
-  margin-bottom: 30px;
+.horarios-data-titulo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 16px 0;
 }
 
-.btn-horario {
-  background-color: white;
-  color: #4068DE;
-  border: 2px solid #ECE8CC;
-  padding: 12px;
-  font-size: 1rem;
-  font-weight: bold;
-  border-radius: 8px;
+.msg-sem-horarios {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+}
+
+.grid-horarios-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.btn-slot-disponivel {
+  background-color: #ffffff;
+  border: 2px solid #4370fa;
+  color: #4370fa;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.btn-horario:hover {
-  border-color: #6DCBB0;
-  color: #6DCBB0;
+.btn-slot-disponivel:hover {
+  background-color: #ebf1ff;
 }
 
-.btn-horario.selecionado {
-  background-color: #6DCBB0;
-  color: black;
-  border-color: #6DCBB0;
-  transform: scale(1.05);
-  box-shadow: 0 4px 10px rgba(109, 203, 176, 0.3);
+.btn-slot-disponivel.selecionado {
+  background-color: #4370fa;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(67, 112, 250, 0.3);
 }
 
-.btn-horario.bloqueado {
-  background-color: #ffeaea !important;
-  border-color: #ffcccc !important;
-  color: #cc4c4c !important;
-  opacity: 0.7;
+.grupo-botoes-agenda {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
 }
 
-.btn-agenda {
-  margin-top: auto; 
-  text-decoration: none;
-  text-align: center;
-  display: inline-block;
-  background-color: #4068DE;
-  color: white;
+.btn-agenda-acao-azul {
+  width: 100%;
+  background-color: #4370fa;
+  color: #ffffff;
   border: none;
-  padding: 15px;
   border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
+  padding: 14px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   cursor: pointer;
-  margin-bottom: 15px;
-  transition: background-color 0.3s;
+  box-shadow: 0 4px 14px rgba(67, 112, 250, 0.2);
+  transition: background-color 0.2s;
 }
 
-.btn-agenda:hover {
-  background-color: #6DCBB0;
+.btn-agenda-acao-azul:hover {
+  background-color: #325de6;
+}
+
+.btn-destaque-agendar {
+  background-color: #22c55e;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.25);
+}
+
+.btn-destaque-agendar:hover {
+  background-color: #16a34a;
 }

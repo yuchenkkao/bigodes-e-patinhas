@@ -1,17 +1,43 @@
-import { useCallback } from 'react';
-import { useRequisicao } from './useRequisicao';
-import { listarHorarios, atualizarHorario } from '../services/agendamentosService';
+import { useState, useCallback } from 'react';
+import { buscarGradeDoDia, salvarGradeDoDia } from '../services/gradeAgendaService';
+
+function formatarDataISO(dataObj) {
+  const ano = dataObj.getFullYear();
+  const mes = String(dataObj.getMonth() + 1).padStart(2, '0');
+  const dia = String(dataObj.getDate()).padStart(2, '0');
+  return `${ano}-${mes}-${dia}`;
+}
 
 export function useHorarios() {
-  const { dados, carregando, setDados } = useRequisicao(listarHorarios, []);
+  const [horarios, setHorarios] = useState([]);
+  const [carregando, setCarregando] = useState(false);
 
-  const toggleHorario = useCallback((horaParaMudar) => {
-    setDados((atual) => (atual || []).map((h) =>
-      h.hora === horaParaMudar ? { ...h, ativo: !h.ativo } : h
-    ));
-    const horarioAtual = (dados || []).find((h) => h.hora === horaParaMudar);
-    if (horarioAtual) atualizarHorario(horaParaMudar, !horarioAtual.ativo);
-  }, [dados, setDados]);
+  const carregarHorarios = useCallback(async (idVeterinario, dataObj) => {
+    if (!dataObj) return;
+    try {
+      setCarregando(true);
+      const dataStr = formatarDataISO(dataObj);
+      const dados = await buscarGradeDoDia(idVeterinario || 1, dataStr);
+      setHorarios(dados);
+    } catch (err) {
+      console.error('Erro ao carregar horários:', err);
+      setHorarios([]);
+    } finally {
+      setCarregando(false);
+    }
+  }, []);
 
-  return { horarios: dados || [], carregando, toggleHorario };
+  const salvarHorarios = async (idVeterinario, dataObj, listaHorarios) => {
+    const dataStr = formatarDataISO(dataObj);
+    await salvarGradeDoDia(idVeterinario || 1, dataStr, listaHorarios);
+    await carregarHorarios(idVeterinario || 1, dataObj);
+  };
+
+  return {
+    horarios,
+    setHorarios,
+    carregando,
+    carregarHorarios,
+    salvarHorarios
+  };
 }

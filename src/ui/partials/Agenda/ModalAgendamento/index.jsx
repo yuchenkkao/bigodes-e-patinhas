@@ -1,131 +1,107 @@
 import { useState } from 'react';
+import { FaCalendarCheck, FaTimes } from 'react-icons/fa';
 import './styles.css';
-import { useAuth } from '../../../../data/hooks/useAuth';
-import { useTutores } from '../../../../data/hooks/useTutores';
-import { usePets } from '../../../../data/hooks/usePets';
-import { useVeterinarios } from '../../../../data/hooks/useVeterinarios';
 
-export default function ModalAgendamento({ mostrarModal, fecharModal, dataSelecionada, horarioSelecionado, onSalvarAgendamento }) {
-  const { papel: token } = useAuth();
-  const { tutores } = useTutores();
-  const { pets } = usePets();
-  const { veterinarios } = useVeterinarios();
-
-  // Estados simples para controlar os campos do formulário
-  const [tutorId, setTutorId] = useState('');
-  const [petId, setPetId] = useState('');
-  const [veterinarioId, setVeterinarioId] = useState('');
-  const [motivo, setMotivo] = useState('');
+export default function ModalAgendamento({
+  mostrarModal,
+  setMostrarModal,
+  dataSelecionada,
+  horarioSelecionado,
+  idVeterinario = 1,
+  onAgendamentoSucesso
+}) {
+  const [observacoes, setObservacoes] = useState('');
+  const [salvando, setSalvando] = useState(false);
 
   if (!mostrarModal) return null;
 
-  // Converte a data selecionada para o formato de texto padrão do seu sistema (Ex: "17/06/2026")
-  const dataString = dataSelecionada ? dataSelecionada.toLocaleDateString('pt-BR') : '';
+  const fechar = () => setMostrarModal(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!petId || !veterinarioId || !motivo || (token !== 'cliente' && !tutorId)) {
-      alert('Por favor, preencha todos os campos obrigatórios!');
-      return;
+  const obterDataISO = (val) => {
+    if (!val) return '';
+    if (val instanceof Date) {
+      const y = val.getFullYear();
+      const m = String(val.getMonth() + 1).padStart(2, '0');
+      const d = String(val.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
     }
+    const str = String(val).trim();
+    if (str.includes('/')) {
+      const [d, m, y] = str.split('/');
+      return `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+    }
+    return str.split('T')[0];
+  };
 
-    const tutorSelecionado = tutores.find((t) => t.id === tutorId);
-    const petSelecionado = pets.find((p) => p.id === petId);
-    const veterinarioSelecionado = veterinarios.find((v) => v.id === veterinarioId);
+  const handleConfirmar = async (e) => {
+    e.preventDefault();
+    const dataISO = obterDataISO(dataSelecionada);
+    const horaFormatada = horarioSelecionado.length === 5 ? `${horarioSelecionado}:00` : horarioSelecionado;
 
-    onSalvarAgendamento({
-      data: dataString,
-      horario: horarioSelecionado,
-      tutorId,
-      tutorNome: tutorSelecionado?.nome,
-      petId,
-      petNome: petSelecionado?.nome,
-      motivo,
-      veterinarioId,
-      veterinarioNome: veterinarioSelecionado?.nome,
-      status: 'Agendado'
-    });
+    try {
+      setSalvando(true);
 
-    // Limpa o formulário e fecha
-    setTutorId('');
-    setPetId('');
-    setVeterinarioId('');
-    setMotivo('');
-    fecharModal();
+      const response = await fetch('http://localhost:8080/api/agendamentos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          idVeterinario: Number(idVeterinario),
+          idPet: 1,
+          idServico: 1,
+          dataHora: `${dataISO} ${horaFormatada}`,
+          descricao: observacoes || 'Consulta Geral'
+        })
+      });
+
+      if (!response.ok) {
+        const erroData = await response.json().catch(() => ({}));
+        throw new Error(erroData.erro || 'Erro ao agendar consulta.');
+      }
+
+      alert('Agendamento realizado com sucesso!');
+      if (onAgendamentoSucesso) onAgendamentoSucesso();
+      fechar();
+    } catch (err) {
+      console.error(err);
+      alert(err.message || 'Erro ao realizar agendamento.');
+    } finally {
+      setSalvando(false);
+    }
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content" style={{ textAlign: 'left' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '10px' }}>Preencher Agendamento</h2>
-        <p style={{ textAlign: 'center', color: '#666', fontSize: '0.9rem' }}>Informe os dados para concluir a reserva.</p>
+    <div className="modal-agendamento-overlay">
+      <div className="modal-agendamento-card">
+        <div className="modal-agendamento-header">
+          <h3><FaCalendarCheck /> Confirmar Agendamento</h3>
+          <button type="button" className="btn-fechar" onClick={fechar}>
+            <FaTimes />
+          </button>
+        </div>
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '20px' }}>
-          
-          {/* Campo do CLIENTE (TUTOR): Só aparece se NÃO for cliente logado */}
-          {token !== 'cliente' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-              <label><strong>Cliente / Tutor *</strong></label>
-              <select value={tutorId} onChange={(e) => setTutorId(e.target.value)} style={{ padding: '10px', borderRadius: '6px', border: '1px solid #ECE8CC' }}>
-                <option value="">-- Selecione o Tutor --</option>
-                {tutores.map((t) => (
-                  <option key={t.id} value={t.id}>{t.nome}</option>
-                ))}
-              </select>
-            </div>
-          )}
+        <form onSubmit={handleConfirmar}>
+          <p className="modal-data-subtitulo">
+            Reserva para <strong>{obterDataISO(dataSelecionada)}</strong> às <strong>{horarioSelecionado}h</strong>
+          </p>
 
-          {/* Campo do ANIMAL (PET) */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-            <label><strong>Animal / Pet *</strong></label>
-            <select value={petId} onChange={(e) => setPetId(e.target.value)} style={{ padding: '10px', borderRadius: '6px', border: '1px solid #ECE8CC' }}>
-              <option value="">-- Selecione o Paciente --</option>
-              {pets.map((p) => (
-                <option key={p.id} value={p.id}>{p.nome}</option>
-              ))}
-            </select>
-          </div>
-
-          {/* Campo do VETERINÁRIO */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-            <label><strong>Médico Veterinário *</strong></label>
-            <select value={veterinarioId} onChange={(e) => setVeterinarioId(e.target.value)} style={{ padding: '10px', borderRadius: '6px', border: '1px solid #ECE8CC' }}>
-              <option value="">-- Selecione o Profissional --</option>
-              {veterinarios.map((v) => (
-                <option key={v.id} value={v.id}>{v.nome}</option>
-              ))}
-            </select>
-          </div>
-
-          {/* Campo do MOTIVO */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-            <label><strong>Motivo da Consulta *</strong></label>
-            <input
-              type="text"
-              placeholder="Ex: Vacinação, Clínico Geral, Retorno..."
-              value={motivo}
-              onChange={(e) => setMotivo(e.target.value)}
-              style={{ padding: '10px', borderRadius: '6px', border: '1px solid #ECE8CC' }}
+          <div className="campo-form">
+            <label>Motivo da Consulta / Observações:</label>
+            <textarea
+              value={observacoes}
+              onChange={(e) => setObservacoes(e.target.value)}
+              placeholder="Ex: Check-up de rotina, vacinação..."
+              rows="3"
             />
           </div>
 
-          {/* Caixa de detalhes igualzinha à do seu modal antigo */}
-          <div className="modal-detalhes" style={{ marginTop: '10px', padding: '12px', backgroundColor: '#FAF8ED', borderRadius: '6px' }}>
-            <p style={{ margin: '4px 0' }}>📅 <strong>Data:</strong> {dataString}</p>
-            <p style={{ margin: '4px 0' }}>⏰ <strong>Horário:</strong> {horarioSelecionado}h</p>
-          </div>
-
-          {/* Botões de Ação usando as suas classes nativas */}
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', marginTop: '10px' }}>
-            <button type="button" className="btn-modal-fechar" style={{ backgroundColor: '#bbb', color: '#333', margin: 0 }} onClick={fecharModal}>
+          <div className="modal-agendamento-footer">
+            <button type="button" className="btn-cancelar" onClick={fechar} disabled={salvando}>
               Cancelar
             </button>
-            <button type="submit" className="btn-modal-fechar" style={{ margin: 0 }}>
-              Confirmar
+            <button type="submit" className="btn-confirmar-salvar" disabled={salvando}>
+              {salvando ? 'Reservando...' : 'Confirmar Reserva'}
             </button>
           </div>
-
         </form>
       </div>
     </div>

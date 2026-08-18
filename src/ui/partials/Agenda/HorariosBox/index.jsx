@@ -1,56 +1,83 @@
-import { Link } from 'react-router-dom';
-import { FaHistory } from "react-icons/fa";
+import { FaCalendarAlt, FaHistory } from 'react-icons/fa';
 import './styles.css';
 
-export default function HorariosBox({ 
-  token, 
-  dataFormatada, 
-  horarios, 
-  horarioSelecionado, 
-  setHorarioSelecionado, 
-  confirmarAgendamento, 
-  setMostrarModalEditar 
+export default function HorariosBox({
+  dataFormatada,
+  horarios = [],
+  horarioSelecionado,
+  setHorarioSelecionado,
+  confirmarAgendamento,
+  setMostrarModalEditar,
+  isVeterinario = true
 }) {
-  return (
-    <div className="horarios-box">
-      <h3>Horários para: <span>{dataFormatada}</span></h3>
-      
-      <div className="grid-horarios">
-        {horarios
-          .filter(h => h.ativo || token === 'veterinario') 
-          .map((item) => (
-            <button
-              key={item.hora}
-              disabled={!item.ativo && token !== 'veterinario'}
-              className={`btn-horario ${horarioSelecionado === item.hora ? 'selecionado' : ''} ${!item.ativo ? 'bloqueado' : ''}`}
-              onClick={() => item.ativo && setHorarioSelecionado(item.hora)}
-            >
-              {item.hora} {!item.ativo && '(Bloqueado)'}
-            </button>
-        ))}
-      </div>
+  // Filtra apenas os horários que o veterinário ativou e que NÃO estão agendados
+  const horariosDisponiveis = Array.isArray(horarios)
+    ? horarios.filter((h) => {
+        if (typeof h === 'string') return true;
+        const ativo = h.isAtivo !== false && h.isativo !== false;
+        const agendado = h.agendado === true || h.isAgendado === true;
+        return ativo && !agendado;
+      })
+    : [];
 
-      {(token === 'cliente' || token === 'atendente') && (
-        <>
-          <button className="btn-agenda" onClick={confirmarAgendamento}>
-            Confirmar Agendamento
-          </button>
-        </>
+  return (
+    <div className="horarios-secao-bottom">
+      <p className="horarios-label-sub">Horários disponíveis para:</p>
+      <h3 className="horarios-data-titulo">{dataFormatada}</h3>
+
+      {horariosDisponiveis.length === 0 ? (
+        <p className="msg-sem-horarios">Nenhum horário disponível para este dia.</p>
+      ) : (
+        <div className="grid-horarios-chips">
+          {horariosDisponiveis.map((item) => {
+            const hora = typeof item === 'string' ? item : (item.horario || item.hora);
+            const isSelecionado = horarioSelecionado === hora;
+
+            return (
+              <button
+                key={hora}
+                type="button"
+                className={`btn-slot-disponivel ${isSelecionado ? 'selecionado' : ''}`}
+                onClick={() => setHorarioSelecionado(hora)}
+              >
+                {hora}
+              </button>
+            );
+          })}
+        </div>
       )}
 
-      {token === 'veterinario' && (
-        <>
-          <button className="btn-agenda" onClick={() => setMostrarModalEditar(true)}>
+      <div className="grupo-botoes-agenda">
+        {/* Botão de Agendar quando um horário é clicado */}
+        {horarioSelecionado && (
+          <button
+            type="button"
+            className="btn-agenda-acao-azul btn-destaque-agendar"
+            onClick={confirmarAgendamento}
+          >
+            <FaCalendarAlt /> Agendar Consulta para às {horarioSelecionado}
+          </button>
+        )}
+
+        {/* Botão de Edição de Grade */}
+        {isVeterinario && (
+          <button
+            type="button"
+            className="btn-agenda-acao-azul"
+            onClick={() => setMostrarModalEditar(true)}
+          >
             Editar Horários de Agendamento
           </button>
-        </>
-      )}
+        )}
 
-            {token !== 'visitante' && (
-          <Link to="/historico-agendamentos" className="btn-agenda">
-            <FaHistory /> Histórico de Atendimentos
-          </Link>
-      )}
+        <button
+          type="button"
+          className="btn-agenda-acao-azul"
+          onClick={() => {}}
+        >
+          <FaHistory /> Histórico de Atendimentos
+        </button>
+      </div>
     </div>
   );
 }

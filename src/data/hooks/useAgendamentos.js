@@ -1,40 +1,90 @@
-import { useCallback, useMemo } from 'react';
-import { useRequisicao } from './useRequisicao';
-import { useAuth } from './useAuth';
-import { listarAgendamentos, criarAgendamento, atualizarStatusAgendamento } from '../services/agendamentosService';
+import { useState, useCallback, useEffect } from 'react';
+
+const API_AGENDAMENTOS_URL = 'http://localhost:8080/api/agendamentos';
 
 export function useAgendamentos() {
-  const { dados, carregando, setDados } = useRequisicao(listarAgendamentos, []);
+  const [agendamentos, setAgendamentos] = useState([]);
+  const [carregando, setCarregando] = useState(false);
 
-  const criar = useCallback(async (dadosAgendamento) => {
-    const agendamento = await criarAgendamento(dadosAgendamento);
-    setDados((atual) => [...(atual || []), agendamento]);
-    return agendamento;
-  }, [setDados]);
+  const carregarAgendamentos = useCallback(async (filtros = {}) => {
+    try {
+      setCarregando(true);
+      const queryParams = new URLSearchParams(filtros).toString();
+      const url = queryParams ? `${API_AGENDAMENTOS_URL}?${queryParams}` : API_AGENDAMENTOS_URL;
+      
+      const res = await fetch(url);
+      if (res.ok) {
+        const dados = await res.json();
+        setAgendamentos(dados);
+      }
+    } catch (err) {
+      console.error('Erro ao carregar agendamentos:', err);
+    } finally {
+      setCarregando(false);
+    }
+  }, []);
 
-  const atualizarStatus = useCallback(async (id, status) => {
-    await atualizarStatusAgendamento(id, status);
-    setDados((atual) => (atual || []).map((a) => (a.id === id ? { ...a, status } : a)));
-  }, [setDados]);
+  const criarAgendamento = useCallback(async ({ idVeterinario, idPet, idServico, data, horario, descricao }) => {
+    const dataStr = data.toISOString().split('T')[0];
+    const dataHoraStr = `${dataStr} ${horario}:00`;
 
-  return { agendamentos: dados || [], carregando, criar, atualizarStatus };
+    const res = await fetch(API_AGENDAMENTOS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        idVeterinario: idVeterinario || 1,
+        idPet: idPet || 1,
+        idServico: idServico || 1,
+        dataHora: dataHoraStr,
+        descricao: descricao || 'Consulta Veterinária'
+      })
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.erro || 'Erro ao realizar reserva');
+    }
+
+    const resultado = await res.json();
+    return resultado;
+  }, []);
+
+  const atualizarStatus = async (id, status) => {
+    try {
+      await fetch(`${API_AGENDAMENTOS_URL}/${id}/status`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
+      });
+      setAgendamentos(prev =>
+        prev.map(item => (item.id === id ? { ...item, status } : item))
+      );
+    } catch (err) {
+      console.error('Erro ao atualizar status:', err);
+    }
+  };
+
+  return {
+    agendamentos,
+    carregando,
+    carregarAgendamentos,
+    criar: criarAgendamento,
+    atualizarStatus
+  };
 }
 
-// Placeholder até existir uma sessão real vinculada a um Tutor/Veterinario específico
-// (hoje o login apenas simula o papel do usuário, sem identificar qual tutor/vet é).
-const IDENTIDADE_SIMULADA = { tutorNome: 'Maria Silva', veterinarioNome: 'Dra. Mariana' };
-
 export function useMeusAgendamentos() {
-  const { papel } = useAuth();
-  const { agendamentos, carregando, atualizarStatus } = useAgendamentos();
+  const { agendamentos, carregando, carregarAgendamentos, atualizarStatus } = useAgendamentos();
 
-  const meusAgendamentos = useMemo(() => {
-    if (papel === 'cliente') return agendamentos.filter((a) => a.tutorNome === IDENTIDADE_SIMULADA.tutorNome);
-    if (papel === 'veterinario') return agendamentos.filter((a) => a.veterinarioNome === IDENTIDADE_SIMULADA.veterinarioNome);
-    return agendamentos;
-  }, [agendamentos, papel]);
+  useEffect(() => {
+    carregarAgendamentos();
+  }, [carregarAgendamentos]);
 
-  const cancelar = useCallback((id) => atualizarStatus(id, 'Cancelado'), [atualizarStatus]);
-
-  return { agendamentos: meusAgendamentos, carregando, cancelar };
+  return {
+    agendamentos,
+    carregando,
+    recarregar: carregarAgendamentos,
+    atualizarStatus,
+    cancelarAgendamento: (id) => atualizarStatus(id, 'CANCELADO')
+  };
 }
