@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { FaCalendarAlt, FaHistory } from 'react-icons/fa';
 import './styles.css';
 
@@ -10,7 +11,8 @@ export default function HorariosBox({
   setMostrarModalEditar,
   isVeterinario = true
 }) {
-  // Filtra apenas os horários que o veterinário ativou e que NÃO estão agendados
+  const navigate = useNavigate();
+
   const horariosDisponiveis = Array.isArray(horarios)
     ? horarios.filter((h) => {
         if (typeof h === 'string') return true;
@@ -48,7 +50,6 @@ export default function HorariosBox({
       )}
 
       <div className="grupo-botoes-agenda">
-        {/* Botão de Agendar quando um horário é clicado */}
         {horarioSelecionado && (
           <button
             type="button"
@@ -59,7 +60,6 @@ export default function HorariosBox({
           </button>
         )}
 
-        {/* Botão de Edição de Grade */}
         {isVeterinario && (
           <button
             type="button"
@@ -73,7 +73,7 @@ export default function HorariosBox({
         <button
           type="button"
           className="btn-agenda-acao-azul"
-          onClick={() => {}}
+          onClick={() => navigate('/historico-agendamentos')}
         >
           <FaHistory /> Histórico de Atendimentos
         </button>
