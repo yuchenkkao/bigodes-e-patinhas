@@ -11,15 +11,22 @@ export default function Tutores() {
 
   const [pesquisa, setPesquisa] = useState('');
 
-  const tutoresFiltrados = tutores.filter((tutor) =>
-    tutor.nome.toLowerCase().includes(pesquisa.toLowerCase()) ||
-    tutor.cpf.includes(pesquisa) ||
-    tutor.email.toLowerCase().includes(pesquisa.toLowerCase())
-  );
+  // Filtro seguro tratando campos nulos/undefined e variações de nomenclatura
+  const tutoresFiltrados = (tutores || []).filter((tutor) => {
+    const nome = tutor.nome || tutor.nomeTutor || '';
+    const cpf = tutor.cpf || tutor.CPF || '';
+    const email = tutor.email || tutor.emailTutor || '';
+    const termo = pesquisa.toLowerCase();
+
+    return (
+      nome.toLowerCase().includes(termo) ||
+      cpf.includes(termo) ||
+      email.toLowerCase().includes(termo)
+    );
+  });
 
   return (
     <div className="tutores-container">
-      
       <div className="tutores-header">
         <div>
           <h2>Catálogo de Tutores</h2>
@@ -50,37 +57,42 @@ export default function Tutores() {
             <p>Nenhum tutor localizado com os termos informados.</p>
           </div>
         ) : (
-          tutoresFiltrados.map((tutor) => (
-            <div key={tutor.id} className="tutor-card">
-              
-              <div className="tutor-card-top">
-                <div className="avatar-tutor-circle">
-                  <FaUser className="avatar-tutor-icon" />
+          tutoresFiltrados.map((tutor) => {
+            const id = tutor.id || tutor.idTutor;
+            const nome = tutor.nome || tutor.nomeTutor || 'Sem nome';
+            const cpf = tutor.cpf || tutor.CPF || 'Não informado';
+            const telefone = tutor.telefone || tutor.telefoneTutor || 'Não informado';
+            const email = tutor.email || tutor.emailTutor || 'Não informado';
+            const qtdPets = tutor.qtdPets || 0;
+
+            return (
+              <div key={id || Math.random()} className="tutor-card">
+                <div className="tutor-card-top">
+                  <div className="avatar-tutor-circle">
+                    <FaUser className="avatar-tutor-icon" />
+                  </div>
+                  <span className="badge-pets-qtd">
+                    <FaPaw /> {qtdPets} {qtdPets === 1 ? 'Pet' : 'Pets'}
+                  </span>
                 </div>
-                <span className="badge-pets-qtd">
-                  <FaPaw /> {tutor.qtdPets} {tutor.qtdPets === 1 ? 'Pet' : 'Pets'}
-                </span>
-              </div>
 
-              <div className="tutor-card-body">
-                <h3>{tutor.nome}</h3>
-                
-                <p><FaIdCard /> <strong>CPF:</strong> {tutor.cpf}</p>
-                <p><FaPhone /> <strong>Telefone:</strong> {tutor.telefone}</p>
-                <p><FaEnvelope /> <strong>E-mail:</strong> {tutor.email}</p>
-              </div>
+                <div className="tutor-card-body">
+                  <h3>{nome}</h3>
+                  <p><FaIdCard /> <strong>CPF:</strong> {cpf}</p>
+                  <p><FaPhone /> <strong>Telefone:</strong> {telefone}</p>
+                  <p><FaEnvelope /> <strong>E-mail:</strong> {email}</p>
+                </div>
 
-              <div className="tutor-card-footer">
-                <Link to={`/perfil-tutor/${tutor.id}`} className="btn-ver-tutor">
-                  Visualizar Cadastro
-                </Link>
+                <div className="tutor-card-footer">
+                  <Link to={`/perfil-tutor/${id}`} className="btn-ver-tutor">
+                    Visualizar Cadastro
+                  </Link>
+                </div>
               </div>
-
-            </div>
-          ))
+            );
+          })
         )}
       </div>
-
     </div>
   );
 }
